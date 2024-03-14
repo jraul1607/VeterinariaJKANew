@@ -18,6 +18,10 @@
                 <span asp-validation-for="Nombre" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="IdTipoMascota" class="control-label"></label>
+                <select asp-for="IdTipoMascota" class="form-control" asp-items="ViewBag.TiposMascota"></select>
+            </div>
+            <div class="form-group">
                 <label asp-for="IdRazaMascota" class="control-label"></label>
                 <select asp-for="IdRazaMascota" class ="form-control" asp-items="ViewBag.IdRazaMascota"></select>
             </div>
@@ -47,8 +51,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="IdUsuario" class="control-label"></label>
-                <input asp-for="IdUsuario" class="form-control" />
-                <span asp-validation-for="IdUsuario" class="text-danger"></span>
+                <select asp-for="IdUsuario" class="form-control" asp-items="ViewBag.IdUsuarioCreacion"></select>
             </div>
             <div class="form-group">
                 <label asp-for="FechaCreacion" class="control-label"></label>

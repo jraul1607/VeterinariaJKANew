@@ -21,7 +21,7 @@ namespace NuevoProyectoG6Final.Controllers
         // GET: Mascotas
         public async Task<IActionResult> Index()
         {
-            var vetContext = _context.Mascotas.Include(m => m.RazaMascota).Include(m => m.Usuario);
+            var vetContext = _context.Mascotas.Include(m => m.RazaMascota).ThenInclude(r => r.TipoMascota).Include(m => m.Usuario);
             return View(await vetContext.ToListAsync());
         }
 
@@ -50,6 +50,10 @@ namespace NuevoProyectoG6Final.Controllers
         {
             ViewData["IdRazaMascota"] = new SelectList(_context.RazaMascotas, "IdRazaMascota", "Nombre");
             ViewData["IdUsuarioCreacion"] = new SelectList(_context.Usuarios, "IdUsuario", "NombreUsuario");
+
+            var tiposMascota = _context.TipoMascotas.ToList();
+            ViewData["TiposMascota"] = new SelectList(tiposMascota, "IdTipoMascota", "Nombre");
+
             return View();
         }
 
@@ -58,7 +62,7 @@ namespace NuevoProyectoG6Final.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdMascota,Nombre,IdRazaMascota,Genero,Edad,Peso,imagen,IdUsuarioCreacion,IdUsuario,FechaCreacion,FechaModificacion,Estado")] Mascota mascota)
+        public async Task<IActionResult> Create([Bind("IdMascota,Nombre,IdTipoMascota, IdRazaMascota,Genero,Edad,Peso,imagen,IdUsuarioCreacion,IdUsuario,FechaCreacion,FechaModificacion,Estado")] Mascota mascota)
         {
             if (ModelState.IsValid)
             {
@@ -68,6 +72,8 @@ namespace NuevoProyectoG6Final.Controllers
             }
             ViewData["IdRazaMascota"] = new SelectList(_context.RazaMascotas, "IdRazaMascota", "Nombre", mascota.IdRazaMascota);
             ViewData["IdUsuarioCreacion"] = new SelectList(_context.Usuarios, "IdUsuario", "NombreUsuario", mascota.IdUsuarioCreacion);
+
+            ViewData["TiposMascota"] = new SelectList(_context.TipoMascotas, "IdTipoMascota", "Nombre",  mascota.IdTipoMascota);
             return View(mascota);
         }
 
@@ -85,7 +91,9 @@ namespace NuevoProyectoG6Final.Controllers
                 return NotFound();
             }
             ViewData["IdRazaMascota"] = new SelectList(_context.RazaMascotas, "IdRazaMascota", "Nombre", mascota.IdRazaMascota);
-            ViewData["IdUsuarioCreacion"] = new SelectList(_context.Usuarios, "IdUsuario", "Contrasena", mascota.IdUsuarioCreacion);
+            ViewData["IdUsuarioCreacion"] = new SelectList(_context.Usuarios, "IdUsuario", "NombreUsuario", mascota.IdUsuarioCreacion);
+
+            ViewData["TiposMascota"] = new SelectList(_context.TipoMascotas, "IdTipoMascota", "Nombre", mascota.IdTipoMascota);
             return View(mascota);
         }
 
@@ -94,7 +102,7 @@ namespace NuevoProyectoG6Final.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdMascota,Nombre,IdRazaMascota,Genero,Edad,Peso,imagen,IdUsuarioCreacion,IdUsuario,FechaCreacion,FechaModificacion,Estado")] Mascota mascota)
+        public async Task<IActionResult> Edit(int id, [Bind("IdMascota,Nombre,IdTipoMascota,IdRazaMascota,Genero,Edad,Peso,imagen,IdUsuarioCreacion,IdUsuario,FechaCreacion,FechaModificacion,Estado")] Mascota mascota)
         {
             if (id != mascota.IdMascota)
             {
@@ -122,7 +130,7 @@ namespace NuevoProyectoG6Final.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["IdRazaMascota"] = new SelectList(_context.RazaMascotas, "IdRazaMascota", "Nombre", mascota.IdRazaMascota);
-            ViewData["IdUsuarioCreacion"] = new SelectList(_context.Usuarios, "IdUsuario", "Contrasena", mascota.IdUsuarioCreacion);
+            ViewData["IdUsuarioCreacion"] = new SelectList(_context.Usuarios, "IdUsuario", "NombreUsuario", mascota.IdUsuarioCreacion);
             return View(mascota);
         }
 

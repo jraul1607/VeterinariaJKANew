@@ -20,5 +20,7 @@ namespace Vet.DAL
 
         public ICollection<RazaMascota> RazaMascotas { get; set; } = new List<RazaMascota>();
 
+        
+
     }
 }

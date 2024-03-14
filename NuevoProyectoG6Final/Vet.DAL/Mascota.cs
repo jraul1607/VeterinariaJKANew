@@ -18,6 +18,9 @@ namespace Vet.DAL
         [DisplayName("Nombre de la Mascota")]
         public string Nombre { get; set; }
 
+
+        public int IdTipoMascota { get; set; }
+
         [ForeignKey("RazaMascota")]
         [DisplayName("Raza de Mascota")]
         public int IdRazaMascota { get; set; }
@@ -50,6 +53,7 @@ namespace Vet.DAL
 
         public RazaMascota? RazaMascota { get; set; }
         public Usuario? Usuario { get; set; }
+
 
         //ICollection
 

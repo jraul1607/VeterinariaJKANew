@@ -4,7 +4,7 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+@* <h1>Index</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -40,6 +40,9 @@
                 @Html.DisplayNameFor(model => model.Estado)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.IdTipoMascota)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.RazaMascota)
             </th>
             <th>
@@ -67,7 +70,7 @@
                 @Html.DisplayFor(modelItem => item.imagen)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.IdUsuario)
+                @Html.DisplayFor(modelItem => item.Usuario.NombreUsuario)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.FechaCreacion)
@@ -78,11 +81,15 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Estado)
             </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RazaMascota.TipoMascota.Nombre)
+                </td>
+
             <td>
                 @Html.DisplayFor(modelItem => item.RazaMascota.Nombre)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Usuario.Contrasena)
+                @Html.DisplayFor(modelItem => item.Usuario.NombreUsuario)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.IdMascota">Edit</a> |
@@ -92,4 +99,37 @@
         </tr>
 }
     </tbody>
-</table>
+</table> *@
+
+<h1>Nuestras Mascotas</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Añadir Mascotas</a>
+</p>
+
+<div class="container">
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-lg-4 mb-4">
+                <div class="card h-100">
+                    <img class="card-img-top" src="@item.imagen" alt="@item.Nombre">
+                    <div class="card-body">
+                        <h4 class="card-title">@Html.DisplayFor(modelItem => item.Nombre)</h4>
+                        <p class="card-text">Raza de Mascota: @Html.DisplayFor(modelItem => item.RazaMascota.Nombre)</p>
+                        <p class="card-text">Género: @Html.DisplayFor(modelItem => item.Genero)</p>
+                        <p class="card-text">Edad: @Html.DisplayFor(modelItem => item.Edad) Años</p>                                              
+                        <p class="card-text">Fecha de Creación: @Html.DisplayFor(modelItem => item.FechaCreacion)</p>
+                        <p class="card-text">Estado: @Html.DisplayFor(modelItem => item.Estado)</p>
+                           
+                    </div>
+                    <div class="card-footer">
+                        <a asp-action="Edit" asp-route-id="@item.IdMascota" class="btn btn-primary">Edit</a>
+                        <a asp-action="Details" asp-route-id="@item.IdMascota" class="btn btn-secondary">Details</a>
+                        <a asp-action="Delete" asp-route-id="@item.IdMascota" class="btn btn-danger">Delete</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
