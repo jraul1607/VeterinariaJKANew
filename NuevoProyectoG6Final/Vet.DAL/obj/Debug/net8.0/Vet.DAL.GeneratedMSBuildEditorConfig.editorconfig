@@ -8,6 +8,6 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = Vet.DAL
-build_property.ProjectDir = C:\Users\porrasj\OneDrive - Hewlett Packard Enterprise\Desktop\Nuevo Proyecto Progra\NuevoProyectoG6Final\Vet.DAL\
+build_property.ProjectDir = C:\Users\alexa\Documents\GitHub\VeterinariaJKANew\NuevoProyectoG6Final\Vet.DAL\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 

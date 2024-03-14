@@ -1,24 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\porrasj\\OneDrive - Hewlett Packard Enterprise\\Desktop\\Nuevo Proyecto Progra\\NuevoProyectoG6Final\\Vet.DAL\\Vet.DAL.csproj": {}
+    "C:\\Users\\alexa\\Documents\\GitHub\\VeterinariaJKANew\\NuevoProyectoG6Final\\Vet.DAL\\Vet.DAL.csproj": {}
   },
   "projects": {
-    "C:\\Users\\porrasj\\OneDrive - Hewlett Packard Enterprise\\Desktop\\Nuevo Proyecto Progra\\NuevoProyectoG6Final\\Vet.DAL\\Vet.DAL.csproj": {
+    "C:\\Users\\alexa\\Documents\\GitHub\\VeterinariaJKANew\\NuevoProyectoG6Final\\Vet.DAL\\Vet.DAL.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\porrasj\\OneDrive - Hewlett Packard Enterprise\\Desktop\\Nuevo Proyecto Progra\\NuevoProyectoG6Final\\Vet.DAL\\Vet.DAL.csproj",
+        "projectUniqueName": "C:\\Users\\alexa\\Documents\\GitHub\\VeterinariaJKANew\\NuevoProyectoG6Final\\Vet.DAL\\Vet.DAL.csproj",
         "projectName": "Vet.DAL",
-        "projectPath": "C:\\Users\\porrasj\\OneDrive - Hewlett Packard Enterprise\\Desktop\\Nuevo Proyecto Progra\\NuevoProyectoG6Final\\Vet.DAL\\Vet.DAL.csproj",
-        "packagesPath": "C:\\Users\\porrasj\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\porrasj\\OneDrive - Hewlett Packard Enterprise\\Desktop\\Nuevo Proyecto Progra\\NuevoProyectoG6Final\\Vet.DAL\\obj\\",
+        "projectPath": "C:\\Users\\alexa\\Documents\\GitHub\\VeterinariaJKANew\\NuevoProyectoG6Final\\Vet.DAL\\Vet.DAL.csproj",
+        "packagesPath": "C:\\Users\\alexa\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\alexa\\Documents\\GitHub\\VeterinariaJKANew\\NuevoProyectoG6Final\\Vet.DAL\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\porrasj\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\alexa\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -26,7 +22,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -39,11 +34,6 @@
           "warnAsError": [
             "NU1605"
           ]
-        },
-        "restoreAuditProperties": {
-          "enableAudit": "true",
-          "auditLevel": "low",
-          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -75,7 +65,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.200/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
