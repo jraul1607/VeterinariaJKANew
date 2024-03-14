@@ -1,0 +1,63 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Vet.DAL
+{
+    [Table("Mascotas")]
+    public class Mascota
+    {
+        [Key]
+        public int IdMascota { get; set; }
+
+        [DisplayName("Nombre de la Mascota")]
+        public string Nombre { get; set; }
+
+        [ForeignKey("RazaMascota")]
+        [DisplayName("Raza de Mascota")]
+        public int IdRazaMascota { get; set; }
+
+        public string Genero { get; set; }
+
+        public int Edad { get; set; }
+
+        public int Peso { get; set; }
+        public string imagen { get; set; }
+
+        [ForeignKey("Usuario")]
+        [DisplayName("Nombre de Usuario Creador")]
+        public int IdUsuarioCreacion { get; set; }
+
+        [DisplayName("Nombre de Usuario")]
+        public int IdUsuario { get; set; }
+
+        [DisplayName("Fecha de Creacion")]
+        public DateTime FechaCreacion { get; set; }
+
+        [DisplayName("Fecha de Modificacion")]
+        public DateTime FechaModificacion { get; set; }
+
+        public bool Estado { get; set; }
+
+
+        //Foreign Keys Nullable 
+
+
+        public RazaMascota? RazaMascota { get; set; }
+        public Usuario? Usuario { get; set; }
+
+        //ICollection
+
+        public ICollection<VacunaMascota> VacunaMascotas { get; set; } = new List<VacunaMascota>();
+
+        public ICollection<Cita> Citas { get; set; } = new List<Cita>();
+
+        public ICollection<PadecimientoMascota> PadecimientoMascotas { get; set; } = new List<PadecimientoMascota>();
+
+    }
+}

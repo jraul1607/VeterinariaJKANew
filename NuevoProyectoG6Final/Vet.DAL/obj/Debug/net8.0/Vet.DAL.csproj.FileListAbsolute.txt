@@ -1,0 +1,12 @@
+C:\Users\porrasj\OneDrive - Hewlett Packard Enterprise\Desktop\Nuevo Proyecto Progra\NuevoProyectoG6Final\Vet.DAL\bin\Debug\net8.0\Vet.DAL.deps.json
+C:\Users\porrasj\OneDrive - Hewlett Packard Enterprise\Desktop\Nuevo Proyecto Progra\NuevoProyectoG6Final\Vet.DAL\bin\Debug\net8.0\Vet.DAL.dll
+C:\Users\porrasj\OneDrive - Hewlett Packard Enterprise\Desktop\Nuevo Proyecto Progra\NuevoProyectoG6Final\Vet.DAL\bin\Debug\net8.0\Vet.DAL.pdb
+C:\Users\porrasj\OneDrive - Hewlett Packard Enterprise\Desktop\Nuevo Proyecto Progra\NuevoProyectoG6Final\Vet.DAL\obj\Debug\net8.0\Vet.DAL.csproj.AssemblyReference.cache
+C:\Users\porrasj\OneDrive - Hewlett Packard Enterprise\Desktop\Nuevo Proyecto Progra\NuevoProyectoG6Final\Vet.DAL\obj\Debug\net8.0\Vet.DAL.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\porrasj\OneDrive - Hewlett Packard Enterprise\Desktop\Nuevo Proyecto Progra\NuevoProyectoG6Final\Vet.DAL\obj\Debug\net8.0\Vet.DAL.AssemblyInfoInputs.cache
+C:\Users\porrasj\OneDrive - Hewlett Packard Enterprise\Desktop\Nuevo Proyecto Progra\NuevoProyectoG6Final\Vet.DAL\obj\Debug\net8.0\Vet.DAL.AssemblyInfo.cs
+C:\Users\porrasj\OneDrive - Hewlett Packard Enterprise\Desktop\Nuevo Proyecto Progra\NuevoProyectoG6Final\Vet.DAL\obj\Debug\net8.0\Vet.DAL.csproj.CoreCompileInputs.cache
+C:\Users\porrasj\OneDrive - Hewlett Packard Enterprise\Desktop\Nuevo Proyecto Progra\NuevoProyectoG6Final\Vet.DAL\obj\Debug\net8.0\Vet.DAL.dll
+C:\Users\porrasj\OneDrive - Hewlett Packard Enterprise\Desktop\Nuevo Proyecto Progra\NuevoProyectoG6Final\Vet.DAL\obj\Debug\net8.0\refint\Vet.DAL.dll
+C:\Users\porrasj\OneDrive - Hewlett Packard Enterprise\Desktop\Nuevo Proyecto Progra\NuevoProyectoG6Final\Vet.DAL\obj\Debug\net8.0\Vet.DAL.pdb
+C:\Users\porrasj\OneDrive - Hewlett Packard Enterprise\Desktop\Nuevo Proyecto Progra\NuevoProyectoG6Final\Vet.DAL\obj\Debug\net8.0\ref\Vet.DAL.dll

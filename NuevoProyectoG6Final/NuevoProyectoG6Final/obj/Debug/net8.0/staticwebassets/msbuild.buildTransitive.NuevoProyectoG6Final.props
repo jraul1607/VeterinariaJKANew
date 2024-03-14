@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\buildMultiTargeting\NuevoProyectoG6Final.props" />
+</Project>

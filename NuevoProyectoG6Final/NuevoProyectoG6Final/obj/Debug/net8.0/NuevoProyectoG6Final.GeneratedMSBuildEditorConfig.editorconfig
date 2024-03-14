@@ -1,0 +1,295 @@
+is_global = true
+build_property.TargetFramework = net8.0
+build_property.TargetFramework = net8.0
+build_property.TargetPlatformMinVersion = 
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = NuevoProyectoG6Final
+build_property.RootNamespace = NuevoProyectoG6Final
+build_property.ProjectDir = C:\Users\porrasj\OneDrive - Hewlett Packard Enterprise\Desktop\Nuevo Proyecto Progra\NuevoProyectoG6Final\NuevoProyectoG6Final\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
+build_property.RazorLangVersion = 8.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = C:\Users\porrasj\OneDrive - Hewlett Packard Enterprise\Desktop\Nuevo Proyecto Progra\NuevoProyectoG6Final\NuevoProyectoG6Final
+build_property._RazorSourceGeneratorDebug = 
+
+[C:/Users/porrasj/OneDrive - Hewlett Packard Enterprise/Desktop/Nuevo Proyecto Progra/NuevoProyectoG6Final/NuevoProyectoG6Final/Views/CitaMedicamentos/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2l0YU1lZGljYW1lbnRvc1xDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/porrasj/OneDrive - Hewlett Packard Enterprise/Desktop/Nuevo Proyecto Progra/NuevoProyectoG6Final/NuevoProyectoG6Final/Views/CitaMedicamentos/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2l0YU1lZGljYW1lbnRvc1xEZWxldGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/porrasj/OneDrive - Hewlett Packard Enterprise/Desktop/Nuevo Proyecto Progra/NuevoProyectoG6Final/NuevoProyectoG6Final/Views/CitaMedicamentos/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2l0YU1lZGljYW1lbnRvc1xEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/porrasj/OneDrive - Hewlett Packard Enterprise/Desktop/Nuevo Proyecto Progra/NuevoProyectoG6Final/NuevoProyectoG6Final/Views/CitaMedicamentos/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2l0YU1lZGljYW1lbnRvc1xFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/porrasj/OneDrive - Hewlett Packard Enterprise/Desktop/Nuevo Proyecto Progra/NuevoProyectoG6Final/NuevoProyectoG6Final/Views/CitaMedicamentos/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2l0YU1lZGljYW1lbnRvc1xJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/porrasj/OneDrive - Hewlett Packard Enterprise/Desktop/Nuevo Proyecto Progra/NuevoProyectoG6Final/NuevoProyectoG6Final/Views/Citas/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2l0YXNcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/porrasj/OneDrive - Hewlett Packard Enterprise/Desktop/Nuevo Proyecto Progra/NuevoProyectoG6Final/NuevoProyectoG6Final/Views/Citas/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2l0YXNcRGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/porrasj/OneDrive - Hewlett Packard Enterprise/Desktop/Nuevo Proyecto Progra/NuevoProyectoG6Final/NuevoProyectoG6Final/Views/Citas/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2l0YXNcRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/porrasj/OneDrive - Hewlett Packard Enterprise/Desktop/Nuevo Proyecto Progra/NuevoProyectoG6Final/NuevoProyectoG6Final/Views/Citas/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2l0YXNcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/porrasj/OneDrive - Hewlett Packard Enterprise/Desktop/Nuevo Proyecto Progra/NuevoProyectoG6Final/NuevoProyectoG6Final/Views/Citas/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2l0YXNcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/porrasj/OneDrive - Hewlett Packard Enterprise/Desktop/Nuevo Proyecto Progra/NuevoProyectoG6Final/NuevoProyectoG6Final/Views/Home/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/porrasj/OneDrive - Hewlett Packard Enterprise/Desktop/Nuevo Proyecto Progra/NuevoProyectoG6Final/NuevoProyectoG6Final/Views/Home/Privacy.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/porrasj/OneDrive - Hewlett Packard Enterprise/Desktop/Nuevo Proyecto Progra/NuevoProyectoG6Final/NuevoProyectoG6Final/Views/Mascotas/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWFzY290YXNcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/porrasj/OneDrive - Hewlett Packard Enterprise/Desktop/Nuevo Proyecto Progra/NuevoProyectoG6Final/NuevoProyectoG6Final/Views/Mascotas/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWFzY290YXNcRGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/porrasj/OneDrive - Hewlett Packard Enterprise/Desktop/Nuevo Proyecto Progra/NuevoProyectoG6Final/NuevoProyectoG6Final/Views/Mascotas/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWFzY290YXNcRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/porrasj/OneDrive - Hewlett Packard Enterprise/Desktop/Nuevo Proyecto Progra/NuevoProyectoG6Final/NuevoProyectoG6Final/Views/Mascotas/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWFzY290YXNcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/porrasj/OneDrive - Hewlett Packard Enterprise/Desktop/Nuevo Proyecto Progra/NuevoProyectoG6Final/NuevoProyectoG6Final/Views/Mascotas/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWFzY290YXNcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/porrasj/OneDrive - Hewlett Packard Enterprise/Desktop/Nuevo Proyecto Progra/NuevoProyectoG6Final/NuevoProyectoG6Final/Views/Medicamentos/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWVkaWNhbWVudG9zXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/porrasj/OneDrive - Hewlett Packard Enterprise/Desktop/Nuevo Proyecto Progra/NuevoProyectoG6Final/NuevoProyectoG6Final/Views/Medicamentos/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWVkaWNhbWVudG9zXERlbGV0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/porrasj/OneDrive - Hewlett Packard Enterprise/Desktop/Nuevo Proyecto Progra/NuevoProyectoG6Final/NuevoProyectoG6Final/Views/Medicamentos/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWVkaWNhbWVudG9zXERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/porrasj/OneDrive - Hewlett Packard Enterprise/Desktop/Nuevo Proyecto Progra/NuevoProyectoG6Final/NuevoProyectoG6Final/Views/Medicamentos/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWVkaWNhbWVudG9zXEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/porrasj/OneDrive - Hewlett Packard Enterprise/Desktop/Nuevo Proyecto Progra/NuevoProyectoG6Final/NuevoProyectoG6Final/Views/Medicamentos/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWVkaWNhbWVudG9zXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/porrasj/OneDrive - Hewlett Packard Enterprise/Desktop/Nuevo Proyecto Progra/NuevoProyectoG6Final/NuevoProyectoG6Final/Views/Padecimientoes/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGFkZWNpbWllbnRvZXNcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/porrasj/OneDrive - Hewlett Packard Enterprise/Desktop/Nuevo Proyecto Progra/NuevoProyectoG6Final/NuevoProyectoG6Final/Views/Padecimientoes/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGFkZWNpbWllbnRvZXNcRGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/porrasj/OneDrive - Hewlett Packard Enterprise/Desktop/Nuevo Proyecto Progra/NuevoProyectoG6Final/NuevoProyectoG6Final/Views/Padecimientoes/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGFkZWNpbWllbnRvZXNcRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/porrasj/OneDrive - Hewlett Packard Enterprise/Desktop/Nuevo Proyecto Progra/NuevoProyectoG6Final/NuevoProyectoG6Final/Views/Padecimientoes/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGFkZWNpbWllbnRvZXNcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/porrasj/OneDrive - Hewlett Packard Enterprise/Desktop/Nuevo Proyecto Progra/NuevoProyectoG6Final/NuevoProyectoG6Final/Views/Padecimientoes/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGFkZWNpbWllbnRvZXNcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/porrasj/OneDrive - Hewlett Packard Enterprise/Desktop/Nuevo Proyecto Progra/NuevoProyectoG6Final/NuevoProyectoG6Final/Views/PadecimientoMascotas/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGFkZWNpbWllbnRvTWFzY290YXNcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/porrasj/OneDrive - Hewlett Packard Enterprise/Desktop/Nuevo Proyecto Progra/NuevoProyectoG6Final/NuevoProyectoG6Final/Views/PadecimientoMascotas/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGFkZWNpbWllbnRvTWFzY290YXNcRGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/porrasj/OneDrive - Hewlett Packard Enterprise/Desktop/Nuevo Proyecto Progra/NuevoProyectoG6Final/NuevoProyectoG6Final/Views/PadecimientoMascotas/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGFkZWNpbWllbnRvTWFzY290YXNcRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/porrasj/OneDrive - Hewlett Packard Enterprise/Desktop/Nuevo Proyecto Progra/NuevoProyectoG6Final/NuevoProyectoG6Final/Views/PadecimientoMascotas/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGFkZWNpbWllbnRvTWFzY290YXNcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/porrasj/OneDrive - Hewlett Packard Enterprise/Desktop/Nuevo Proyecto Progra/NuevoProyectoG6Final/NuevoProyectoG6Final/Views/PadecimientoMascotas/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGFkZWNpbWllbnRvTWFzY290YXNcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/porrasj/OneDrive - Hewlett Packard Enterprise/Desktop/Nuevo Proyecto Progra/NuevoProyectoG6Final/NuevoProyectoG6Final/Views/RazaMascotas/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmF6YU1hc2NvdGFzXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/porrasj/OneDrive - Hewlett Packard Enterprise/Desktop/Nuevo Proyecto Progra/NuevoProyectoG6Final/NuevoProyectoG6Final/Views/RazaMascotas/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmF6YU1hc2NvdGFzXERlbGV0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/porrasj/OneDrive - Hewlett Packard Enterprise/Desktop/Nuevo Proyecto Progra/NuevoProyectoG6Final/NuevoProyectoG6Final/Views/RazaMascotas/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmF6YU1hc2NvdGFzXERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/porrasj/OneDrive - Hewlett Packard Enterprise/Desktop/Nuevo Proyecto Progra/NuevoProyectoG6Final/NuevoProyectoG6Final/Views/RazaMascotas/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmF6YU1hc2NvdGFzXEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/porrasj/OneDrive - Hewlett Packard Enterprise/Desktop/Nuevo Proyecto Progra/NuevoProyectoG6Final/NuevoProyectoG6Final/Views/RazaMascotas/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmF6YU1hc2NvdGFzXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/porrasj/OneDrive - Hewlett Packard Enterprise/Desktop/Nuevo Proyecto Progra/NuevoProyectoG6Final/NuevoProyectoG6Final/Views/Rols/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUm9sc1xDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/porrasj/OneDrive - Hewlett Packard Enterprise/Desktop/Nuevo Proyecto Progra/NuevoProyectoG6Final/NuevoProyectoG6Final/Views/Rols/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUm9sc1xEZWxldGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/porrasj/OneDrive - Hewlett Packard Enterprise/Desktop/Nuevo Proyecto Progra/NuevoProyectoG6Final/NuevoProyectoG6Final/Views/Rols/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUm9sc1xEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/porrasj/OneDrive - Hewlett Packard Enterprise/Desktop/Nuevo Proyecto Progra/NuevoProyectoG6Final/NuevoProyectoG6Final/Views/Rols/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUm9sc1xFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/porrasj/OneDrive - Hewlett Packard Enterprise/Desktop/Nuevo Proyecto Progra/NuevoProyectoG6Final/NuevoProyectoG6Final/Views/Rols/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUm9sc1xJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/porrasj/OneDrive - Hewlett Packard Enterprise/Desktop/Nuevo Proyecto Progra/NuevoProyectoG6Final/NuevoProyectoG6Final/Views/Shared/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/porrasj/OneDrive - Hewlett Packard Enterprise/Desktop/Nuevo Proyecto Progra/NuevoProyectoG6Final/NuevoProyectoG6Final/Views/Shared/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/porrasj/OneDrive - Hewlett Packard Enterprise/Desktop/Nuevo Proyecto Progra/NuevoProyectoG6Final/NuevoProyectoG6Final/Views/TipoMascotas/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGlwb01hc2NvdGFzXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/porrasj/OneDrive - Hewlett Packard Enterprise/Desktop/Nuevo Proyecto Progra/NuevoProyectoG6Final/NuevoProyectoG6Final/Views/TipoMascotas/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGlwb01hc2NvdGFzXERlbGV0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/porrasj/OneDrive - Hewlett Packard Enterprise/Desktop/Nuevo Proyecto Progra/NuevoProyectoG6Final/NuevoProyectoG6Final/Views/TipoMascotas/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGlwb01hc2NvdGFzXERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/porrasj/OneDrive - Hewlett Packard Enterprise/Desktop/Nuevo Proyecto Progra/NuevoProyectoG6Final/NuevoProyectoG6Final/Views/TipoMascotas/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGlwb01hc2NvdGFzXEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/porrasj/OneDrive - Hewlett Packard Enterprise/Desktop/Nuevo Proyecto Progra/NuevoProyectoG6Final/NuevoProyectoG6Final/Views/TipoMascotas/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGlwb01hc2NvdGFzXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/porrasj/OneDrive - Hewlett Packard Enterprise/Desktop/Nuevo Proyecto Progra/NuevoProyectoG6Final/NuevoProyectoG6Final/Views/Usuarios/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb3NcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/porrasj/OneDrive - Hewlett Packard Enterprise/Desktop/Nuevo Proyecto Progra/NuevoProyectoG6Final/NuevoProyectoG6Final/Views/Usuarios/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb3NcRGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/porrasj/OneDrive - Hewlett Packard Enterprise/Desktop/Nuevo Proyecto Progra/NuevoProyectoG6Final/NuevoProyectoG6Final/Views/Usuarios/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb3NcRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/porrasj/OneDrive - Hewlett Packard Enterprise/Desktop/Nuevo Proyecto Progra/NuevoProyectoG6Final/NuevoProyectoG6Final/Views/Usuarios/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb3NcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/porrasj/OneDrive - Hewlett Packard Enterprise/Desktop/Nuevo Proyecto Progra/NuevoProyectoG6Final/NuevoProyectoG6Final/Views/Usuarios/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb3NcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/porrasj/OneDrive - Hewlett Packard Enterprise/Desktop/Nuevo Proyecto Progra/NuevoProyectoG6Final/NuevoProyectoG6Final/Views/VacunaMascotas/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmFjdW5hTWFzY290YXNcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/porrasj/OneDrive - Hewlett Packard Enterprise/Desktop/Nuevo Proyecto Progra/NuevoProyectoG6Final/NuevoProyectoG6Final/Views/VacunaMascotas/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmFjdW5hTWFzY290YXNcRGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/porrasj/OneDrive - Hewlett Packard Enterprise/Desktop/Nuevo Proyecto Progra/NuevoProyectoG6Final/NuevoProyectoG6Final/Views/VacunaMascotas/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmFjdW5hTWFzY290YXNcRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/porrasj/OneDrive - Hewlett Packard Enterprise/Desktop/Nuevo Proyecto Progra/NuevoProyectoG6Final/NuevoProyectoG6Final/Views/VacunaMascotas/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmFjdW5hTWFzY290YXNcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/porrasj/OneDrive - Hewlett Packard Enterprise/Desktop/Nuevo Proyecto Progra/NuevoProyectoG6Final/NuevoProyectoG6Final/Views/VacunaMascotas/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmFjdW5hTWFzY290YXNcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/porrasj/OneDrive - Hewlett Packard Enterprise/Desktop/Nuevo Proyecto Progra/NuevoProyectoG6Final/NuevoProyectoG6Final/Views/Vacunas/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmFjdW5hc1xDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/porrasj/OneDrive - Hewlett Packard Enterprise/Desktop/Nuevo Proyecto Progra/NuevoProyectoG6Final/NuevoProyectoG6Final/Views/Vacunas/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmFjdW5hc1xEZWxldGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/porrasj/OneDrive - Hewlett Packard Enterprise/Desktop/Nuevo Proyecto Progra/NuevoProyectoG6Final/NuevoProyectoG6Final/Views/Vacunas/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmFjdW5hc1xEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/porrasj/OneDrive - Hewlett Packard Enterprise/Desktop/Nuevo Proyecto Progra/NuevoProyectoG6Final/NuevoProyectoG6Final/Views/Vacunas/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmFjdW5hc1xFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/porrasj/OneDrive - Hewlett Packard Enterprise/Desktop/Nuevo Proyecto Progra/NuevoProyectoG6Final/NuevoProyectoG6Final/Views/Vacunas/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmFjdW5hc1xJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/porrasj/OneDrive - Hewlett Packard Enterprise/Desktop/Nuevo Proyecto Progra/NuevoProyectoG6Final/NuevoProyectoG6Final/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/porrasj/OneDrive - Hewlett Packard Enterprise/Desktop/Nuevo Proyecto Progra/NuevoProyectoG6Final/NuevoProyectoG6Final/Views/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/porrasj/OneDrive - Hewlett Packard Enterprise/Desktop/Nuevo Proyecto Progra/NuevoProyectoG6Final/NuevoProyectoG6Final/Views/Shared/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = b-4t6s06d6qm
