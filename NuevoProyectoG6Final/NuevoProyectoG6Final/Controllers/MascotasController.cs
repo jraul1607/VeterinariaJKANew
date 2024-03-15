@@ -179,7 +179,7 @@ namespace NuevoProyectoG6Final.Controllers
         // POST: Mascotas/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> Delete(int id)
         {
             var mascota = await _context.Mascotas.FindAsync(id);
             if (mascota != null)

@@ -8,57 +8,97 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/NuevoProyectoG6Final.styles.css" asp-append-version="true" />
 </head>
+
+<style>
+
+    .submenu {
+        display: none;
+        position: absolute;
+        background-color: #fff;
+        padding: 10px;
+        z-index: 1;
+    }
+
+    .nav-item:hover .submenu {
+        display: block;
+    }
+
+    .submenu li {
+        display: block;
+    }
+
+    .submenu a {
+        display: block;
+        color: #333;
+        text-decoration: none;
+    }
+
+        .submenu a:hover {
+            background-color: #f4f4f4;
+        }
+
+</style>
+
+
+
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">NuevoProyectoG6Final</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Veterinaria JKA</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-end">
                     <ul class="navbar-nav flex-grow-1">
+
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="TipoMascotas" asp-action="Index">Tipos</a>
-                        </li>
+
+                        @*Lista para Cosas Relacionadas a Mascotas*@
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="RazaMascotas" asp-action="Index">Razas</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="" asp-action="">Mascotas</a>
+                            <ul class="submenu">
+                                <li><a class="nav-link text-dark" asp-area="" asp-controller="Mascotas" asp-action="Index">Nuestras Mascotas</a></li>
+                                <li><a class="nav-link text-dark" asp-area="" asp-controller="TipoMascotas" asp-action="Index">Tipos</a></li>
+                                <li><a class="nav-link text-dark" asp-area="" asp-controller="RazaMascotas" asp-action="Index">Razas</a></li>
+                            </ul>
                         </li>
+
+                        @*Lista para Cosas Relacionadas a Citas*@
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Rols" asp-action="Index">Roles</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="" asp-action="">Citas</a>
+                            <ul class="submenu">
+                                <li><a class="nav-link text-dark" asp-area="" asp-controller="Citas" asp-action="Index">Citas</a></li>
+                                <li><a class="nav-link text-dark" asp-area="" asp-controller="Vacunas" asp-action="Index">Vacunas</a></li>
+                                <li><a class="nav-link text-dark" asp-area="" asp-controller="Padecimientoes" asp-action="Index">Padecimientos</a></li>
+                                <li><a class="nav-link text-dark" asp-area="" asp-controller="Medicamentos" asp-action="Index">Medicamentos</a></li>
+                            </ul>
                         </li>
+
+                        @*Lista para Cosas Relacionadas Usuarios*@
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Usuarios" asp-action="Index">Usuarios</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="" asp-action="">Usuarios</a>
+                            <ul class="submenu">
+                                <li><a class="nav-link text-dark" asp-area="" asp-controller="Usuarios" asp-action="Index">Usuarios</a></li>
+                                <li><a class="nav-link text-dark" asp-area="" asp-controller="Rols" asp-action="Index">Roles</a></li>
+                            </ul>
                         </li>
+
+
+                        @*Lista para Cosas Relacionadas a Relaciones y Tablas Intermedias*@
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Vacunas" asp-action="Index">Vacunas</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="" asp-action="">Relacion/ Tablas Intermedias</a>
+                            <ul class="submenu">
+                                <li><a class="nav-link text-dark" asp-area="" asp-controller="VacunaMascotas" asp-action="Index">RelacionVacunaMascota</a></li>
+                                <li><a class="nav-link text-dark" asp-area="" asp-controller="PadecimientoMascotas" asp-action="Index">RelacionPadecimientoMascota</a></li>
+                                <li><a class="nav-link text-dark" asp-area="" asp-controller="CitaMedicamentos" asp-action="Index">RelacionCitaMedicamentos</a></li>
+                            </ul>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="VacunaMascotas" asp-action="Index">RelacionVacunaMascota</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Padecimientoes" asp-action="Index">Padecimientos</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="PadecimientoMascotas" asp-action="Index">RelacionPadecimientoMascota</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Medicamentos" asp-action="Index">Medicamentos</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="CitaMedicamentos" asp-action="Index">RelacionCitaMedicamentos</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Citas" asp-action="Index">Citas</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Mascotas" asp-action="Index">Mascotas</a>
-                        </li>
-                        
+
                     </ul>
                 </div>
             </div>
