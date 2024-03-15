@@ -37,6 +37,7 @@ namespace NuevoProyectoG6Final.Controllers
                 .Include(m => m.RazaMascota)
                 .Include(m => m.Usuario)
                 .FirstOrDefaultAsync(m => m.IdMascota == id);
+
             if (mascota == null)
             {
                 return NotFound();
@@ -62,7 +63,7 @@ namespace NuevoProyectoG6Final.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdMascota,Nombre,IdTipoMascota, IdRazaMascota,Genero,Edad,Peso,imagen,IdUsuarioCreacion,IdUsuario,FechaCreacion,FechaModificacion,Estado")] Mascota mascota)
+        public async Task<IActionResult> Create([Bind("IdMascota,Nombre,IdTipoMascota,IdRazaMascota,Genero,Edad,Peso,IdUsuarioCreacion,IdUsuario,FechaCreacion,FechaModificacion,Estado,Imagen")] Mascota mascota)
         {
             if (ModelState.IsValid)
             {
@@ -72,8 +73,7 @@ namespace NuevoProyectoG6Final.Controllers
             }
             ViewData["IdRazaMascota"] = new SelectList(_context.RazaMascotas, "IdRazaMascota", "Nombre", mascota.IdRazaMascota);
             ViewData["IdUsuarioCreacion"] = new SelectList(_context.Usuarios, "IdUsuario", "NombreUsuario", mascota.IdUsuarioCreacion);
-
-            ViewData["TiposMascota"] = new SelectList(_context.TipoMascotas, "IdTipoMascota", "Nombre",  mascota.IdTipoMascota);
+            ViewData["TiposMascota"] = new SelectList(_context.TipoMascotas, "IdTipoMascota", "Nombre", mascota.IdTipoMascota);
             return View(mascota);
         }
 
@@ -102,7 +102,7 @@ namespace NuevoProyectoG6Final.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdMascota,Nombre,IdTipoMascota,IdRazaMascota,Genero,Edad,Peso,imagen,IdUsuarioCreacion,IdUsuario,FechaCreacion,FechaModificacion,Estado")] Mascota mascota)
+        public async Task<IActionResult> Edit(int id, [Bind("IdMascota,Nombre,IdTipoMascota,IdRazaMascota,Genero,Edad,Peso,IdUsuarioCreacion,IdUsuario,FechaCreacion,FechaModificacion,Estado,Imagen")] Mascota mascota)
         {
             if (id != mascota.IdMascota)
             {
@@ -131,6 +131,7 @@ namespace NuevoProyectoG6Final.Controllers
             }
             ViewData["IdRazaMascota"] = new SelectList(_context.RazaMascotas, "IdRazaMascota", "Nombre", mascota.IdRazaMascota);
             ViewData["IdUsuarioCreacion"] = new SelectList(_context.Usuarios, "IdUsuario", "NombreUsuario", mascota.IdUsuarioCreacion);
+            ViewData["TiposMascota"] = new SelectList(_context.TipoMascotas, "IdTipoMascota", "Nombre", mascota.IdTipoMascota);
             return View(mascota);
         }
 

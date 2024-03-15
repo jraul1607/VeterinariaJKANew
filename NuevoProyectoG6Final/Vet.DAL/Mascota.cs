@@ -6,6 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 
 namespace Vet.DAL
 {
@@ -30,7 +31,8 @@ namespace Vet.DAL
         public int Edad { get; set; }
 
         public int Peso { get; set; }
-        public string imagen { get; set; }
+        public string Imagen { get; set; }
+
 
         [ForeignKey("Usuario")]
         [DisplayName("Nombre de Usuario Creador")]
