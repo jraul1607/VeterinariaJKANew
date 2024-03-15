@@ -101,11 +101,49 @@
     </tbody>
 </table> *@
 
-<h1>Nuestras Mascotas</h1>
+<style>
+    .card {
+        border: none;
+        transition: transform .5s ease;
+    }
 
-<p>
-    <a asp-action="Create" class="btn btn-primary">Añadir Mascotas</a>
-</p>
+        .card:hover {
+            box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.2);
+            transform: scale(1.1);
+        } 
+
+
+</style>
+
+<div>
+    <h1 style="text-align: center">Nuestras Mascotas</h1>
+</div>
+
+
+
+
+<div class="row">
+    <div class="col-md-6">
+        <a asp-action="Create" class="btn btn-primary">Añadir Mascotas</a>
+    </div>
+    <div class="col-md-3" style="margin-left: 250px">
+        <form asp-action="Index" method="get" class="form-inline">
+            <div class="form-group mr-2">
+                <input type="text" id="busquedaMascota" name="busquedaMascota" class="form-control" style="width: 300px;" /> 
+            </div>
+            <p></p>
+            <button type="submit" class="btn btn-primary" style="margin-left: 75%">Buscar</button>
+        </form>
+        <p></p>   
+    </div>
+</div>
+
+@if ((bool)ViewBag.NoResultados)
+{
+    <p>No se encuentran resultados de búsqueda.</p>
+}
+<br />
+<br />
 
 <div class="container">
     <div class="row">
@@ -116,11 +154,22 @@
                     <img class="card-img-top" src="@item.Imagen" alt="@item.Nombre">
                     <div class="card-body">
                         <h4 class="card-title">@Html.DisplayFor(modelItem => item.Nombre)</h4>
+                        <p class="card-text">Tipo: @Html.DisplayFor(modelItem => item.RazaMascota.TipoMascota.Nombre)</p>
                         <p class="card-text">Raza de Mascota: @Html.DisplayFor(modelItem => item.RazaMascota.Nombre)</p>
                         <p class="card-text">Género: @Html.DisplayFor(modelItem => item.Genero)</p>
                         <p class="card-text">Edad: @Html.DisplayFor(modelItem => item.Edad) Años</p>                                              
                         <p class="card-text">Fecha de Creación: @Html.DisplayFor(modelItem => item.FechaCreacion)</p>
-                        <p class="card-text">Estado: @Html.DisplayFor(modelItem => item.Estado)</p>
+                        <p class="card-text">
+                            Estado:
+                            @if (item.Estado)
+                            {
+                                <span style="color: green;">Activo</span>
+                            }
+                            else
+                            {
+                                <span style="color: red;">Inactivo</span>
+                            }
+                        </p>
                            
                     </div>
                     <div class="card-footer">
@@ -131,5 +180,8 @@
                 </div>
             </div>
         }
+        
     </div>
 </div>
+
+

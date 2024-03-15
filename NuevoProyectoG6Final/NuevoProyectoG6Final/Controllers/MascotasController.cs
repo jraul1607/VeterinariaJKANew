@@ -19,14 +19,35 @@ namespace NuevoProyectoG6Final.Controllers
         }
 
         // GET: Mascotas
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string busquedaMascota)
         {
-            var vetContext = _context.Mascotas.Include(m => m.RazaMascota).ThenInclude(r => r.TipoMascota).Include(m => m.Usuario);
-            return View(await vetContext.ToListAsync());
+            var mascotas = _context.Mascotas
+            .Include(m => m.RazaMascota)
+            .ThenInclude(r => r.TipoMascota)
+            .Include(m => m.Usuario)
+            .AsQueryable();
+
+            if (!string.IsNullOrEmpty(busquedaMascota))
+            {
+                mascotas = mascotas.Where(m => m.Nombre.Contains(busquedaMascota));
+            }
+
+            var vetContext = await mascotas.ToListAsync();
+
+            if (vetContext.Count == 0)
+            {
+                ViewBag.NoResultados = true;
+            }
+            else
+            {
+                ViewBag.NoResultados = false;
+            }
+
+            return View(vetContext);
         }
 
-        // GET: Mascotas/Details/5
-        public async Task<IActionResult> Details(int? id)
+            // GET: Mascotas/Details/5
+            public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
             {
