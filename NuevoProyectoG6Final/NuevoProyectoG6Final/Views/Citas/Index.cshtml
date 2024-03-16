@@ -13,9 +13,6 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.IdUsuarioSecundario)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.Fecha)
             </th>
             <th>
@@ -25,47 +22,52 @@
                 @Html.DisplayNameFor(model => model.Diagnostico)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.EstadoCita)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.Mascota)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Usuario)
+                @Html.DisplayNameFor(model => model.IdUsuarioPrincipal)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdUsuarioSecundario)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EstadoCita)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.IdUsuarioSecundario)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Fecha)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Descripcion)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Diagnostico)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EstadoCita)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Mascota.Genero)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Usuario.Contrasena)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.IdCita">Editar</a> |
-                <a asp-action="Details" asp-route-id="@item.IdCita">Detalles</a> |
-                <a asp-action="Delete" asp-route-id="@item.IdCita">Eliminar</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Fecha)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Descripcion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Diagnostico)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Mascota.Nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdUsuarioPrincipal)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdUsuarioSecundario)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EstadoCita)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.IdCita">Editar</a> |
+                    <a asp-action="Details" asp-route-id="@item.IdCita">Detalles</a> |
+                    <a asp-action="Delete" asp-route-id="@item.IdCita">Eliminar</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

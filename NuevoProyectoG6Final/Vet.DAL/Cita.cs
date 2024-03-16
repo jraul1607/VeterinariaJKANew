@@ -16,31 +16,35 @@ namespace Vet.DAL
         [DisplayName("Numero de Cita")]
         public int IdCita { get; set; }
 
+        [Required]
         [ForeignKey("Mascota")]
         [DisplayName("Nombre de la Mascota")]
         public int IdMascota { get; set; }
 
         //Solo se agregar un campo de Veterinario porque se duplica en el ComboBox 
         //Se hace una condicional en la segunda opcion de Combobox para el secundario para que no muestre el Vet que esta asignado de primario.
+        [Required]
         [ForeignKey("Usuario")]
         [DisplayName("Veterinario Principal")]
         public int IdUsuarioPrincipal { get; set; }
 
-
+        [Required]
         [DisplayName("Veterinario Secundario")]
         public int IdUsuarioSecundario { get; set; }
 
+        [Required]
         public DateTime Fecha { get; set; }
 
+        [Required]
         [DisplayName("Descripción")]
         public string Descripcion { get; set; }
 
+        [Required]
         [DisplayName("Diagnóstico")]
         public string Diagnostico { get; set; }
 
- 
         [DisplayName("Estado de la Cita")]
-        public bool EstadoCita { get; set; }
+        public string? EstadoCita { get; set; }
 
 
         //Propiedad Nullable

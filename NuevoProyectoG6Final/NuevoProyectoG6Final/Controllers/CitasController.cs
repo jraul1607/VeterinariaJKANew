@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using NuevoProyectoG6Final.Enums;
 using Vet.DAL;
 
 namespace NuevoProyectoG6Final.Controllers
@@ -48,8 +49,9 @@ namespace NuevoProyectoG6Final.Controllers
         // GET: Citas/Create
         public IActionResult Create()
         {
-            ViewData["IdMascota"] = new SelectList(_context.Mascotas, "IdMascota", "Genero");
-            ViewData["IdUsuarioPrincipal"] = new SelectList(_context.Usuarios, "IdUsuario", "Contrasena");
+            ViewData["Mascotas"] = new SelectList(_context.Mascotas, "IdMascota", "Nombre");
+            ViewData["VetsPrincipales"] = new SelectList(_context.Usuarios, "IdUsuario", "NombreUsuario");
+            ViewData["VetsSecundarios"] = new SelectList(_context.Usuarios, "IdUsuario", "NombreUsuario");
             return View();
         }
 
@@ -58,16 +60,29 @@ namespace NuevoProyectoG6Final.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdCita,IdMascota,IdUsuarioPrincipal,IdUsuarioSecundario,Fecha,Descripcion,Diagnostico,EstadoCita")] Cita cita)
+        public async Task<IActionResult> Create([Bind("IdCita,IdMascota,IdUsuarioPrincipal,IdUsuarioSecundario,Fecha,Descripcion,Diagnostico")] Cita cita)
         {
+            //foreach (var modelStateValue in ModelState.Values)
+            //{
+            //    foreach (var error in modelStateValue.Errors)
+            //    {
+            //        // Log or debug error messages
+            //        string test = error.ErrorMessage;
+            //    }
+            //}
+
             if (ModelState.IsValid)
             {
+                cita.EstadoCita = CitaEstado.Activa.ToString();
+
                 _context.Add(cita);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IdMascota"] = new SelectList(_context.Mascotas, "IdMascota", "Genero", cita.IdMascota);
-            ViewData["IdUsuarioPrincipal"] = new SelectList(_context.Usuarios, "IdUsuario", "Contrasena", cita.IdUsuarioPrincipal);
+
+            ViewData["Mascotas"] = new SelectList(_context.Mascotas, "IdMascota", "Nombre");
+            ViewData["VetsPrincipales"] = new SelectList(_context.Usuarios, "IdUsuario", "NombreUsuario");
+            ViewData["VetsSecundarios"] = new SelectList(_context.Usuarios, "IdUsuario", "NombreUsuario");
             return View(cita);
         }
 
