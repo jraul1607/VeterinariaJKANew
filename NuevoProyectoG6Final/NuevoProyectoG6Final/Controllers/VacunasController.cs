@@ -19,9 +19,30 @@ namespace NuevoProyectoG6Final.Controllers
         }
 
         // GET: Vacunas
-        public async Task<IActionResult> Index()
+
+             public async Task<IActionResult> Index(string busquedaVacuna)
         {
-            return View(await _context.Vacunas.ToListAsync());
+            var vacunas = _context.Vacunas.AsQueryable();    
+            
+
+            if (!string.IsNullOrEmpty(busquedaVacuna))
+            {
+                vacunas = vacunas.Where(v => v.Nombre.Contains(busquedaVacuna));
+            }
+
+            var vetContext= await vacunas.ToListAsync();
+
+            if (vetContext.Count == 0)
+            {
+                ViewBag.NoResultados = true;
+            }
+            else
+            {
+                ViewBag.NoResultados = false;
+            }
+
+            return View(vetContext);
+
         }
 
         // GET: Vacunas/Details/5

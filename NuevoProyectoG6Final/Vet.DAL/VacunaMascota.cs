@@ -17,6 +17,7 @@ namespace Vet.DAL
         public int IdVacunaMascota { get; set; }
 
         [ForeignKey("Vacuna")]
+        [DisplayName("Nombre de Vacuna")]
         public int IdVacuna { get; set; }
 
         [ForeignKey("Mascota")]

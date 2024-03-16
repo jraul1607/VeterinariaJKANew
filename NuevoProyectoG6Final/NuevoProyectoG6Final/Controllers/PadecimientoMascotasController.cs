@@ -19,11 +19,34 @@ namespace NuevoProyectoG6Final.Controllers
         }
 
         // GET: PadecimientoMascotas
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string busquedaMascotaPadecimiento)
         {
-            var vetContext = _context.PadecimientoMascotas.Include(p => p.Mascota).Include(p => p.Padecimiento);
-            return View(await vetContext.ToListAsync());
+            var mascotas = _context.PadecimientoMascotas
+            .Include(p => p.Mascota)
+            .Include(p => p.Padecimiento)
+            .AsQueryable();
+
+            if (!string.IsNullOrEmpty(busquedaMascotaPadecimiento))
+            {
+                mascotas = mascotas.Where(m => m.Mascota.Nombre.Contains(busquedaMascotaPadecimiento));
+            }
+
+            var vetContext = await mascotas.ToListAsync();
+
+            if (vetContext.Count == 0)
+            {
+                ViewBag.NoResultados = true;
+            }
+            else
+            {
+                ViewBag.NoResultados = false;
+            }
+
+            return View(vetContext);
         }
+
+
+
 
         // GET: PadecimientoMascotas/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -48,7 +71,7 @@ namespace NuevoProyectoG6Final.Controllers
         // GET: PadecimientoMascotas/Create
         public IActionResult Create()
         {
-            ViewData["IdMascota"] = new SelectList(_context.Mascotas, "IdMascota", "Genero");
+            ViewData["IdMascota"] = new SelectList(_context.Mascotas, "IdMascota", "Nombre");
             ViewData["IdPadecimiento"] = new SelectList(_context.Padecimientos, "IdPadecimiento", "Nombre");
             return View();
         }
@@ -66,7 +89,7 @@ namespace NuevoProyectoG6Final.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IdMascota"] = new SelectList(_context.Mascotas, "IdMascota", "Genero", padecimientoMascota.IdMascota);
+            ViewData["IdMascota"] = new SelectList(_context.Mascotas, "IdMascota", "Nombre", padecimientoMascota.IdMascota);
             ViewData["IdPadecimiento"] = new SelectList(_context.Padecimientos, "IdPadecimiento", "Nombre", padecimientoMascota.IdPadecimiento);
             return View(padecimientoMascota);
         }
@@ -84,7 +107,7 @@ namespace NuevoProyectoG6Final.Controllers
             {
                 return NotFound();
             }
-            ViewData["IdMascota"] = new SelectList(_context.Mascotas, "IdMascota", "Genero", padecimientoMascota.IdMascota);
+            ViewData["IdMascota"] = new SelectList(_context.Mascotas, "IdMascota", "Nombre", padecimientoMascota.IdMascota);
             ViewData["IdPadecimiento"] = new SelectList(_context.Padecimientos, "IdPadecimiento", "Nombre", padecimientoMascota.IdPadecimiento);
             return View(padecimientoMascota);
         }
@@ -121,7 +144,7 @@ namespace NuevoProyectoG6Final.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IdMascota"] = new SelectList(_context.Mascotas, "IdMascota", "Genero", padecimientoMascota.IdMascota);
+            ViewData["IdMascota"] = new SelectList(_context.Mascotas, "IdMascota", "Nombre", padecimientoMascota.IdMascota);
             ViewData["IdPadecimiento"] = new SelectList(_context.Padecimientos, "IdPadecimiento", "Nombre", padecimientoMascota.IdPadecimiento);
             return View(padecimientoMascota);
         }

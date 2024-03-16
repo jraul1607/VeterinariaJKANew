@@ -3,13 +3,11 @@
 @{
     ViewData["Title"] = "Edit";
 }
+<h1>Editar vacuna de mascota</h1>
 
-<h1>Edit</h1>
-
-<h4>VacunaMascota</h4>
 <hr />
-<div class="row">
-    <div class="col-md-4">
+<div class="card">
+    <div class="card-body">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="IdVacunaMascota" />
@@ -18,26 +16,30 @@
                 <select asp-for="IdVacuna" class="form-control" asp-items="ViewBag.IdVacuna"></select>
                 <span asp-validation-for="IdVacuna" class="text-danger"></span>
             </div>
+            <br />
             <div class="form-group">
                 <label asp-for="IdMascota" class="control-label"></label>
                 <select asp-for="IdMascota" class="form-control" asp-items="ViewBag.IdMascota"></select>
                 <span asp-validation-for="IdMascota" class="text-danger"></span>
             </div>
+            <br />
             <div class="form-group">
                 <label asp-for="FechaVacuna" class="control-label"></label>
                 <input asp-for="FechaVacuna" class="form-control" />
                 <span asp-validation-for="FechaVacuna" class="text-danger"></span>
             </div>
+            <br />
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+               
+                <input type="submit" value="Guardar cambios" class="btn btn-primary" />
             </div>
         </form>
     </div>
+    <div class="card-footer">
+        <a asp-action="Index" class="btn btn-outline-secondary">Atrás</a>
+    </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
