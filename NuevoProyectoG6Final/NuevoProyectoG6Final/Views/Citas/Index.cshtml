@@ -4,10 +4,10 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Citas</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" class="btn btn-primary">Nueva Cita</a>
 </p>
 <table class="table">
     <thead>
@@ -61,9 +61,9 @@
                 @Html.DisplayFor(modelItem => item.Usuario.Contrasena)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.IdCita">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.IdCita">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.IdCita">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.IdCita">Editar</a> |
+                <a asp-action="Details" asp-route-id="@item.IdCita">Detalles</a> |
+                <a asp-action="Delete" asp-route-id="@item.IdCita">Eliminar</a>
             </td>
         </tr>
 }

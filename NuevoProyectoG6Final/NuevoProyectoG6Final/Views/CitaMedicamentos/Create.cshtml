@@ -1,12 +1,12 @@
 ﻿@model Vet.DAL.CitaMedicamento
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Crear";
 }
 
-<h1>Create</h1>
+<h1>Cita/Medicamentos</h1>
 
-<h4>CitaMedicamento</h4>
+<h4>Asignar medicamentos a cita de (nombreMascota)</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -26,14 +26,14 @@
                 <span asp-validation-for="Dosis" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Crear" class="btn btn-primary" style="margin-top: 20px; margin-bottom: 20px;"/>
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Regresar a la lista</a>
 </div>
 
 @section Scripts {
