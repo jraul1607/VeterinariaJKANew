@@ -6,46 +6,11 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Vet.DAL.Migrations
 {
     /// <inheritdoc />
-    public partial class TablasCompleto : Migration
+    public partial class Inicial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.CreateTable(
-                name: "Mascotas",
-                columns: table => new
-                {
-                    IdMascota = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Nombre = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    IdRazaMascota = table.Column<int>(type: "int", nullable: false),
-                    Genero = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Edad = table.Column<int>(type: "int", nullable: false),
-                    Peso = table.Column<int>(type: "int", nullable: false),
-                    imagen = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    IdUsuarioCreacion = table.Column<int>(type: "int", nullable: false),
-                    IdUsuario = table.Column<int>(type: "int", nullable: false),
-                    FechaCreacion = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    FechaModificacion = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Estado = table.Column<bool>(type: "bit", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Mascotas", x => x.IdMascota);
-                    table.ForeignKey(
-                        name: "FK_Mascotas_RazaMascotas_IdRazaMascota",
-                        column: x => x.IdRazaMascota,
-                        principalTable: "RazaMascotas",
-                        principalColumn: "IdRazaMascota",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Mascotas_Usuarios_IdUsuarioCreacion",
-                        column: x => x.IdUsuarioCreacion,
-                        principalTable: "Usuarios",
-                        principalColumn: "IdUsuario",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
             migrationBuilder.CreateTable(
                 name: "Medicamentos",
                 columns: table => new
@@ -74,6 +39,32 @@ namespace Vet.DAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Roles",
+                columns: table => new
+                {
+                    IdRol = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Tipo = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Roles", x => x.IdRol);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TipoMascotas",
+                columns: table => new
+                {
+                    IdTipoMascota = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Nombre = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TipoMascotas", x => x.IdTipoMascota);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Vacunas",
                 columns: table => new
                 {
@@ -89,6 +80,86 @@ namespace Vet.DAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Usuarios",
+                columns: table => new
+                {
+                    IdUsuario = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    IdRol = table.Column<int>(type: "int", nullable: false),
+                    NombreUsuario = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Contrasena = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Imagen = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UltimaFechaConexion = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Estado = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Usuarios", x => x.IdUsuario);
+                    table.ForeignKey(
+                        name: "FK_Usuarios_Roles_IdRol",
+                        column: x => x.IdRol,
+                        principalTable: "Roles",
+                        principalColumn: "IdRol",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "RazaMascotas",
+                columns: table => new
+                {
+                    IdRazaMascota = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    IdTipoMascota = table.Column<int>(type: "int", nullable: false),
+                    Nombre = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RazaMascotas", x => x.IdRazaMascota);
+                    table.ForeignKey(
+                        name: "FK_RazaMascotas_TipoMascotas_IdTipoMascota",
+                        column: x => x.IdTipoMascota,
+                        principalTable: "TipoMascotas",
+                        principalColumn: "IdTipoMascota",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Mascotas",
+                columns: table => new
+                {
+                    IdMascota = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Nombre = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IdTipoMascota = table.Column<int>(type: "int", nullable: false),
+                    IdRazaMascota = table.Column<int>(type: "int", nullable: false),
+                    Genero = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Edad = table.Column<int>(type: "int", nullable: false),
+                    Peso = table.Column<int>(type: "int", nullable: false),
+                    Imagen = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IdUsuarioCreacion = table.Column<int>(type: "int", nullable: false),
+                    IdUsuario = table.Column<int>(type: "int", nullable: false),
+                    FechaCreacion = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    FechaModificacion = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Estado = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Mascotas", x => x.IdMascota);
+                    table.ForeignKey(
+                        name: "FK_Mascotas_RazaMascotas_IdRazaMascota",
+                        column: x => x.IdRazaMascota,
+                        principalTable: "RazaMascotas",
+                        principalColumn: "IdRazaMascota",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Mascotas_Usuarios_IdUsuarioCreacion",
+                        column: x => x.IdUsuarioCreacion,
+                        principalTable: "Usuarios",
+                        principalColumn: "IdUsuario",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Citas",
                 columns: table => new
                 {
@@ -100,7 +171,7 @@ namespace Vet.DAL.Migrations
                     Fecha = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Descripcion = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Diagnostico = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    EstadoCita = table.Column<bool>(type: "bit", nullable: false)
+                    EstadoCita = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -136,7 +207,7 @@ namespace Vet.DAL.Migrations
                         column: x => x.IdMascota,
                         principalTable: "Mascotas",
                         principalColumn: "IdMascota",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_PadecimientoMascotas_Padecimientos_IdPadecimiento",
                         column: x => x.IdPadecimiento,
@@ -190,7 +261,7 @@ namespace Vet.DAL.Migrations
                         column: x => x.IdCita,
                         principalTable: "Citas",
                         principalColumn: "IdCita",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_CitaMedicamentos_Medicamentos_IdMedicamento",
                         column: x => x.IdMedicamento,
@@ -240,6 +311,16 @@ namespace Vet.DAL.Migrations
                 column: "IdPadecimiento");
 
             migrationBuilder.CreateIndex(
+                name: "IX_RazaMascotas_IdTipoMascota",
+                table: "RazaMascotas",
+                column: "IdTipoMascota");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Usuarios_IdRol",
+                table: "Usuarios",
+                column: "IdRol");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_VacunaMascotas_IdMascota",
                 table: "VacunaMascotas",
                 column: "IdMascota");
@@ -276,6 +357,18 @@ namespace Vet.DAL.Migrations
 
             migrationBuilder.DropTable(
                 name: "Mascotas");
+
+            migrationBuilder.DropTable(
+                name: "RazaMascotas");
+
+            migrationBuilder.DropTable(
+                name: "Usuarios");
+
+            migrationBuilder.DropTable(
+                name: "TipoMascotas");
+
+            migrationBuilder.DropTable(
+                name: "Roles");
         }
     }
 }

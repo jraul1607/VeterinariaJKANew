@@ -12,8 +12,8 @@ using Vet.DAL;
 namespace Vet.DAL.Migrations
 {
     [DbContext(typeof(VetContext))]
-    [Migration("20240314212620_nuevaimagen")]
-    partial class nuevaimagen
+    [Migration("20240316214901_Inicial")]
+    partial class Inicial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -41,8 +41,8 @@ namespace Vet.DAL.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("EstadoCita")
-                        .HasColumnType("bit");
+                    b.Property<string>("EstadoCita")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("Fecha")
                         .HasColumnType("datetime2");
@@ -128,19 +128,16 @@ namespace Vet.DAL.Migrations
                     b.Property<int>("IdUsuarioCreacion")
                         .HasColumnType("int");
 
+                    b.Property<string>("Imagen")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Nombre")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<byte[]>("NuevaImagen")
-                        .HasColumnType("varbinary(max)");
-
                     b.Property<int>("Peso")
                         .HasColumnType("int");
-
-                    b.Property<string>("imagen")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("IdMascota");
 

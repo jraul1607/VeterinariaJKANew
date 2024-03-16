@@ -38,8 +38,8 @@ namespace Vet.DAL.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("EstadoCita")
-                        .HasColumnType("bit");
+                    b.Property<string>("EstadoCita")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("Fecha")
                         .HasColumnType("datetime2");
