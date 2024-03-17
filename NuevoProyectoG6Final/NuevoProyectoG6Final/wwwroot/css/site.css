@@ -21,12 +21,38 @@ body {
   margin-bottom: 60px;
 }
 
-.card {
+.card1 {
     border: none;
     transition: transform .5s ease;
 }
 
-    .card:hover {
+    .card1:hover {
         box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.2);
         transform: scale(1.1);
+    }
+
+.submenu {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    padding: 10px;
+    z-index: 1;
+}
+
+.nav-item:hover .submenu {
+    display: block;
+}
+
+.submenu li {
+    display: block;
+}
+
+.submenu a {
+    display: block;
+    color: #333;
+    text-decoration: none;
+}
+
+    .submenu a:hover {
+        background-color: #f4f4f4;
     }

@@ -4,17 +4,7 @@
     ViewData["Title"] = "Index";
 }
 
-<style>
-    .card {
-        border: none;
-        transition: transform .5s ease;
-    }
 
-        .card:hover {
-            box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.2);
-            transform: scale(1.1);
-        }
-</style>
 
 <div>
     <h1 style="text-align: center"> Tipo de Mascotas</h1>
@@ -48,7 +38,7 @@
     @foreach (var item in Model)
     {
         <div class="col-md-4">
-            <div class="card mt-3">
+            <div class="card card1 mt-3">
                 <div class="card-body">
                     <h5 class="card-title">@item.Nombre</h5>
                     <div class="btn-group">

@@ -19,9 +19,26 @@ namespace NuevoProyectoG6Final.Controllers
         }
 
         // GET: Rols
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string busquedaPorRol)
         {
-            return View(await _context.Rols.ToListAsync());
+            var Rol = _context.Rols.AsQueryable();
+
+            if (!string.IsNullOrEmpty(busquedaPorRol))
+            {
+                Rol = Rol.Where(m => m.Tipo.Contains(busquedaPorRol));
+            }
+            var vetContext = await Rol.ToListAsync();
+
+            if (vetContext.Count == 0)
+            {
+                ViewBag.NoResultados = true;
+            }
+            else
+            {
+                ViewBag.NoResultados = false;
+            }
+
+            return View(vetContext);
         }
 
         // GET: Rols/Details/5

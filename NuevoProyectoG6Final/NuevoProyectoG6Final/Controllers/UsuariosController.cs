@@ -19,11 +19,31 @@ namespace NuevoProyectoG6Final.Controllers
         }
 
         // GET: Usuarios
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string busquedaPorUsuario)
         {
-            var vetContext = _context.Usuarios.Include(u => u.Rol);
-            return View(await vetContext.ToListAsync());
+            var usuarios = _context.Usuarios
+            .Include(m => m.Rol)
+            .AsQueryable();
+
+            if (!string.IsNullOrEmpty(busquedaPorUsuario))
+            {
+                usuarios = usuarios.Where(m => m.NombreUsuario.Contains(busquedaPorUsuario));
+            }
+
+            var vetContext = await usuarios.ToListAsync();
+
+            if (vetContext.Count == 0)
+            {
+                ViewBag.NoResultados = true;
+            }
+            else
+            {
+                ViewBag.NoResultados = false;
+            }
+
+            return View(vetContext);
         }
+    
 
         // GET: Usuarios/Details/5
         public async Task<IActionResult> Details(int? id)

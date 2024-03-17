@@ -4,7 +4,7 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+@* <h1>Index</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -32,4 +32,68 @@
         </tr>
 }
     </tbody>
-</table>
+</table> *@
+
+
+
+<div>
+<h1 style="text-align: center">Roles</h1>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <a asp-action="Create" class="btn btn-primary">Añadir un Rol</a>
+    </div>
+    <div class="col-md-3" style="margin-left: 250px">
+        <form asp-action="Index" method="get" class="form-inline">
+            <div class="form-group mr-2">
+                <input type="text" id="busquedaPorRol" name="busquedaPorRol" class="form-control" style="width: 300px;" placeholder="Escriba un Rol" />
+                <br />
+            </div>
+            <button type="submit" class="btn btn-primary">Buscar</button>
+        </form>
+    </div>
+</div>
+
+@if ((bool)ViewBag.NoResultados)
+{
+    <p>No se encuentran resultados de búsqueda.</p>
+}
+<br />
+<br />
+
+
+@* <div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-4">
+            <div class="card mt-3">
+                <div class="card-body">
+                    <h5 class="card-title">@item.Tipo</h5>
+                    <div class="card-footer">
+                        <a asp-action="Edit" asp-route-id="@item.IdRol" class="btn btn-primary">Edit</a>
+                        <a asp-action="Details" asp-route-id="@item.IdRol" class="btn btn-secondary">Details</a>
+                        <a asp-action="Delete" asp-route-id="@item.IdRol" class="btn btn-danger">Delete</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div> *@
+
+<div class="row">
+    <div class="col-md-12">
+        <ul class="list-group">
+            @foreach (var item in Model)
+            {
+                <li class="list-group-item d-flex justify-content-between align-items-center card1" style="border: 1px solid #ced4da">
+                    @item.Tipo
+                    <div>
+                        <a asp-action="Edit" asp-route-id="@item.IdRol" class="btn btn-primary">Edit</a>
+                        <a asp-action="Delete" asp-route-id="@item.IdRol" class="btn btn-danger">Delete</a>
+                    </div>
+                </li>
+            }
+        </ul>
+    </div>
+</div>

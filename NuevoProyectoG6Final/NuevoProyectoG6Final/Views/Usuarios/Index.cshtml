@@ -4,62 +4,65 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<div>
+<h1 style="text-align: center">Usuarios</h1>
+</div>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.NombreUsuario)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Contrasena)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Imagen)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UltimaFechaConexion)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Estado)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Rol)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.NombreUsuario)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Contrasena)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Imagen)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UltimaFechaConexion)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Estado)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Rol.Tipo)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.IdUsuario">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.IdUsuario">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.IdUsuario">Delete</a>
-            </td>
-        </tr>
+<div class="row">
+    <div class="col-md-6">
+        <a asp-action="Create" class="btn btn-primary">Añadir un Usuario</a>
+    </div>
+    <div class="col-md-3" style="margin-left: 250px">
+        <form asp-action="Index" method="get" class="form-inline">
+            <div class="form-group mr-2">
+                <input type="text" id="busquedaPorUsuario" name="busquedaPorUsuario" class="form-control" style="width: 300px;" placeholder="Escriba el Nombre de Usaurio" />
+                <br />
+            </div>
+            <button type="submit" class="btn btn-primary">Buscar</button>
+        </form>
+    </div>
+</div>
+
+@if ((bool)ViewBag.NoResultados)
+{
+            <p>No se encuentran resultados de búsqueda.</p>
 }
-    </tbody>
-</table>
+<br />
+<br />
+
+
+<div class="container">
+    <div class="row">
+        @foreach (var item in Model)
+        {
+                <div class="col-lg-4 mb-4">
+                    <div class="card h-100 card1">
+                        <img class="card-img-top" src="@item.Imagen" alt="@item.NombreUsuario">
+                        <div class="card-body">
+                            <h4 class="card-title">@Html.DisplayFor(modelItem => item.NombreUsuario)</h4>
+                            <p class="card-text">Raza de Mascota: @Html.DisplayFor(modelItem => item.Rol.Tipo)</p>
+                            <p class="card-text">Tipo: @Html.DisplayFor(modelItem => item.UltimaFechaConexion)</p>
+                            <p class="card-text">
+                                Estado:
+                            @if (item.Estado)
+                            {
+                                        <span style="color: green;">Activo</span>
+                            }
+                            else
+                            {
+                                        <span style="color: red;">Inactivo</span>
+                            }
+                            </p>
+
+                        </div>
+                        <div class="card-footer">
+                            <a asp-action="Edit" asp-route-id="@item.IdUsuario" class="btn btn-primary">Edit</a>
+                            <a asp-action="Details" asp-route-id="@item.IdUsuario" class="btn btn-secondary">Details</a>
+                            <a asp-action="Delete" asp-route-id="@item.IdUsuario" class="btn btn-danger">Delete</a>
+                        </div>
+                    </div>
+                </div>
+        }
+
+    </div>
+</div>
