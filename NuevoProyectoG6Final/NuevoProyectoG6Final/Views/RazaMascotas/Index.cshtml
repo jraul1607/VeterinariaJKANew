@@ -4,38 +4,64 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<style>
+    .card {
+        border: none;
+        transition: transform .5s ease;
+    }
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Nombre)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TipoMascota)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Nombre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TipoMascota.Nombre)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.IdRazaMascota">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.IdRazaMascota">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.IdRazaMascota">Delete</a>
-            </td>
-        </tr>
+        .card:hover {
+            box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.2);
+            transform: scale(1.1);
+        }
+</style>
+
+<div>
+    <h1 style="text-align: center"> Raza de Mascotas</h1>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <a asp-action="Create" class="btn btn-primary">Añadir raza de mascota</a>
+    </div>
+    <div class="col-md-3" style="margin-left: 250px">
+        <form asp-action="Index" method="get" class="form-inline">
+            <div class="form-group mr-2">
+                <input type="text" id="busquedaRazaMascota" name="busquedaRazaMascota" class="form-control" style="width: 300px;" placeholder="Buscar por raza de mascota" />
+                <br />
+            </div>
+            <button type="submit" class="btn btn-primary">Buscar</button>
+        </form>
+    </div>
+</div>
+
+@if ((bool)ViewBag.NoResultados)
+{
+    <p>No se encuentran resultados de búsqueda.</p>
 }
-    </tbody>
-</table>
+<br />
+<br />
+
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-4">
+            <div class="card mt-3">
+                <div class="card-body">
+                    <h5 class="card-title">@item.Nombre</h5>
+                    <h5 class="card-title">@item.TipoMascota.Nombre</h5>
+                    <div class="btn-group">
+                        <a href="@Url.Action("Edit", new { id = item.IdTipoMascota })" class="btn btn-primary">Editar</a>
+                    </div>
+                    <div class="btn-group">
+                        <a href="@Url.Action("Details", new { id = item.IdTipoMascota })" class="btn btn-secondary">Detalles</a>
+                    </div>
+                    <div class="btn-group">
+                        <a href="@Url.Action("Delete", new { id = item.IdTipoMascota })" class="btn btn-danger">Eliminar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

@@ -19,9 +19,28 @@ namespace NuevoProyectoG6Final.Controllers
         }
 
         // GET: Padecimientoes
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string busquedaPadecimiento)
+
         {
-            return View(await _context.Padecimientos.ToListAsync());
+            var Padecimiento = _context.Padecimientos.AsQueryable();
+
+            if (!string.IsNullOrEmpty(busquedaPadecimiento))
+            {
+                Padecimiento = Padecimiento.Where(m => m.Nombre.Contains(busquedaPadecimiento));
+            }
+            var vetContext = await Padecimiento.ToListAsync();
+
+            if (vetContext.Count == 0)
+            {
+                ViewBag.NoResultados = true;
+            }
+            else
+            {
+                ViewBag.NoResultados = false;
+            }
+
+            return View(vetContext);
+
         }
 
         // GET: Padecimientoes/Details/5

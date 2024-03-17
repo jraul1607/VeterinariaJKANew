@@ -19,9 +19,27 @@ namespace NuevoProyectoG6Final.Controllers
         }
 
         // GET: TipoMascotas
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string busquedaTipoMascota)
         {
-            return View(await _context.TipoMascotas.ToListAsync());
+            var TipoMascota = _context.TipoMascotas.AsQueryable();
+
+            if (!string.IsNullOrEmpty(busquedaTipoMascota))
+            {
+                TipoMascota = TipoMascota.Where(m => m.Nombre.Contains(busquedaTipoMascota));
+            }
+            var vetContext = await TipoMascota.ToListAsync();
+
+            if (vetContext.Count == 0)
+            {
+                ViewBag.NoResultados = true;
+            }
+            else
+            {
+                ViewBag.NoResultados = false;
+            }
+
+            return View(vetContext);
+            // return View(await _context.TipoMascotas.ToListAsync());
         }
 
         // GET: TipoMascotas/Details/5

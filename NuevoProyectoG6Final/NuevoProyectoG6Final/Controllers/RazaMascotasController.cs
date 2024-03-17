@@ -19,10 +19,29 @@ namespace NuevoProyectoG6Final.Controllers
         }
 
         // GET: RazaMascotas
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string busquedaRazaMascota)
         {
-            var vetContext = _context.RazaMascotas.Include(r => r.TipoMascota);
-            return View(await vetContext.ToListAsync());
+            var RazaMascota = _context.RazaMascotas
+                .Include(r => r.TipoMascota)
+                .AsQueryable();
+            if (!string.IsNullOrEmpty(busquedaRazaMascota))
+            {
+                RazaMascota = RazaMascota.Where(m => m.Nombre.Contains(busquedaRazaMascota));
+            }
+            var vetContext = await RazaMascota.ToListAsync();
+
+            if (vetContext.Count == 0)
+            {
+                ViewBag.NoResultados = true;
+            }
+            else
+            {
+                ViewBag.NoResultados = false;
+            }
+
+            return View(vetContext);
+            // var vetContext = _context.RazaMascotas.Include(r => r.TipoMascota);
+            // return View(await vetContext.ToListAsync());
         }
 
         // GET: RazaMascotas/Details/5

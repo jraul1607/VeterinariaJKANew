@@ -20,3 +20,13 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.card {
+    border: none;
+    transition: transform .5s ease;
+}
+
+    .card:hover {
+        box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.2);
+        transform: scale(1.1);
+    }
