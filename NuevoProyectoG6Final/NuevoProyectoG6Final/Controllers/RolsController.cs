@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Razor.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Vet.DAL;
 
@@ -72,6 +73,8 @@ namespace NuevoProyectoG6Final.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("IdRol,Tipo")] Rol rol)
         {
+
+            rol.Estado = true;
             if (ModelState.IsValid)
             {
                 _context.Add(rol);
@@ -102,7 +105,7 @@ namespace NuevoProyectoG6Final.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdRol,Tipo")] Rol rol)
+        public async Task<IActionResult> Edit(int id, [Bind("IdRol,Tipo, Estado")] Rol rol)
         {
             if (id != rol.IdRol)
             {
@@ -118,14 +121,9 @@ namespace NuevoProyectoG6Final.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!RolExists(rol.IdRol))
-                    {
+                    
                         return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                    
                 }
                 return RedirectToAction(nameof(Index));
             }
@@ -140,14 +138,15 @@ namespace NuevoProyectoG6Final.Controllers
                 return NotFound();
             }
 
-            var rol = await _context.Rols
-                .FirstOrDefaultAsync(m => m.IdRol == id);
+            var rol = await _context.Rols.FindAsync(id);
             if (rol == null)
             {
                 return NotFound();
             }
 
-            return View(rol);
+            rol.Estado = false;
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
         }
 
         // POST: Rols/Delete/5
@@ -158,10 +157,9 @@ namespace NuevoProyectoG6Final.Controllers
             var rol = await _context.Rols.FindAsync(id);
             if (rol != null)
             {
-                _context.Rols.Remove(rol);
+                rol.Estado = false;
             }
 
-            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 

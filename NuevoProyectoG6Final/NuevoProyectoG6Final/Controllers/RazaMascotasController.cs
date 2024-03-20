@@ -77,6 +77,7 @@ namespace NuevoProyectoG6Final.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("IdRazaMascota,IdTipoMascota,Nombre")] RazaMascota razaMascota)
         {
+            razaMascota.Estado = true;
             if (ModelState.IsValid)
             {
                 _context.Add(razaMascota);
@@ -109,7 +110,7 @@ namespace NuevoProyectoG6Final.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdRazaMascota,IdTipoMascota,Nombre")] RazaMascota razaMascota)
+        public async Task<IActionResult> Edit(int id, [Bind("IdRazaMascota,IdTipoMascota,Nombre, Estado")] RazaMascota razaMascota)
         {
             if (id != razaMascota.IdRazaMascota)
             {
@@ -148,15 +149,16 @@ namespace NuevoProyectoG6Final.Controllers
                 return NotFound();
             }
 
-            var razaMascota = await _context.RazaMascotas
-                .Include(r => r.TipoMascota)
-                .FirstOrDefaultAsync(m => m.IdRazaMascota == id);
-            if (razaMascota == null)
+            var RazaMascota = await _context.RazaMascotas.FindAsync(id);
+            if (RazaMascota == null)
             {
                 return NotFound();
             }
 
-            return View(razaMascota);
+            RazaMascota.Estado = false;
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+
         }
 
         // POST: RazaMascotas/Delete/5
@@ -164,15 +166,15 @@ namespace NuevoProyectoG6Final.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var razaMascota = await _context.RazaMascotas.FindAsync(id);
-            if (razaMascota != null)
+            var RazaMascota = await _context.RazaMascotas.FindAsync(id);
+            if (RazaMascota != null)
             {
-                _context.RazaMascotas.Remove(razaMascota);
+                RazaMascota.Estado = false;
             }
 
-            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+
 
         private bool RazaMascotaExists(int id)
         {

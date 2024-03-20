@@ -43,14 +43,28 @@
                         <h4 class="card-title">@Html.DisplayFor(modelItem => item.Nombre)</h4>
                         <p class="card-text">Tipo: @Html.DisplayFor(modelItem => item.TipoVacuna)</p>
                         <p class="card-text">Producto: @Html.DisplayFor(modelItem => item.Producto)</p>
+                        <p class="card-text">Estado: @Html.DisplayFor(modelItem => item.Producto)</p>
+                        <p class="card-text">
+                            Estado:
+                            @if (item.Estado)
+                            {
+                                <span style="color: green;">Activo</span>
+                            }
+                            else
+                            {
+                                <span style="color: red;">Inactivo</span>
+                            }
+                        </p>
+
+                    </div>
                     </div>
                     <div class="card-footer">
                         <a asp-action="Edit" asp-route-id="@item.IdVacuna" class="btn btn-primary">Editar</a>
                         <a asp-action="Details" asp-route-id="@item.IdVacuna" class="btn btn-secondary">Detalles</a>
-                        <a asp-action="Delete" asp-route-id="@item.IdVacuna" class="btn btn-danger">Eliminar</a>
+                        <a class="btn btn-danger BorrarElemento" data-estado="@item.Estado" asp-action="Delete" asp-route-id="@item.IdVacuna">Eliminar</a>
                     </div>
                 </div>
-            </div>
+            
         }
     </div>
 </div>

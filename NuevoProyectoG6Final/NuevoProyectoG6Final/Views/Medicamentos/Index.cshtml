@@ -18,6 +18,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.Marca)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Estado)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -31,9 +34,21 @@
                 @Html.DisplayFor(modelItem => item.Marca)
             </td>
             <td>
+                    <p class="card-text">
+                        @if (item.Estado)
+                        {
+                            <span style="color: green;">Activo</span>
+                        }
+                        else
+                        {
+                            <span style="color: red;">Inactivo</span>
+                        }
+                    </p>
+            </td>
+            <td>
                 <a asp-action="Edit" asp-route-id="@item.IdMedicamento">Editar</a> |
                 <a asp-action="Details" asp-route-id="@item.IdMedicamento">Detalles</a> |
-                <a asp-action="Delete" asp-route-id="@item.IdMedicamento">Eliminar</a>
+                    <a class="btn btn-danger BorrarElemento" data-estado="@item.Estado" asp-action="Delete" asp-route-id="@item.IdMedicamento">Eliminar</a>
             </td>
         </tr>
 }

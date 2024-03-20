@@ -18,6 +18,8 @@ namespace Vet.DAL
         [DisplayName("Nombre de Padecimiento")]
         public string Nombre { get; set; }
 
+        public bool Estado { get; set; }
+
         //ICollections
         public ICollection<PadecimientoMascota> PadecimientoMascotas { get; set; } = new List<PadecimientoMascota>();
     }

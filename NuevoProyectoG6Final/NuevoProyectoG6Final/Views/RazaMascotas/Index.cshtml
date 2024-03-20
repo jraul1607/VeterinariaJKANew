@@ -40,14 +40,25 @@
                 <div class="card-body">
                     <h5 class="card-title">@item.Nombre</h5>
                     <h5 class="card-title">@item.TipoMascota.Nombre</h5>
+                    <p class="card-text">
+                        Estado:
+                        @if (item.Estado)
+                        {
+                            <span style="color: green;">Activo</span>
+                        }
+                        else
+                        {
+                            <span style="color: red;">Inactivo</span>
+                        }
+                    </p>
                     <div class="btn-group">
-                        <a href="@Url.Action("Edit", new { id = item.IdTipoMascota })" class="btn btn-primary">Editar</a>
+                        <a href="@Url.Action("Edit", new { id = item.IdRazaMascota })" class="btn btn-primary">Editar</a>
                     </div>
                     <div class="btn-group">
-                        <a href="@Url.Action("Details", new { id = item.IdTipoMascota })" class="btn btn-secondary">Detalles</a>
+                        <a href="@Url.Action("Details", new { id = item.IdRazaMascota })" class="btn btn-secondary">Detalles</a>
                     </div>
                     <div class="btn-group">
-                        <a href="@Url.Action("Delete", new { id = item.IdTipoMascota })" class="btn btn-danger">Eliminar</a>
+                        <a class="btn btn-danger BorrarElemento" data-estado="@item.Estado" asp-action="Delete" asp-route-id="@item.IdRazaMascota">Eliminar</a>
                     </div>
                 </div>
             </div>

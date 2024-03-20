@@ -18,6 +18,8 @@ namespace Vet.DAL
         [DisplayName("Nombre del Rol")]
         public string Tipo { get; set; }
 
+        public bool Estado { get; set; }
+
         public ICollection<Usuario> Usuarios { get; set; } = new List<Usuario>();
     }
 }

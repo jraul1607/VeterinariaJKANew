@@ -20,6 +20,8 @@ namespace Vet.DAL
 
         public string Marca { get; set; }
 
+        public bool Estado { get; set; }
+
 
         //ICollection de Relaciones
         public ICollection<CitaMedicamento> CitaMedicamentos { get; set; } = new List<CitaMedicamento>();

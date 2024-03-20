@@ -55,6 +55,7 @@ namespace NuevoProyectoG6Final.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("IdMedicamento,Nombre,Marca")] Medicamento medicamento)
         {
+            medicamento.Estado = true; 
             if (ModelState.IsValid)
             {
                 _context.Add(medicamento);
@@ -85,7 +86,7 @@ namespace NuevoProyectoG6Final.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdMedicamento,Nombre,Marca")] Medicamento medicamento)
+        public async Task<IActionResult> Edit(int id, [Bind("IdMedicamento,Nombre,Marca, Estado")] Medicamento medicamento)
         {
             if (id != medicamento.IdMedicamento)
             {
@@ -123,14 +124,16 @@ namespace NuevoProyectoG6Final.Controllers
                 return NotFound();
             }
 
-            var medicamento = await _context.Medicamentos
-                .FirstOrDefaultAsync(m => m.IdMedicamento == id);
-            if (medicamento == null)
+            var Medicamento = await _context.Medicamentos.FindAsync(id);
+            if (Medicamento == null)
             {
                 return NotFound();
             }
 
-            return View(medicamento);
+            Medicamento.Estado = false;
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+
         }
 
         // POST: Medicamentos/Delete/5
@@ -138,13 +141,12 @@ namespace NuevoProyectoG6Final.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var medicamento = await _context.Medicamentos.FindAsync(id);
-            if (medicamento != null)
+            var Medicamento = await _context.Medicamentos.FindAsync(id);
+            if (Medicamento != null)
             {
-                _context.Medicamentos.Remove(medicamento);
+                Medicamento.Estado = false;
             }
 
-            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 

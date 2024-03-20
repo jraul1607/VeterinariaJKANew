@@ -73,6 +73,7 @@ namespace NuevoProyectoG6Final.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("IdTipoMascota,Nombre")] TipoMascota tipoMascota)
         {
+            tipoMascota.Estado = true;
             if (ModelState.IsValid)
             {
                 _context.Add(tipoMascota);
@@ -103,7 +104,7 @@ namespace NuevoProyectoG6Final.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdTipoMascota,Nombre")] TipoMascota tipoMascota)
+        public async Task<IActionResult> Edit(int id, [Bind("IdTipoMascota,Nombre, Estado")] TipoMascota tipoMascota)
         {
             if (id != tipoMascota.IdTipoMascota)
             {
@@ -141,28 +142,28 @@ namespace NuevoProyectoG6Final.Controllers
                 return NotFound();
             }
 
-            var tipoMascota = await _context.TipoMascotas
-                .FirstOrDefaultAsync(m => m.IdTipoMascota == id);
-            if (tipoMascota == null)
+            var TipoMascota = await _context.TipoMascotas.FindAsync(id);
+            if (TipoMascota == null)
             {
                 return NotFound();
             }
 
-            return View(tipoMascota);
+            TipoMascota.Estado = false;
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
         }
 
-        // POST: TipoMascotas/Delete/5
-        [HttpPost, ActionName("Delete")]
+            // POST: TipoMascotas/Delete/5
+            [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var tipoMascota = await _context.TipoMascotas.FindAsync(id);
-            if (tipoMascota != null)
+            var TipoMascota = await _context.TipoMascotas.FindAsync(id);
+            if (TipoMascota != null)
             {
-                _context.TipoMascotas.Remove(tipoMascota);
+                TipoMascota.Estado = false;
             }
 
-            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 

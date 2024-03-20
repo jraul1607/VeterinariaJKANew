@@ -18,6 +18,8 @@ namespace Vet.DAL
         [DisplayName("Tipo de Animal")]
         public string Nombre { get; set; }
 
+        public bool Estado { get; set; }
+
         public ICollection<RazaMascota> RazaMascotas { get; set; } = new List<RazaMascota>();
 
         

@@ -23,6 +23,8 @@ namespace Vet.DAL
         [DisplayName("Nombre de Padecimiento")]
         public int IdPadecimiento { get; set; }
 
+      
+
         public Mascota? Mascota { get; set; }
         
         public Padecimiento? Padecimiento { get; set; }

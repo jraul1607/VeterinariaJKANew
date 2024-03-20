@@ -6,7 +6,7 @@
 
 
 //Toastr y Confirmacion para Borrado Logico de Mascotas
-$('.BorrarMascota').click(function (event) {
+$('.BorrarElemento').click(function (event) {
     event.preventDefault();
     var url = $(this).attr('href');
     var estadoMascota = $(this).data('estado');

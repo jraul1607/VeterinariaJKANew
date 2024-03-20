@@ -76,6 +76,8 @@ namespace NuevoProyectoG6Final.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("IdVacuna,Nombre,TipoVacuna,Producto")] Vacuna vacuna)
         {
+
+            vacuna.Estado = true;
             if (ModelState.IsValid)
             {
                 _context.Add(vacuna);
@@ -106,7 +108,7 @@ namespace NuevoProyectoG6Final.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdVacuna,Nombre,TipoVacuna,Producto")] Vacuna vacuna)
+        public async Task<IActionResult> Edit(int id, [Bind("IdVacuna,Nombre,TipoVacuna,Producto,Estado")] Vacuna vacuna)
         {
             if (id != vacuna.IdVacuna)
             {
@@ -122,14 +124,11 @@ namespace NuevoProyectoG6Final.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!VacunaExists(vacuna.IdVacuna))
-                    {
+
+                
+                
                         return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                    
                 }
                 return RedirectToAction(nameof(Index));
             }
@@ -144,14 +143,15 @@ namespace NuevoProyectoG6Final.Controllers
                 return NotFound();
             }
 
-            var vacuna = await _context.Vacunas
-                .FirstOrDefaultAsync(m => m.IdVacuna == id);
+            var vacuna = await _context.Vacunas.FindAsync(id);
             if (vacuna == null)
             {
                 return NotFound();
             }
 
-            return View(vacuna);
+            vacuna.Estado = false;
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
         }
 
         // POST: Vacunas/Delete/5
@@ -162,16 +162,10 @@ namespace NuevoProyectoG6Final.Controllers
             var vacuna = await _context.Vacunas.FindAsync(id);
             if (vacuna != null)
             {
-                _context.Vacunas.Remove(vacuna);
+                vacuna.Estado = false;
             }
 
-            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
-        }
-
-        private bool VacunaExists(int id)
-        {
-            return _context.Vacunas.Any(e => e.IdVacuna == id);
         }
     }
 }

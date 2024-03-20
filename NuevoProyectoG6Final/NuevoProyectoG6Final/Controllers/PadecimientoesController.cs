@@ -74,6 +74,8 @@ namespace NuevoProyectoG6Final.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("IdPadecimiento,Nombre")] Padecimiento padecimiento)
         {
+
+            padecimiento.Estado = true;
             if (ModelState.IsValid)
             {
                 _context.Add(padecimiento);
@@ -104,7 +106,7 @@ namespace NuevoProyectoG6Final.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdPadecimiento,Nombre")] Padecimiento padecimiento)
+        public async Task<IActionResult> Edit(int id, [Bind("IdPadecimiento,Nombre, Estado")] Padecimiento padecimiento)
         {
             if (id != padecimiento.IdPadecimiento)
             {
@@ -142,14 +144,15 @@ namespace NuevoProyectoG6Final.Controllers
                 return NotFound();
             }
 
-            var padecimiento = await _context.Padecimientos
-                .FirstOrDefaultAsync(m => m.IdPadecimiento == id);
-            if (padecimiento == null)
+            var Padecimiento = await _context.Padecimientos.FindAsync(id);
+            if (Padecimiento == null)
             {
                 return NotFound();
             }
 
-            return View(padecimiento);
+            Padecimiento.Estado = false;
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
         }
 
         // POST: Padecimientoes/Delete/5
@@ -157,13 +160,12 @@ namespace NuevoProyectoG6Final.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var padecimiento = await _context.Padecimientos.FindAsync(id);
-            if (padecimiento != null)
+            var Padecimiento = await _context.Padecimientos.FindAsync(id);
+            if (Padecimiento != null)
             {
-                _context.Padecimientos.Remove(padecimiento);
+                Padecimiento.Estado = false;
             }
 
-            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 

@@ -27,6 +27,8 @@ namespace Vet.DAL
         [DisplayName("Fecha de Vacuna")]
         public DateTime FechaVacuna { get; set; }
 
+       
+
         //Nullable Relaciones
         public Vacuna? Vacuna { get; set; }
         public Mascota? Mascota { get; set; }

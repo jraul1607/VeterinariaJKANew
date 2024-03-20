@@ -23,6 +23,8 @@ namespace Vet.DAL
 
         public string Producto { get; set; }
 
+        public bool Estado { get; set; }   
+
 
         //ICollections
         public ICollection<VacunaMascota> VacunaMascotas { get; set; } = new List<VacunaMascota>();
