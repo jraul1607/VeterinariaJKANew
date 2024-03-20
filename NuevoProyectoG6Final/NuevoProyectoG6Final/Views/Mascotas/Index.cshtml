@@ -4,20 +4,9 @@
     ViewData["Title"] = "Index";
 }
 
-<script src="/lib/jquery//dist/jquery.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
-
- <script type="text/javascript">
-    
-    toastr.success('@TempData["message"]');
-</script> 
-
-
 <div>
     <h1 style="text-align: center">Nuestras Mascotas</h1>
 </div>
-
-
 
 
 <div class="row">
@@ -73,7 +62,8 @@
                     <div class="card-footer">
                         <a asp-action="Edit" asp-route-id="@item.IdMascota" class="btn btn-primary">Edit</a>
                         <a asp-action="Details" asp-route-id="@item.IdMascota" class="btn btn-secondary">Details</a>
-                        <a id= "BorrarMascota" data-estado="@item.Estado" asp-action="Delete" asp-route-id="@item.IdMascota" class="btn btn-danger">Delete</a>
+                        <a id="BorrarMascota" data-estado="@item.Estado.ToString().ToLower()" asp-action="Delete" asp-route-id="@item.IdMascota" class="btn btn-danger">Delete</a>
+
                     </div>
                 </div>
             </div>

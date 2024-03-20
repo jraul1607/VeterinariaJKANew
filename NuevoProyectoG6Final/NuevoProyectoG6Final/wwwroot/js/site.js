@@ -3,15 +3,36 @@
 
 // Write your JavaScript code.
 
-$('#BorrarMascota').click(function (event) {
+
+
+//Toastr y Confirmacion para Borrado Logico de Mascotas
+$('.BorrarMascota').click(function (event) {
     event.preventDefault();
     var url = $(this).attr('href');
-    if (confirm('¿Estás seguro de que deseas eliminar esta mascota?')) {
+    var estadoMascota = $(this).data('estado');
 
-        window.location.href = url;
-        /*alert('Eliminado Correctamente');*/
-  }
+    var estadoBool = (estadoMascota.toLowerCase() === 'true');
+
+    if (!estadoBool) {
+        toastr.options.positionClass = 'toast-top-center';
+        toastr.info('La mascota ya se encuentra inactiva.');
+        return; 
+    }
+
+    if (confirm('¿Estás seguro de que deseas eliminar esta mascota?')) {
+        toastr.options.positionClass = 'toast-top-center';
+        toastr.success('La Mascota fue eliminada correctamente.');
+        setTimeout(function () {
+            window.location.href = url;
+        }, 3000);
+    }
 });
+
+
+
+
+
+
 
 
 

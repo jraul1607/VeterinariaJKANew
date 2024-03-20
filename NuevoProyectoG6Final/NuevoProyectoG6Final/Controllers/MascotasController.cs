@@ -167,7 +167,7 @@ namespace NuevoProyectoG6Final.Controllers
 
             mascota.Estado = false;
             await _context.SaveChangesAsync();
-            TempData["message"] = "La Mascota a sido Eliminada";
+            //TempData["SuccessMessage"] = "La mascota fue eliminada correctamente.";
             return RedirectToAction(nameof(Index));
         }
 
