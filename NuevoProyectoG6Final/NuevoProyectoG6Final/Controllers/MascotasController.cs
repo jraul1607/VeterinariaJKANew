@@ -139,14 +139,9 @@ namespace NuevoProyectoG6Final.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!MascotaExists(mascota.IdMascota))
-                    {
+                    
                         return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                    
                 }
                 return RedirectToAction(nameof(Index));
             }
@@ -164,16 +159,16 @@ namespace NuevoProyectoG6Final.Controllers
                 return NotFound();
             }
 
-            var mascota = await _context.Mascotas
-                .Include(m => m.RazaMascota)
-                .Include(m => m.Usuario)
-                .FirstOrDefaultAsync(m => m.IdMascota == id);
+            var mascota = await _context.Mascotas.FindAsync(id);
             if (mascota == null)
             {
                 return NotFound();
             }
 
-            return View(mascota);
+            mascota.Estado = false;
+            await _context.SaveChangesAsync();
+            TempData["message"] = "La Mascota a sido Eliminada";
+            return RedirectToAction(nameof(Index));
         }
 
         // POST: Mascotas/Delete/5
@@ -184,16 +179,10 @@ namespace NuevoProyectoG6Final.Controllers
             var mascota = await _context.Mascotas.FindAsync(id);
             if (mascota != null)
             {
-                _context.Mascotas.Remove(mascota);
+                mascota.Estado = false;
             }
-
-            await _context.SaveChangesAsync();
+           
             return RedirectToAction(nameof(Index));
-        }
-
-        private bool MascotaExists(int id)
-        {
-            return _context.Mascotas.Any(e => e.IdMascota == id);
         }
     }
 }

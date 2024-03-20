@@ -4,102 +4,14 @@
     ViewData["Title"] = "Index";
 }
 
-@* <h1>Index</h1>
+<script src="/lib/jquery//dist/jquery.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Nombre)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Genero)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Edad)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Peso)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.imagen)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IdUsuario)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FechaCreacion)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FechaModificacion)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Estado)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IdTipoMascota)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.RazaMascota)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Usuario)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Nombre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Genero)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Edad)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Peso)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.imagen)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Usuario.NombreUsuario)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FechaCreacion)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FechaModificacion)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Estado)
-            </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.RazaMascota.TipoMascota.Nombre)
-                </td>
+ <script type="text/javascript">
+    
+    toastr.success('@TempData["message"]');
+</script> 
 
-            <td>
-                @Html.DisplayFor(modelItem => item.RazaMascota.Nombre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Usuario.NombreUsuario)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.IdMascota">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.IdMascota">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.IdMascota">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table> *@
 
 <div>
     <h1 style="text-align: center">Nuestras Mascotas</h1>
@@ -130,7 +42,7 @@
 }
 <br />
 <br />
-
+<div id="alertContainer" class="alert" style="display:none;"></div>
 <div class="container">
     <div class="row">
         @foreach (var item in Model)
@@ -161,7 +73,7 @@
                     <div class="card-footer">
                         <a asp-action="Edit" asp-route-id="@item.IdMascota" class="btn btn-primary">Edit</a>
                         <a asp-action="Details" asp-route-id="@item.IdMascota" class="btn btn-secondary">Details</a>
-                        <a asp-action="Delete" asp-route-id="@item.IdMascota" class="btn btn-danger">Delete</a>
+                        <a id= "BorrarMascota" data-estado="@item.Estado" asp-action="Delete" asp-route-id="@item.IdMascota" class="btn btn-danger">Delete</a>
                     </div>
                 </div>
             </div>
@@ -169,5 +81,7 @@
         
     </div>
 </div>
+
+
 
 
