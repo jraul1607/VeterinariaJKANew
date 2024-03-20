@@ -47,6 +47,7 @@ namespace Vet.DAL
         [DisplayName("Fecha de Modificacion")]
         public DateTime FechaModificacion { get; set; }
 
+        
         public bool Estado { get; set; }
 
 

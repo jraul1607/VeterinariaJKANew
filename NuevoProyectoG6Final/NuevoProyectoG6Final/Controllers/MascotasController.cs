@@ -84,8 +84,11 @@ namespace NuevoProyectoG6Final.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdMascota,Nombre,IdTipoMascota,IdRazaMascota,Genero,Edad,Peso,IdUsuarioCreacion,IdUsuario,FechaCreacion,FechaModificacion,Estado,Imagen")] Mascota mascota)
+        public async Task<IActionResult> Create([Bind("IdMascota,Nombre,IdTipoMascota,IdRazaMascota,Genero,Edad,Peso,IdUsuarioCreacion,IdUsuario,FechaCreacion,FechaModificacion,Imagen")] Mascota mascota)
         {
+
+            mascota.Estado = true; 
+
             if (ModelState.IsValid)
             {
                 _context.Add(mascota);
@@ -125,6 +128,8 @@ namespace NuevoProyectoG6Final.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("IdMascota,Nombre,IdTipoMascota,IdRazaMascota,Genero,Edad,Peso,IdUsuarioCreacion,IdUsuario,FechaCreacion,FechaModificacion,Estado,Imagen")] Mascota mascota)
         {
+
+
             if (id != mascota.IdMascota)
             {
                 return NotFound();
@@ -167,7 +172,6 @@ namespace NuevoProyectoG6Final.Controllers
 
             mascota.Estado = false;
             await _context.SaveChangesAsync();
-            //TempData["SuccessMessage"] = "La mascota fue eliminada correctamente.";
             return RedirectToAction(nameof(Index));
         }
 

@@ -76,8 +76,11 @@ namespace NuevoProyectoG6Final.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdUsuario,IdRol,NombreUsuario,Contrasena,Imagen,UltimaFechaConexion,Estado")] Usuario usuario)
+        public async Task<IActionResult> Create([Bind("IdUsuario,IdRol,NombreUsuario,Contrasena,Imagen,UltimaFechaConexion")] Usuario usuario)
         {
+
+            usuario.Estado = true;
+
             if (ModelState.IsValid)
             {
                 _context.Add(usuario);
@@ -126,14 +129,9 @@ namespace NuevoProyectoG6Final.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!UsuarioExists(usuario.IdUsuario))
-                    {
+                    
                         return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                    
                 }
                 return RedirectToAction(nameof(Index));
             }
@@ -149,15 +147,15 @@ namespace NuevoProyectoG6Final.Controllers
                 return NotFound();
             }
 
-            var usuario = await _context.Usuarios
-                .Include(u => u.Rol)
-                .FirstOrDefaultAsync(m => m.IdUsuario == id);
-            if (usuario == null)
+            var mascota = await _context.Usuarios.FindAsync(id);
+            if (mascota == null)
             {
                 return NotFound();
             }
 
-            return View(usuario);
+            mascota.Estado = false;
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
         }
 
         // POST: Usuarios/Delete/5
@@ -168,16 +166,10 @@ namespace NuevoProyectoG6Final.Controllers
             var usuario = await _context.Usuarios.FindAsync(id);
             if (usuario != null)
             {
-                _context.Usuarios.Remove(usuario);
+                usuario.Estado = false;
             }
 
-            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
-        }
-
-        private bool UsuarioExists(int id)
-        {
-            return _context.Usuarios.Any(e => e.IdUsuario == id);
         }
     }
 }

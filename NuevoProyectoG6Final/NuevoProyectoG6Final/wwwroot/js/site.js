@@ -15,13 +15,13 @@ $('.BorrarMascota').click(function (event) {
 
     if (!estadoBool) {
         toastr.options.positionClass = 'toast-top-center';
-        toastr.info('La mascota ya se encuentra inactiva.');
+        toastr.info('El Elemento que esta intentando eliminar ya se encuentra Inactivo.');
         return; 
     }
 
-    if (confirm('¿Estás seguro de que deseas eliminar esta mascota?')) {
+    if (confirm('¿Estás seguro de que deseas eliminar este elemento?')) {
         toastr.options.positionClass = 'toast-top-center';
-        toastr.success('La Mascota fue eliminada correctamente.');
+        toastr.success('Usted ha Eliminado un Elemento Correctamente');
         setTimeout(function () {
             window.location.href = url;
         }, 3000);
