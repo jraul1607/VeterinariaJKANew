@@ -20,10 +20,24 @@ namespace NuevoProyectoG6Final.Controllers
         }
 
         // GET: Citas
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string busquedaCita)
         {
-            var vetContext = _context.Citas.Include(c => c.Mascota).Include(c => c.Usuario);
-            return View(await vetContext.ToListAsync());
+            DateTime fechaHoy = DateTime.Now;
+
+            var historial = await _context.Citas.Include(c => c.Mascota).Include(c => c.Usuario)
+                .Where(c => c.Fecha.Date< fechaHoy.Date).ToListAsync();
+
+            var enCurso = await _context.Citas.Include(c => c.Mascota).Include(c => c.Usuario)
+                .Where(c => c.Fecha.Date == fechaHoy.Date).ToListAsync();
+
+            var proxima = await _context.Citas.Include(c => c.Mascota).Include(c => c.Usuario)
+                .Where(c => c.Fecha.Date > fechaHoy.Date).ToListAsync();
+
+            ViewData["historial"] = historial;
+            ViewData["enCurso"] = enCurso;
+            ViewData["proxima"] = proxima;
+
+            return View();
         }
 
         // GET: Citas/Details/5

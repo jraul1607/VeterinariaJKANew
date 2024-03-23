@@ -3,12 +3,22 @@
 @{
     ViewData["Title"] = "Index";
 }
+    
 
 <h1>Citas</h1>
 
-<p>
-    <a asp-action="Create" class="btn btn-primary">Nueva Cita</a>
-</p>
+
+<p><a asp-action="Create" class="btn btn-primary">Nueva Cita </a></p>
+
+
+
+@if ((bool)ViewBag.NoResultados)
+{
+    <p>No se encuentran resultados de búsqueda.</p>
+}
+
+
+<h2>Historial</h2>
 <table class="table">
     <thead>
         <tr>
@@ -37,10 +47,11 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
+        @if (ViewData["historial"] is IEnumerable<Vet.DAL.Cita> historial)
+        {
+            @foreach (var item in historial)
         {
             <tr>
-
                 <td>
                     @Html.DisplayFor(modelItem => item.Fecha)
                 </td>
@@ -69,5 +80,141 @@
                 </td>
             </tr>
         }
+        }
     </tbody>
 </table>
+
+<h2>En Curso</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Fecha)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Descripcion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Diagnostico)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Mascota)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdUsuarioPrincipal)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdUsuarioSecundario)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EstadoCita)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+    <tbody>
+            
+         @if (ViewData["enCurso"] is IEnumerable<Vet.DAL.Cita> enCurso)
+        {
+                @foreach (var item in enCurso)
+        {
+            <tr>
+                <td>
+                        @Html.DisplayFor(modelItem => item.Fecha)
+                </td>
+                <td>
+                        @Html.DisplayFor(modelItem => item.Descripcion)
+                </td>
+                <td>
+                        @Html.DisplayFor(modelItem => item.Diagnostico)
+                </td>
+                <td>
+                        @Html.DisplayFor(modelItem => item.Mascota.Nombre)
+                </td>
+                <td>
+                        @Html.DisplayFor(modelItem => item.IdUsuarioPrincipal)
+                </td>
+                <td>
+                        @Html.DisplayFor(modelItem => item.IdUsuarioSecundario)
+                </td>
+                <td>
+                        @Html.DisplayFor(modelItem => item.EstadoCita)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.IdCita">Editar</a> |
+                    <a asp-action="Details" asp-route-id="@item.IdCita">Detalles</a> |
+                    <a asp-action="Delete" asp-route-id="@item.IdCita">Eliminar</a>
+                </td>
+            </tr>
+        }
+        }
+    </tbody>
+</table>
+
+<h2>Próximas</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Fecha)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Descripcion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Diagnostico)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Mascota)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdUsuarioPrincipal)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdUsuarioSecundario)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EstadoCita)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+    <tbody>
+            @if (ViewData["proxima"] is IEnumerable<Vet.DAL.Cita> proxima)
+        {
+                @foreach (var item in proxima)
+        {
+            <tr>
+                <td>
+                        @Html.DisplayFor(modelItem => item.Fecha)
+                </td>
+                <td>
+                        @Html.DisplayFor(modelItem => item.Descripcion)
+                </td>
+                <td>
+                        @Html.DisplayFor(modelItem => item.Diagnostico)
+                </td>
+                <td>
+                        @Html.DisplayFor(modelItem => item.Mascota.Nombre)
+                </td>
+                <td>
+                        @Html.DisplayFor(modelItem => item.IdUsuarioPrincipal)
+                </td>
+                <td>
+                        @Html.DisplayFor(modelItem => item.IdUsuarioSecundario)
+                </td>
+                <td>
+                        @Html.DisplayFor(modelItem => item.EstadoCita)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.IdCita">Editar</a> |
+                    <a asp-action="Details" asp-route-id="@item.IdCita">Detalles</a> |
+                    <a asp-action="Delete" asp-route-id="@item.IdCita">Eliminar</a>
+                </td>
+            </tr>
+        }
+        }
+    </tbody>
+</table> 

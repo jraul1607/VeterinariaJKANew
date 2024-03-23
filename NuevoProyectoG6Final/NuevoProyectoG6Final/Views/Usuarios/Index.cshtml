@@ -40,8 +40,8 @@
                         <img class="card-img-top" src="@item.Imagen" alt="@item.NombreUsuario">
                         <div class="card-body">
                             <h4 class="card-title">@Html.DisplayFor(modelItem => item.NombreUsuario)</h4>
-                            <p class="card-text">Raza de Mascota: @Html.DisplayFor(modelItem => item.Rol.Tipo)</p>
-                            <p class="card-text">Tipo: @Html.DisplayFor(modelItem => item.UltimaFechaConexion)</p>
+                            <p class="card-text">Rol: @Html.DisplayFor(modelItem => item.Rol.Tipo)</p>
+                            <p class="card-text">Última Fecha de conexión: @Html.DisplayFor(modelItem => item.UltimaFechaConexion)</p>
                             <p class="card-text">
                                 Estado:
                             @if (item.Estado)
@@ -56,9 +56,9 @@
 
                         </div>
                         <div class="card-footer">
-                            <a asp-action="Edit" asp-route-id="@item.IdUsuario" class="btn btn-primary">Edit</a>
-                            <a asp-action="Details" asp-route-id="@item.IdUsuario" class="btn btn-secondary">Details</a>
-                        <a class="btn btn-danger BorrarElemento" data-estado="@item.Estado" asp-action="Delete" asp-route-id="@item.IdUsuario">Delete</a>
+                            <a asp-action="Edit" asp-route-id="@item.IdUsuario" class="btn btn-primary">Editar</a>
+                            <a asp-action="Details" asp-route-id="@item.IdUsuario" class="btn btn-secondary">Detalles</a>
+                        <a class="btn btn-danger BorrarElemento" data-estado="@item.Estado" asp-action="Delete" asp-route-id="@item.IdUsuario">Eliminar</a>
                         </div>
                     </div>
                 </div>
