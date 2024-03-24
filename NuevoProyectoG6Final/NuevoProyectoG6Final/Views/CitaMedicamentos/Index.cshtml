@@ -4,44 +4,43 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Cita/Medicamentos</h1>
+<div>
+    <h1 style="text-align: center">Medicamentos por Cita</h1>
+</div>
 
-<p>
-    <a asp-action="Create" class="btn btn-primary">Asignar Medicamento a Cita</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Dosis)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Medicamento)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Cita)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Dosis)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Medicamento.Marca)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Cita.Descripcion)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.IdCitaMedicamento">Editar</a> |
-                <a asp-action="Details" asp-route-id="@item.IdCitaMedicamento">Detalles</a> |
-                <a asp-action="Delete" asp-route-id="@item.IdCitaMedicamento">Eliminar</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<div class="row">
+    <div class="col-md-6">
+        <a asp-action="Create" class="btn btn-primary">Asignar Medicamento a Cita</a>
+    </div>
+    <div class="col-md-3" style="margin-left: 250px">
+        <form asp-action="Index" method="get" class="form-inline">
+            <div class="form-group mr-2">
+                <input type="text" id="busquedaMedicamentoCita" name="busquedaMedicamentoCita" class="form-control" style="width: 300px;" placeholder="Buscar por medicamentos de cita" />
+                <br />
+            </div>
+            <button type="submit" class="btn btn-primary">Buscar</button>
+        </form>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-lg-4 mb-4">
+                <div class="card card1 h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">@Html.DisplayFor(modelItem => item.Medicamento.Nombre)</h5>
+                        <p class="card-text">Dosis: @Html.DisplayFor(modelItem => item.Dosis)</p>
+                        <p class="card-text">Cita: @Html.DisplayFor(modelItem => item.IdCita)</p>
+                    </div>
+                    <div class="card-footer">
+                        <a asp-action="Edit" asp-route-id="@item.IdCitaMedicamento" class="btn btn-primary">Editar</a>
+                        <a asp-action="Details" asp-route-id="@item.Dosis" class="btn btn-secondary">Detalles</a>
+                        <a asp-action="Delete" asp-route-id="@item.IdCitaMedicamento" class="btn btn-danger">Eliminar</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
