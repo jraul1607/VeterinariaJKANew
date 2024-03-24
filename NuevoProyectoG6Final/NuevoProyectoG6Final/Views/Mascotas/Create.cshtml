@@ -29,7 +29,10 @@
             </div>
             <div class="form-group">
                 <label asp-for="Genero" class="control-label"></label>
-                <input asp-for="Genero" class="form-control" />
+                <select asp-for="Genero" class="form-control" />
+                <option value="Hembra">Hembra</option>
+                <option value="Macho">Macho</option>
+                </select>
                 <span asp-validation-for="Genero" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -49,14 +52,6 @@
             <div class="form-group">
                 <label asp-for="IdUsuario" class="control-label"></label>
                 <select asp-for="IdUsuario" class="form-control" asp-items="ViewBag.IdUsuarioCreacion" ></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="FechaCreacion" class="control-label"></label>
-                <input asp-for="FechaCreacion" class="form-control" />
-            </div>
-            <div class="form-group">
-                <label asp-for="FechaModificacion" class="control-label"></label>
-                <input asp-for="FechaModificacion" class="form-control" />
             </div>
             @* <div class="form-group form-check">
                 <label class="form-check-label">

@@ -43,9 +43,27 @@ namespace Vet.DAL
 
         [DisplayName("Fecha de Creacion")]
         public DateTime FechaCreacion { get; set; }
+        [DisplayName("Fecha de Creacion")]
+        public string FechaCreacionFormateada
+        {
+            get
+            {
+                return FechaCreacion.ToString("dd/MM/yyyy HH:mm tt");
+            }
+        }
+
 
         [DisplayName("Fecha de Modificacion")]
         public DateTime FechaModificacion { get; set; }
+        [DisplayName("Fecha de Modificacion")]
+
+        public string FechaModificacionFormateada
+        {
+            get
+            {
+                return FechaModificacion.ToString("dd/MM/yyyy HH:mm tt");
+            }
+        }
 
         
         public bool Estado { get; set; }
