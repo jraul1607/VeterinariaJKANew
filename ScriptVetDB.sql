@@ -41,12 +41,12 @@ VALUES
     ('Lilith', 2, 4, 'Hembra', 5, 25, 'ImagenPrueba', 4, 3, '2024-03-20 12:30:00', '2024-03-20 12:30:00', 1);
 
 	/*INSERTS PARA MEDICAMENTOS*/
-INSERT INTO Medicamentos(Nombre, Marca, Estado) 
+INSERT INTO Medicamentos(Nombre, Marca,UnidadMedida,Estado) 
 VALUES 
-    ('Paracetamol', 'Tylenol', 1),
-    ('Ibuprofeno', 'Advil', 1),
-    ('Omeprazol', 'Prilosec', 1),
-    ('Amoxicilina', 'Amoxil', 1);  
+    ('Paracetamol', 'Tylenol','mg', 1),
+    ('Ibuprofeno', 'Advil','gr', 1),
+    ('Omeprazol', 'Prilosec','ml', 1),
+    ('Amoxicilina', 'Amoxil','mg', 1);  
 
 
 /*INSERTS PARA PADECIMIENTOS*/
@@ -59,8 +59,8 @@ VALUES
 
 INSERT INTO Vacunas (Nombre, TipoVacuna, Producto, Estado) 
 VALUES 
-    ('Rabia', 'Prevención', 'Vacuna A', 1),
-    ('Parvovirus', 'Prevención', 'Vacuna B', 1),
-    ('Moquillo', 'Prevención', 'Vacuna C', 1),
-    ('Leptospirosis', 'Prevención', 'Vacuna D', 1);
+    ('Rabia', 'Prevenci n', 'Vacuna A', 1),
+    ('Parvovirus', 'Prevenci n', 'Vacuna B', 1),
+    ('Moquillo', 'Prevenci n', 'Vacuna C', 1),
+    ('Leptospirosis', 'Prevenci n', 'Vacuna D', 1);
 

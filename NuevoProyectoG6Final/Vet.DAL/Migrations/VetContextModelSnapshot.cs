@@ -164,6 +164,10 @@ namespace Vet.DAL.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("UnidadMedida")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("IdMedicamento");
 
                     b.ToTable("Medicamentos");

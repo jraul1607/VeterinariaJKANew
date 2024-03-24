@@ -20,6 +20,8 @@ namespace Vet.DAL
 
         public string Marca { get; set; }
 
+        public string UnidadMedida { get; set; }
+
         public bool Estado { get; set; }
 
 

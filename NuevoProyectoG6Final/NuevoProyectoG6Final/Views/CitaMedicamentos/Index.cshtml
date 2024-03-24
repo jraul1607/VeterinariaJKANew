@@ -31,7 +31,7 @@
                 <div class="card card1 h-100">
                     <div class="card-body">
                         <h5 class="card-title">@Html.DisplayFor(modelItem => item.Medicamento.Nombre)</h5>
-                        <p class="card-text">Dosis: @Html.DisplayFor(modelItem => item.Dosis)</p>
+                        <p class="card-text">Dosis: @Html.DisplayFor(modelItem => item.Dosis) @Html.DisplayFor(modelItem => item.Medicamento.UnidadMedida)</p>
                         <p class="card-text">Cita: @Html.DisplayFor(modelItem => item.IdCita)</p>
                     </div>
                     <div class="card-footer">

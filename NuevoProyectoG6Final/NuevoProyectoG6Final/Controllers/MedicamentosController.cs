@@ -53,7 +53,7 @@ namespace NuevoProyectoG6Final.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdMedicamento,Nombre,Marca")] Medicamento medicamento)
+        public async Task<IActionResult> Create([Bind("IdMedicamento,Nombre,Marca,UnidadMedida")] Medicamento medicamento)
         {
             medicamento.Estado = true; 
             if (ModelState.IsValid)
@@ -86,7 +86,7 @@ namespace NuevoProyectoG6Final.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdMedicamento,Nombre,Marca, Estado")] Medicamento medicamento)
+        public async Task<IActionResult> Edit(int id, [Bind("IdMedicamento,Nombre,Marca,UnidadMedida,Estado")] Medicamento medicamento)
         {
             if (id != medicamento.IdMedicamento)
             {
