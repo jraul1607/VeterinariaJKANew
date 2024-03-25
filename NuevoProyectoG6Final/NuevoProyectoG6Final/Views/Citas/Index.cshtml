@@ -20,8 +20,9 @@
     }
     else
     {
-        <table class="table">
-            <thead>
+        <div class="table-responsive">
+        <table class="table table-striped table-bordered table-hover">
+            <thead class="thead-dark">
                 <tr>
                     <th>
                         @Html.DisplayNameFor(model => model.Fecha)
@@ -73,15 +74,15 @@
                             @Html.DisplayFor(modelItem => item.EstadoCita)
                         </td>
                         <td>
-                            <a asp-action="Edit" asp-route-id="@item.IdCita">Editar</a> |
-                            <a asp-action="Details" asp-route-id="@item.IdCita">Detalles</a> |
-                            <a asp-action="Delete" asp-route-id="@item.IdCita">Eliminar</a>
+                            <a asp-action="Edit" asp-route-id="@item.IdCita" class="btn btn-primary btn-sm">Editar</a>
+                            <a asp-action="Details" asp-route-id="@item.IdCita" class="btn btn-secondary btn-sm">Detalles</a>
                         </td>
                     </tr>
                 }
 
             </tbody>
         </table>
+        </div>
     }
 }
 
@@ -95,8 +96,9 @@
     }
     else
     {
-        <table class="table">
-            <thead>
+        <div class="table-responsive">
+        <table class="table table-striped table-bordered table-hover">
+                <thead class="thead-dark">
                 <tr>
                     <th>
                         @Html.DisplayNameFor(model => model.Fecha)
@@ -149,15 +151,16 @@
                                 @Html.DisplayFor(modelItem => item.EstadoCita)
                         </td>
                         <td>
-                            <a asp-action="Edit" asp-route-id="@item.IdCita">Editar</a> |
-                            <a asp-action="Details" asp-route-id="@item.IdCita">Detalles</a> |
-                            <a asp-action="Delete" asp-route-id="@item.IdCita">Eliminar</a>
+                            <a asp-action="Edit" asp-route-id="@item.IdCita" class="btn btn-primary btn-sm">Editar</a>
+                            <a asp-action="Details" asp-route-id="@item.IdCita" class="btn btn-secondary btn-sm">Detalles</a>
+                                <a asp-action="Delete" asp-route-id="@item.IdCita" class="btn btn-danger btn-sm">Cancelar</a>
                         </td>
                     </tr>
                     }
 
             </tbody>
         </table>
+        </div>
     }
 }
 
@@ -171,8 +174,9 @@
     }
     else
     {
-        <table class="table">
-            <thead>
+        <div class="table-responsive">
+        <table class="table table-striped table-bordered table-hover">
+                <thead class="thead-dark">
                 <tr>
                     <th>
                         @Html.DisplayNameFor(model => model.Fecha)
@@ -225,14 +229,15 @@
                                 @Html.DisplayFor(modelItem => item.EstadoCita)
                         </td>
                         <td>
-                            <a asp-action="Edit" asp-route-id="@item.IdCita">Editar</a> |
-                            <a asp-action="Details" asp-route-id="@item.IdCita">Detalles</a> |
-                            <a asp-action="Delete" asp-route-id="@item.IdCita">Eliminar</a>
+                            <a asp-action="Edit" asp-route-id="@item.IdCita" class="btn btn-primary btn-sm">Editar</a>
+                            <a asp-action="Details" asp-route-id="@item.IdCita" class="btn btn-secondary btn-sm">Detalles</a>
+                                <a asp-action="Delete" asp-route-id="@item.IdCita" class="btn btn-danger btn-sm">Cancelar</a>
                         </td>
                     </tr>
 
                     }
             </tbody>
         </table>
+        </div>
     }
 }

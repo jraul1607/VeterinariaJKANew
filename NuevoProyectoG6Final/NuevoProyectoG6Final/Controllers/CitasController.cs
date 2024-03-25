@@ -76,14 +76,6 @@ namespace NuevoProyectoG6Final.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("IdCita,IdMascota,IdUsuarioPrincipal,IdUsuarioSecundario,Fecha,Descripcion,Diagnostico")] Cita cita)
         {
-            //foreach (var modelStateValue in ModelState.Values)
-            //{
-            //    foreach (var error in modelStateValue.Errors)
-            //    {
-            //        // Log or debug error messages
-            //        string test = error.ErrorMessage;
-            //    }
-            //}
 
             if (ModelState.IsValid)
             {
@@ -183,7 +175,8 @@ namespace NuevoProyectoG6Final.Controllers
             var cita = await _context.Citas.FindAsync(id);
             if (cita != null)
             {
-                _context.Citas.Remove(cita);
+                cita.EstadoCita = CitaEstado.CANCELADA.ToString();
+                _context.Citas.Update(cita);
             }
 
             await _context.SaveChangesAsync();
