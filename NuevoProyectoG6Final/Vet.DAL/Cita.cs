@@ -52,7 +52,7 @@ namespace Vet.DAL
 
         public Usuario? Usuario { get; set; }
 
-
+        //public Usuario? Usuario2 { get; set; }
 
         //ICollection de Relaciones
         public ICollection<CitaMedicamento> CitaMedicamentos { get; set; } = new List<CitaMedicamento>();

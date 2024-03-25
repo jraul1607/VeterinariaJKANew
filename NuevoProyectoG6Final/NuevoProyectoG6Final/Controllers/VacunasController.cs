@@ -20,17 +20,17 @@ namespace NuevoProyectoG6Final.Controllers
 
         // GET: Vacunas
 
-             public async Task<IActionResult> Index(string busquedaVacuna)
+        public async Task<IActionResult> Index(string busquedaVacuna)
         {
-            var vacunas = _context.Vacunas.AsQueryable();    
-            
+            var vacunas = _context.Vacunas.AsQueryable();
+
 
             if (!string.IsNullOrEmpty(busquedaVacuna))
             {
                 vacunas = vacunas.Where(v => v.Nombre.Contains(busquedaVacuna));
             }
 
-            var vetContext= await vacunas.ToListAsync();
+            var vetContext = await vacunas.ToListAsync();
 
             if (vetContext.Count == 0)
             {
@@ -125,10 +125,10 @@ namespace NuevoProyectoG6Final.Controllers
                 catch (DbUpdateConcurrencyException)
                 {
 
-                
-                
-                        return NotFound();
-                    
+
+
+                    return NotFound();
+
                 }
                 return RedirectToAction(nameof(Index));
             }
