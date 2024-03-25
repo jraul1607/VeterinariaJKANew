@@ -87,7 +87,7 @@ namespace NuevoProyectoG6Final.Controllers
 
             if (ModelState.IsValid)
             {
-                cita.EstadoCita = CitaEstado.Activa.ToString();
+                cita.EstadoCita = CitaEstado.AGENDADA.ToString();
 
                 _context.Add(cita);
                 await _context.SaveChangesAsync();
