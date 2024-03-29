@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Build.Framework;
 using Microsoft.EntityFrameworkCore;
 using NuevoProyectoG6Final.Enums;
 using Vet.DAL;
@@ -64,8 +65,13 @@ namespace NuevoProyectoG6Final.Controllers
         public IActionResult Create()
         {
             ViewData["Mascotas"] = new SelectList(_context.Mascotas, "IdMascota", "Nombre");
-            ViewData["VetsPrincipales"] = new SelectList(_context.Usuarios, "IdUsuario", "NombreUsuario");
-            ViewData["VetsSecundarios"] = new SelectList(_context.Usuarios, "IdUsuario", "NombreUsuario");
+            //Consulta para llamar a todos los usuarios con el rol "Veterinario"
+            var veterinarios = _context.Rols
+                .Where(r => r.Tipo == "Veterinario")
+                .SelectMany(r => r.Usuarios)
+                .ToList();
+            ViewData["VetsPrincipales"] = new SelectList(veterinarios, "IdUsuario", "NombreUsuario");
+            ViewData["VetsSecundarios"] = new SelectList(veterinarios, "IdUsuario", "NombreUsuario");
             return View();
         }
 
@@ -76,6 +82,23 @@ namespace NuevoProyectoG6Final.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("IdCita,IdMascota,IdUsuarioPrincipal,IdUsuarioSecundario,Fecha,Descripcion,Diagnostico")] Cita cita)
         {
+            //El veterinario principal y secundario deben ser diferentes
+            if (cita.IdUsuarioPrincipal == cita.IdUsuarioSecundario)
+            {
+                ModelState.AddModelError("Diagnostico", "Nota: El veterinario secundario no puede ser el mismo que el veterinario principal.");
+            }
+
+            // Verificar si el veterinario ya tiene una cita en la misma fecha y hora
+            if (await CitaAsignadaVet(cita.IdUsuarioPrincipal, cita.Fecha))
+            {
+                ModelState.AddModelError("Diagnostico", "El veterinario ya tiene una cita programada en esta fecha y hora.");
+            }
+
+            //No se permiten citas antes de las 7am o después de las 6pm, de lunes a sábado. Domingos NO Hay citas.
+            if (Domingo(cita.Fecha) || (DiaLaboral(cita.Fecha) && (cita.Fecha.TimeOfDay < TimeSpan.FromHours(7) || cita.Fecha.TimeOfDay > TimeSpan.FromHours(18))))
+            {
+                ModelState.AddModelError("Diagnostico", "Nota: No se pueden programar citas los días Domingo ni los días de Lunes a Sábado antes de las 7 am y después de las 6 pm.");
+            }
 
             if (ModelState.IsValid)
             {
@@ -87,9 +110,31 @@ namespace NuevoProyectoG6Final.Controllers
             }
 
             ViewData["Mascotas"] = new SelectList(_context.Mascotas, "IdMascota", "Nombre");
-            ViewData["VetsPrincipales"] = new SelectList(_context.Usuarios, "IdUsuario", "NombreUsuario");
-            ViewData["VetsSecundarios"] = new SelectList(_context.Usuarios, "IdUsuario", "NombreUsuario");
+            //Consulta para llamar a todos los usuarios con el rol "Veterinario"
+            var veterinarios = _context.Rols
+                .Where(r => r.Tipo == "Veterinario")
+                .SelectMany(r => r.Usuarios)
+                .ToList();
+            ViewData["VetsPrincipales"] = new SelectList(veterinarios, "IdUsuario", "NombreUsuario");
+            ViewData["VetsSecundarios"] = new SelectList(veterinarios, "IdUsuario", "NombreUsuario");
             return View(cita);
+        }
+
+        // Verificación día laboral (de Lunes a Sábado)
+        private bool DiaLaboral(DateTime fecha)
+        {
+            return fecha.DayOfWeek >= DayOfWeek.Monday && fecha.DayOfWeek <= DayOfWeek.Saturday;
+        }
+        // Verificación día domingo
+        private bool Domingo(DateTime fecha)
+        {
+            return fecha.DayOfWeek == DayOfWeek.Sunday;
+        }
+
+        // Método para verificar si el veterinario tiene una cita en la misma fecha y hora
+        private async Task<bool> CitaAsignadaVet(int IdUsuario, DateTime fecha)
+        {
+            return await _context.Citas.AnyAsync(c => (c.IdUsuarioPrincipal == IdUsuario || c.IdUsuarioSecundario == IdUsuario) && c.Fecha == fecha);
         }
 
         // GET: Citas/Edit/5
