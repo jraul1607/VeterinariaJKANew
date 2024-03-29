@@ -13,9 +13,9 @@
     <div class="col-md-6">
         <a asp-action="Create" class="btn btn-primary">Añadir Vacunas</a>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-3" style="margin-left: 250px">
         <form asp-action="Index" method="get" class="form-inline">
-            <div class="form-group mr-2">
+            <div class="form-group mr-3">
                 <input type="text" id="busquedaVacuna" name="busquedaVacuna" class="form-control" style="width: 300px;" placeholder="Buscar Vacuna" />
                 <br />
             </div>
@@ -38,7 +38,7 @@
         @foreach (var item in Model)
         {
             <div class="col-lg-4 mb-4">
-                <div class="card card 1 h-100">
+                <div class="card card 1">
                     <div class="card-body">
                         <h4 class="card-title">@Html.DisplayFor(modelItem => item.Nombre)</h4>
                         <p class="card-text">Tipo: @Html.DisplayFor(modelItem => item.TipoVacuna)</p>
@@ -58,12 +58,14 @@
 
                     </div>
                     </div>
+            
                     <div class="card-footer">
                         <a asp-action="Edit" asp-route-id="@item.IdVacuna" class="btn btn-primary">Editar</a>
                         <a asp-action="Details" asp-route-id="@item.IdVacuna" class="btn btn-secondary">Detalles</a>
                         <a class="btn btn-danger BorrarElemento" data-estado="@item.Estado" asp-action="Delete" asp-route-id="@item.IdVacuna">Eliminar</a>
                     </div>
                 </div>
+                
             
         }
     </div>
