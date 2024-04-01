@@ -48,7 +48,7 @@ namespace NuevoProyectoG6Final.Controllers
         // GET: CitaMedicamentos/Create
         public IActionResult Create()
         {
-            ViewData["IdCita"] = new SelectList(_context.Citas, "IdCita", "Descripcion");
+            ViewData["IdCita"] = new SelectList(_context.Citas, "IdCita", "IdCita");
             ViewData["IdMedicamento"] = new SelectList(_context.Medicamentos, "IdMedicamento", "Marca");
             return View();
         }
@@ -66,7 +66,7 @@ namespace NuevoProyectoG6Final.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IdCita"] = new SelectList(_context.Citas, "IdCita", "Descripcion", citaMedicamento.IdCita);
+            ViewData["IdCita"] = new SelectList(_context.Citas, "IdCita", "IdCita", citaMedicamento.IdCita);
             ViewData["IdMedicamento"] = new SelectList(_context.Medicamentos, "IdMedicamento", "Marca", citaMedicamento.IdMedicamento);
             return View(citaMedicamento);
         }

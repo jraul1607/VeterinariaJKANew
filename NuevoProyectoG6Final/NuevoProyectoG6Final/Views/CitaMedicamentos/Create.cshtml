@@ -4,36 +4,35 @@
     ViewData["Title"] = "Crear";
 }
 
-<h1>Cita/Medicamentos</h1>
+<h1>Asignar medicamentos a cita de (nombreMascota)</h1>
 
-<h4>Asignar medicamentos a cita de (nombreMascota)</h4>
 <hr />
-<div class="row">
-    <div class="col-md-4">
+<div class="card">
+    <div class="card-body">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="IdCita" class="control-label"></label>
-                <select asp-for="IdCita" class ="form-control" asp-items="ViewBag.IdCita"></select>
+                <label asp-for="IdCita" class="control-label card-subtitle"></label>
+                <select asp-for="IdCita" class="form-control" asp-items="ViewBag.IdCita"></select>
             </div>
             <div class="form-group">
-                <label asp-for="IdMedicamento" class="control-label"></label>
-                <select asp-for="IdMedicamento" class ="form-control" asp-items="ViewBag.IdMedicamento"></select>
+                <label asp-for="IdMedicamento" class="control-label card-subtitle"></label>
+                <select asp-for="IdMedicamento" class="form-control" asp-items="ViewBag.IdMedicamento"></select>
             </div>
             <div class="form-group">
-                <label asp-for="Dosis" class="control-label"></label>
+                <label asp-for="Dosis" class="control-label card-subtitle"></label>
                 <input asp-for="Dosis" class="form-control" />
                 <span asp-validation-for="Dosis" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Crear" class="btn btn-primary" style="margin-top: 20px; margin-bottom: 20px;"/>
+                <br />
+                <input type="submit" value="Añadir" class="btn btn-primary" />
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Regresar a la lista</a>
+    <div class="card-footer">
+        <a asp-action="Index" class="btn btn-outline-secondary">Atrás</a>
+    </div>
 </div>
 
 @section Scripts {
