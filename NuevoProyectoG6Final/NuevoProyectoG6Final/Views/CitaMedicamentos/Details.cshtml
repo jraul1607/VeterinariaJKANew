@@ -15,7 +15,7 @@
                 <h6> @Html.DisplayNameFor(model => model.Dosis)</h6>
             </div>
             <p class="card-text">
-                @Html.DisplayFor(model => model.Dosis)
+                @Html.DisplayFor(model => model.Dosis) @Html.DisplayFor(model => model.Medicamento.UnidadMedida)
             </p>
             <div class="card-subtitle">
                 <h6>@Html.DisplayNameFor(model => model.Medicamento)</h6>
