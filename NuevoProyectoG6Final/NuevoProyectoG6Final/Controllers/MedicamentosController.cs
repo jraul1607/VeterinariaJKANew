@@ -21,7 +21,9 @@ namespace NuevoProyectoG6Final.Controllers
         // GET: Medicamentos
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Medicamentos.ToListAsync());
+            var medicamentos = await _context.Medicamentos.ToListAsync();
+            ViewData["medicamentos"] = medicamentos;
+            return View();
         }
 
         // GET: Medicamentos/Details/5

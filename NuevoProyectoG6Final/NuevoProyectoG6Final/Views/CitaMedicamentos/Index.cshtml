@@ -23,24 +23,35 @@
     </div>
 </div>
 
-<div class="container">
-    <div class="row">
-        @foreach (var item in Model)
-        {
-            <div class="col-lg-4 mb-4">
-                <div class="card card1 h-100">
-                    <div class="card-body">
-                        <h5 class="card-title">@Html.DisplayFor(modelItem => item.Medicamento.Nombre)</h5>
-                        <p class="card-text">Dosis: @Html.DisplayFor(modelItem => item.Dosis) @Html.DisplayFor(modelItem => item.Medicamento.UnidadMedida)</p>
-                        <p class="card-text">Cita: @Html.DisplayFor(modelItem => item.IdCita)</p>
+@if (ViewData["citaMedicamentos"] is IEnumerable<Vet.DAL.CitaMedicamento> citaMedicamentos)
+{
+    @if (citaMedicamentos.Count() == 0)
+    {
+        <p>No se encuentran resultados de búsqueda.</p>
+    }
+    else
+
+    {
+        <div class="container">
+            <div class="row">
+                @foreach (var item in citaMedicamentos)
+                {
+                    <div class="col-lg-4 mb-4">
+                        <div class="card card1 h-100">
+                            <div class="card-body">
+                                <h5 class="card-title">@Html.DisplayFor(modelItem => item.Medicamento.Nombre)</h5>
+                                <p class="card-text">Dosis: @Html.DisplayFor(modelItem => item.Dosis) @Html.DisplayFor(modelItem => item.Medicamento.UnidadMedida)</p>
+                                <p class="card-text">Cita: @Html.DisplayFor(modelItem => item.IdCita)</p>
+                            </div>
+                            <div class="card-footer">
+                                <a asp-action="Edit" asp-route-id="@item.IdCitaMedicamento" class="btn btn-primary">Editar</a>
+                                <a asp-action="Details" asp-route-id="@item.IdCitaMedicamento" class="btn btn-secondary">Detalles</a>
+                                <a asp-action="Delete" asp-route-id="@item.IdCitaMedicamento" class="btn btn-danger">Eliminar</a>
+                            </div>
+                        </div>
                     </div>
-                    <div class="card-footer">
-                        <a asp-action="Edit" asp-route-id="@item.IdCitaMedicamento" class="btn btn-primary">Editar</a>
-                        <a asp-action="Details" asp-route-id="@item.IdCitaMedicamento" class="btn btn-secondary">Detalles</a>
-                        <a asp-action="Delete" asp-route-id="@item.IdCitaMedicamento" class="btn btn-danger">Eliminar</a>
-                    </div>
-                </div>
+                }
             </div>
-        }
-    </div>
-</div>
+        </div>
+    }
+    }

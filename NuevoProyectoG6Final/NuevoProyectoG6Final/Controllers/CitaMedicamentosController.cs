@@ -21,8 +21,9 @@ namespace NuevoProyectoG6Final.Controllers
         // GET: CitaMedicamentos
         public async Task<IActionResult> Index()
         {
-            var vetContext = _context.CitaMedicamentos.Include(c => c.Cita).Include(c => c.Medicamento);
-            return View(await vetContext.ToListAsync());
+            var vetContext = await _context.CitaMedicamentos.Include(c => c.Cita).Include(c => c.Medicamento).ToListAsync();
+            ViewData["citaMedicamentos"] = vetContext;
+            return View();
         }
 
         // GET: CitaMedicamentos/Details/5
