@@ -150,8 +150,8 @@ namespace NuevoProyectoG6Final.Controllers
             {
                 return NotFound();
             }
-            ViewData["IdMascota"] = new SelectList(_context.Mascotas, "IdMascota", "Genero", cita.IdMascota);
-            ViewData["IdUsuarioPrincipal"] = new SelectList(_context.Usuarios, "IdUsuario", "Contrasena", cita.IdUsuarioPrincipal);
+            ViewData["IdMascota"] = new SelectList(_context.Mascotas, "IdMascota", "Nombre", cita.IdMascota);
+            ViewData["IdUsuarioPrincipal"] = new SelectList(_context.Usuarios, "IdUsuario", "NombreUsuario", cita.IdUsuarioPrincipal);
             return View(cita);
         }
 

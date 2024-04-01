@@ -4,47 +4,45 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Editar</h1>
-
-<h4>Cita</h4>
+<h1>Editar Cita</h1>
 <hr />
-<div class="row">
-    <div class="col-md-4">
+<div class="card">
+    <div class="card-body">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="IdCita" />
             <div class="form-group">
-                <label asp-for="IdMascota" class="control-label"></label>
+                <label asp-for="IdMascota" class="control-label card-subtitle"></label>
                 <select asp-for="IdMascota" class="form-control" asp-items="ViewBag.IdMascota"></select>
                 <span asp-validation-for="IdMascota" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="IdUsuarioPrincipal" class="control-label"></label>
+                <label asp-for="IdUsuarioPrincipal" class="control-label card-subtitle"></label>
                 <select asp-for="IdUsuarioPrincipal" class="form-control" asp-items="ViewBag.IdUsuarioPrincipal"></select>
                 <span asp-validation-for="IdUsuarioPrincipal" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="IdUsuarioSecundario" class="control-label"></label>
+                <label asp-for="IdUsuarioSecundario" class="control-label card-subtitle"></label>
                 <input asp-for="IdUsuarioSecundario" class="form-control" />
                 <span asp-validation-for="IdUsuarioSecundario" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Fecha" class="control-label"></label>
+                <label asp-for="Fecha" class="control-label card-subtitle"></label>
                 <input asp-for="Fecha" class="form-control" />
                 <span asp-validation-for="Fecha" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Descripcion" class="control-label"></label>
+                <label asp-for="Descripcion" class="control-label card-subtitle"></label>
                 <input asp-for="Descripcion" class="form-control" />
                 <span asp-validation-for="Descripcion" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Diagnostico" class="control-label"></label>
+                <label asp-for="Diagnostico" class="control-label card-subtitle"></label>
                 <input asp-for="Diagnostico" class="form-control" />
                 <span asp-validation-for="Diagnostico" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="EstadoCita" class="control-label"></label>
+                <label asp-for="EstadoCita" class="control-label card-subtitle"></label>
                 <select asp-for="EstadoCita" class="form-control" />
                 <option value="AGENDADA">Agendada</option>
                 <option value="CANCELADA">Cancelada</option>
@@ -53,15 +51,15 @@
                 </select>
                 <span asp-validation-for="EstadoCita" class="text-danger"></span>
             </div>
+            <br />
             <div class="form-group">
-                <input type="submit" value="Guardar" class="btn btn-primary" style="margin-bottom: 20px; margin-top: 20px;"/>
+                <input type="submit" value="Guardar cambios" class="btn btn-primary" />
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Regresar a la lista</a>
+    <div class="card-footer">
+        <a asp-action="Index" class="btn btn-outline-secondary">Atrás</a>
+    </div>
 </div>
 
 @section Scripts {
