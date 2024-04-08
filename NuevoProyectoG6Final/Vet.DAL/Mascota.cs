@@ -34,12 +34,11 @@ namespace Vet.DAL
         public string Imagen { get; set; }
 
 
-        [ForeignKey("Usuario")]
         [DisplayName("Nombre de Usuario Creador")]
-        public int IdUsuarioCreacion { get; set; }
+        public string UsuarioCreacionId { get; set; }
 
-        [DisplayName("Nombre de Usuario")]
-        public int IdUsuario { get; set; }
+        [DisplayName("Nombre del Dueño")]
+        public string DuenoId { get; set; }
 
         [DisplayName("Fecha de Creacion")]
         public DateTime FechaCreacion { get; set; }
@@ -73,7 +72,9 @@ namespace Vet.DAL
 
 
         public RazaMascota? RazaMascota { get; set; }
-        public Usuario? Usuario { get; set; }
+
+        public ApplicationUser? UsuarioCreacion { get; set; }
+        public ApplicationUser? Dueno { get; set; }
 
 
         //ICollection

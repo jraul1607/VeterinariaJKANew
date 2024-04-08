@@ -1,4 +1,4 @@
-﻿@model Vet.DAL.Usuario
+﻿@* @model Vet.DAL.Usuario
 
 @{
     ViewData["Title"] = "Create";
@@ -42,7 +42,7 @@
                     <input class="form-check-input" asp-for="Estado" /> @Html.DisplayNameFor(model => model.Estado)
                 </label>
             </div> *@
-            <br />
+            @* <br />
             <div class="form-group">
                 <br />
                 <input type="submit" value="Añadir" class="btn btn-primary" />
@@ -52,10 +52,10 @@
     <div class="card-footer">
         <a asp-action="Index" class="btn btn-outline-secondary">Atrás</a>
     </div>
-</div>
+</div> *@
 
-@section Scripts {
+@* @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
-}
+@* } *@

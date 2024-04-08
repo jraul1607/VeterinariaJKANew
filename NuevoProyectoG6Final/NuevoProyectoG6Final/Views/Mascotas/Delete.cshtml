@@ -42,10 +42,10 @@
             @Html.DisplayFor(model => model.Imagen)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.IdUsuario)
+            @Html.DisplayNameFor(model => model.UsuarioCreacionId)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.IdUsuario)
+            @Html.DisplayFor(model => model.UsuarioCreacion.Nombre)
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.FechaCreacion)
@@ -72,10 +72,10 @@
             @Html.DisplayFor(model => model.RazaMascota.Nombre)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Usuario)
+            @Html.DisplayNameFor(model => model.DuenoId)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Usuario.Contrasena)
+            @Html.DisplayFor(model => model.Dueno.Nombre)
         </dd>
     </dl>
 

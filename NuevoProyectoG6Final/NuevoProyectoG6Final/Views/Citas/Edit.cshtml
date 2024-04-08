@@ -17,14 +17,19 @@
                 <span asp-validation-for="IdMascota" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="IdUsuarioPrincipal" class="control-label card-subtitle"></label>
-                <select asp-for="IdUsuarioPrincipal" class="form-control" asp-items="ViewBag.IdUsuarioPrincipal"></select>
-                <span asp-validation-for="IdUsuarioPrincipal" class="text-danger"></span>
+                <label asp-for="DuenoId" class="control-label card-subtitle"></label>
+                <select asp-for="DuenoId" class="form-control" asp-items="ViewBag.DuenoId"></select>
+                <span asp-validation-for="DuenoId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="IdUsuarioSecundario" class="control-label card-subtitle"></label>
-                <input asp-for="IdUsuarioSecundario" class="form-control" />
-                <span asp-validation-for="IdUsuarioSecundario" class="text-danger"></span>
+                <label asp-for="VeterinarioPrincipalId" class="control-label card-subtitle"></label>
+                <select asp-for="VeterinarioPrincipalId" class="form-control" asp-items="ViewBag.VeterinarioPrincipalId"></select>
+                <span asp-validation-for="VeterinarioPrincipalId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="VeterinarioSecundarioId" class="control-label card-subtitle"></label>
+                <select asp-for="VeterinarioSecundarioId" class="form-control" asp-items="ViewBag.VeterinarioSecundarioId"></select>
+                <span asp-validation-for="VeterinarioSecundarioId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Fecha" class="control-label card-subtitle"></label>

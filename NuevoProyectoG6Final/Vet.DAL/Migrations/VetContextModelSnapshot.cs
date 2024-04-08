@@ -22,6 +22,82 @@ namespace Vet.DAL.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("Vet.DAL.ApplicationUser", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("Estado")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Imagen")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("PrimerApellido")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SegundoApellido")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("UltimaFechaConexion")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UserName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AspNetUsers");
+                });
+
             modelBuilder.Entity("Vet.DAL.Cita", b =>
                 {
                     b.Property<int>("IdCita")
@@ -38,6 +114,10 @@ namespace Vet.DAL.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("DuenoId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("EstadoCita")
                         .HasColumnType("nvarchar(max)");
 
@@ -47,17 +127,23 @@ namespace Vet.DAL.Migrations
                     b.Property<int>("IdMascota")
                         .HasColumnType("int");
 
-                    b.Property<int>("IdUsuarioPrincipal")
-                        .HasColumnType("int");
+                    b.Property<string>("VeterinarioPrincipalId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
-                    b.Property<int>("IdUsuarioSecundario")
-                        .HasColumnType("int");
+                    b.Property<string>("VeterinarioSecundarioId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("IdCita");
 
+                    b.HasIndex("DuenoId");
+
                     b.HasIndex("IdMascota");
 
-                    b.HasIndex("IdUsuarioPrincipal");
+                    b.HasIndex("VeterinarioPrincipalId");
+
+                    b.HasIndex("VeterinarioSecundarioId");
 
                     b.ToTable("Citas");
                 });
@@ -71,7 +157,6 @@ namespace Vet.DAL.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdCitaMedicamento"));
 
                     b.Property<string>("Dosis")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("IdCita")
@@ -97,6 +182,9 @@ namespace Vet.DAL.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdMascota"));
 
+                    b.Property<string>("DuenoId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<int>("Edad")
                         .HasColumnType("int");
 
@@ -110,7 +198,6 @@ namespace Vet.DAL.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Genero")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("IdRazaMascota")
@@ -119,28 +206,25 @@ namespace Vet.DAL.Migrations
                     b.Property<int>("IdTipoMascota")
                         .HasColumnType("int");
 
-                    b.Property<int>("IdUsuario")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IdUsuarioCreacion")
-                        .HasColumnType("int");
-
                     b.Property<string>("Imagen")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Nombre")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Peso")
                         .HasColumnType("int");
 
+                    b.Property<string>("UsuarioCreacionId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("IdMascota");
+
+                    b.HasIndex("DuenoId");
 
                     b.HasIndex("IdRazaMascota");
 
-                    b.HasIndex("IdUsuarioCreacion");
+                    b.HasIndex("UsuarioCreacionId");
 
                     b.ToTable("Mascotas");
                 });
@@ -157,15 +241,12 @@ namespace Vet.DAL.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("Marca")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Nombre")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UnidadMedida")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("IdMedicamento");
@@ -185,7 +266,6 @@ namespace Vet.DAL.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("Nombre")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("IdPadecimiento");
@@ -231,7 +311,6 @@ namespace Vet.DAL.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Nombre")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("IdRazaMascota");
@@ -239,26 +318,6 @@ namespace Vet.DAL.Migrations
                     b.HasIndex("IdTipoMascota");
 
                     b.ToTable("RazaMascotas");
-                });
-
-            modelBuilder.Entity("Vet.DAL.Rol", b =>
-                {
-                    b.Property<int>("IdRol")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdRol"));
-
-                    b.Property<bool>("Estado")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Tipo")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("IdRol");
-
-                    b.ToTable("Roles");
                 });
 
             modelBuilder.Entity("Vet.DAL.TipoMascota", b =>
@@ -273,48 +332,11 @@ namespace Vet.DAL.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("Nombre")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("IdTipoMascota");
 
                     b.ToTable("TipoMascotas");
-                });
-
-            modelBuilder.Entity("Vet.DAL.Usuario", b =>
-                {
-                    b.Property<int>("IdUsuario")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdUsuario"));
-
-                    b.Property<string>("Contrasena")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("Estado")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("IdRol")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Imagen")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NombreUsuario")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("UltimaFechaConexion")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("IdUsuario");
-
-                    b.HasIndex("IdRol");
-
-                    b.ToTable("Usuarios");
                 });
 
             modelBuilder.Entity("Vet.DAL.Vacuna", b =>
@@ -329,15 +351,12 @@ namespace Vet.DAL.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("Nombre")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Producto")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("TipoVacuna")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("IdVacuna");
@@ -373,21 +392,37 @@ namespace Vet.DAL.Migrations
 
             modelBuilder.Entity("Vet.DAL.Cita", b =>
                 {
+                    b.HasOne("Vet.DAL.ApplicationUser", "Dueno")
+                        .WithMany("Citas")
+                        .HasForeignKey("DuenoId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.HasOne("Vet.DAL.Mascota", "Mascota")
                         .WithMany("Citas")
                         .HasForeignKey("IdMascota")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Vet.DAL.Usuario", "Usuario")
+                    b.HasOne("Vet.DAL.ApplicationUser", "VeterinarioPrincipal")
                         .WithMany()
-                        .HasForeignKey("IdUsuarioPrincipal")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .HasForeignKey("VeterinarioPrincipalId")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.HasOne("Vet.DAL.ApplicationUser", "VeterinarioSecundario")
+                        .WithMany()
+                        .HasForeignKey("VeterinarioSecundarioId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Dueno");
 
                     b.Navigation("Mascota");
 
-                    b.Navigation("Usuario");
+                    b.Navigation("VeterinarioPrincipal");
+
+                    b.Navigation("VeterinarioSecundario");
                 });
 
             modelBuilder.Entity("Vet.DAL.CitaMedicamento", b =>
@@ -411,21 +446,26 @@ namespace Vet.DAL.Migrations
 
             modelBuilder.Entity("Vet.DAL.Mascota", b =>
                 {
+                    b.HasOne("Vet.DAL.ApplicationUser", "Dueno")
+                        .WithMany("Mascotas")
+                        .HasForeignKey("DuenoId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
                     b.HasOne("Vet.DAL.RazaMascota", "RazaMascota")
                         .WithMany("Mascotas")
                         .HasForeignKey("IdRazaMascota")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Vet.DAL.Usuario", "Usuario")
-                        .WithMany("Mascotas")
-                        .HasForeignKey("IdUsuarioCreacion")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasOne("Vet.DAL.ApplicationUser", "UsuarioCreacion")
+                        .WithMany()
+                        .HasForeignKey("UsuarioCreacionId");
+
+                    b.Navigation("Dueno");
 
                     b.Navigation("RazaMascota");
 
-                    b.Navigation("Usuario");
+                    b.Navigation("UsuarioCreacion");
                 });
 
             modelBuilder.Entity("Vet.DAL.PadecimientoMascota", b =>
@@ -458,17 +498,6 @@ namespace Vet.DAL.Migrations
                     b.Navigation("TipoMascota");
                 });
 
-            modelBuilder.Entity("Vet.DAL.Usuario", b =>
-                {
-                    b.HasOne("Vet.DAL.Rol", "Rol")
-                        .WithMany("Usuarios")
-                        .HasForeignKey("IdRol")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Rol");
-                });
-
             modelBuilder.Entity("Vet.DAL.VacunaMascota", b =>
                 {
                     b.HasOne("Vet.DAL.Mascota", "Mascota")
@@ -486,6 +515,13 @@ namespace Vet.DAL.Migrations
                     b.Navigation("Mascota");
 
                     b.Navigation("Vacuna");
+                });
+
+            modelBuilder.Entity("Vet.DAL.ApplicationUser", b =>
+                {
+                    b.Navigation("Citas");
+
+                    b.Navigation("Mascotas");
                 });
 
             modelBuilder.Entity("Vet.DAL.Cita", b =>
@@ -517,19 +553,9 @@ namespace Vet.DAL.Migrations
                     b.Navigation("Mascotas");
                 });
 
-            modelBuilder.Entity("Vet.DAL.Rol", b =>
-                {
-                    b.Navigation("Usuarios");
-                });
-
             modelBuilder.Entity("Vet.DAL.TipoMascota", b =>
                 {
                     b.Navigation("RazaMascotas");
-                });
-
-            modelBuilder.Entity("Vet.DAL.Usuario", b =>
-                {
-                    b.Navigation("Mascotas");
                 });
 
             modelBuilder.Entity("Vet.DAL.Vacuna", b =>

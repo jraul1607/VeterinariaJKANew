@@ -46,18 +46,18 @@
                 <span asp-validation-for="Peso" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="IdUsuarioCreacion" class="control-label"></label>
-                <select asp-for="IdUsuarioCreacion" class="form-control" asp-items="ViewBag.IdUsuarioCreacion" ></select>
+                <label asp-for="UsuarioCreacionId" class="control-label"></label>
+                <select asp-for="UsuarioCreacionId" class="form-control" asp-items="ViewBag.Usuarios"></select>
             </div>
             <div class="form-group">
-                <label asp-for="IdUsuario" class="control-label"></label>
-                <select asp-for="IdUsuario" class="form-control" asp-items="ViewBag.IdUsuarioCreacion" ></select>
+                <label asp-for="DuenoId" class="control-label"></label>
+                <select asp-for="DuenoId" class="form-control" asp-items="ViewBag.Usuarios"></select>
             </div>
-            @* <div class="form-group form-check">
+            <div class="form-group form-check">
                 <label class="form-check-label">
                     <input class="form-check-input" asp-for="Estado" /> @Html.DisplayNameFor(model => model.Estado)
                 </label>
-            </div> *@
+            </div>
 
             <div class="form-group">
                 <label asp-for="Imagen" class="control-label"></label>

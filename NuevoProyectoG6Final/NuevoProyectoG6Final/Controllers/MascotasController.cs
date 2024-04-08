@@ -24,7 +24,7 @@ namespace NuevoProyectoG6Final.Controllers
             var mascotas = _context.Mascotas
             .Include(m => m.RazaMascota)
             .ThenInclude(r => r.TipoMascota)
-            .Include(m => m.Usuario)
+            .Include(m => m.Dueno)
             .AsQueryable();
 
             if (!string.IsNullOrEmpty(busquedaMascota))
@@ -46,8 +46,8 @@ namespace NuevoProyectoG6Final.Controllers
             return View(vetContext);
         }
 
-            // GET: Mascotas/Details/5
-            public async Task<IActionResult> Details(int? id)
+        // GET: Mascotas/Details/5
+        public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
             {
@@ -56,7 +56,7 @@ namespace NuevoProyectoG6Final.Controllers
 
             var mascota = await _context.Mascotas
                 .Include(m => m.RazaMascota)
-                .Include(m => m.Usuario)
+                .Include(m => m.Dueno)
                 .FirstOrDefaultAsync(m => m.IdMascota == id);
 
             if (mascota == null)
@@ -71,10 +71,8 @@ namespace NuevoProyectoG6Final.Controllers
         public IActionResult Create()
         {
             ViewData["IdRazaMascota"] = new SelectList(_context.RazaMascotas, "IdRazaMascota", "Nombre");
-            ViewData["IdUsuarioCreacion"] = new SelectList(_context.Usuarios, "IdUsuario", "NombreUsuario");
-
-            var tiposMascota = _context.TipoMascotas.ToList();
-            ViewData["TiposMascota"] = new SelectList(tiposMascota, "IdTipoMascota", "Nombre");
+            ViewData["Usuarios"] = new SelectList(_context.ApplicationUser, "Id", "Nombre");
+            ViewData["TiposMascota"] = new SelectList(_context.TipoMascotas, "IdTipoMascota", "Nombre");
 
             return View();
         }
@@ -84,7 +82,7 @@ namespace NuevoProyectoG6Final.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdMascota,Nombre,IdTipoMascota,IdRazaMascota,Genero,Edad,Peso,IdUsuarioCreacion,IdUsuario,Imagen")] Mascota mascota)
+        public async Task<IActionResult> Create([Bind("IdMascota,Nombre,IdTipoMascota,IdRazaMascota,Genero,Edad,Peso,UsuarioCreacionId,DuenoId,Imagen")] Mascota mascota)
         {
             mascota.FechaCreacion = DateTime.Now.Date + DateTime.Now.TimeOfDay;
             mascota.FechaModificacion = DateTime.Now.Date + DateTime.Now.TimeOfDay;
@@ -97,7 +95,7 @@ namespace NuevoProyectoG6Final.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["IdRazaMascota"] = new SelectList(_context.RazaMascotas, "IdRazaMascota", "Nombre", mascota.IdRazaMascota);
-            ViewData["IdUsuarioCreacion"] = new SelectList(_context.Usuarios, "IdUsuario", "NombreUsuario", mascota.IdUsuarioCreacion);
+            ViewData["Usuarios"] = new SelectList(_context.ApplicationUser, "Id", "Nombre", mascota.UsuarioCreacionId);
             ViewData["TiposMascota"] = new SelectList(_context.TipoMascotas, "IdTipoMascota", "Nombre", mascota.IdTipoMascota);
             return View(mascota);
         }
@@ -116,8 +114,7 @@ namespace NuevoProyectoG6Final.Controllers
                 return NotFound();
             }
             ViewData["IdRazaMascota"] = new SelectList(_context.RazaMascotas, "IdRazaMascota", "Nombre", mascota.IdRazaMascota);
-            ViewData["IdUsuarioCreacion"] = new SelectList(_context.Usuarios, "IdUsuario", "NombreUsuario", mascota.IdUsuarioCreacion);
-
+            ViewData["Usuarios"] = new SelectList(_context.ApplicationUser, "Id", "Nombre", mascota.UsuarioCreacionId);
             ViewData["TiposMascota"] = new SelectList(_context.TipoMascotas, "IdTipoMascota", "Nombre", mascota.IdTipoMascota);
             return View(mascota);
         }
@@ -127,7 +124,7 @@ namespace NuevoProyectoG6Final.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdMascota,Nombre,IdTipoMascota,IdRazaMascota,Genero,Edad,Peso,IdUsuarioCreacion,IdUsuario,FechaCreacion,FechaModificacion,Estado,Imagen")] Mascota mascota)
+        public async Task<IActionResult> Edit(int id, [Bind("IdMascota,Nombre,IdTipoMascota,IdRazaMascota,Genero,Edad,Peso,UsuarioCreacionId,DuenoId,Estado,Imagen")] Mascota mascota)
         {
             if (id != mascota.IdMascota)
             {
@@ -138,20 +135,24 @@ namespace NuevoProyectoG6Final.Controllers
             {
                 try
                 {
+                    var originalMascota = await _context.Mascotas.AsNoTracking().FirstOrDefaultAsync(m => m.IdMascota == id);
+
+                    mascota.FechaCreacion = originalMascota.FechaCreacion;
+                    mascota.FechaModificacion = DateTime.Now.Date + DateTime.Now.TimeOfDay;
 
                     _context.Update(mascota);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    
-                        return NotFound();
-                    
+
+                    return NotFound();
+
                 }
                 return RedirectToAction(nameof(Index));
             }
             ViewData["IdRazaMascota"] = new SelectList(_context.RazaMascotas, "IdRazaMascota", "Nombre", mascota.IdRazaMascota);
-            ViewData["IdUsuarioCreacion"] = new SelectList(_context.Usuarios, "IdUsuario", "NombreUsuario", mascota.IdUsuarioCreacion);
+            ViewData["Usuarios"] = new SelectList(_context.ApplicationUser, "Id", "Nombre", mascota.UsuarioCreacionId);
             ViewData["TiposMascota"] = new SelectList(_context.TipoMascotas, "IdTipoMascota", "Nombre", mascota.IdTipoMascota);
             return View(mascota);
         }
@@ -185,7 +186,7 @@ namespace NuevoProyectoG6Final.Controllers
             {
                 mascota.Estado = false;
             }
-           
+
             return RedirectToAction(nameof(Index));
         }
     }

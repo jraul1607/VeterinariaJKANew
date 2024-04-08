@@ -1,9 +1,9 @@
-﻿@model IEnumerable<Vet.DAL.Usuario>
+﻿@* @model IEnumerable<Vet.DAL.Usuario>
 
 @{
     ViewData["Title"] = "Index";
-}
-
+} *@
+@* 
 <div>
 <h1 style="text-align: center">Usuarios</h1>
 </div>
@@ -21,13 +21,13 @@
             <button type="submit" class="btn btn-primary">Buscar</button>
         </form>
     </div>
-</div>
+</div> *@
 
-@if ((bool)ViewBag.NoResultados)
+@* @if ((bool)ViewBag.NoResultados)
 {
             <p>No se encuentran resultados de búsqueda.</p>
-}
-<br />
+} *@
+@* <br />
 <br />
 
 
@@ -42,8 +42,8 @@
                             <h4 class="card-title">@Html.DisplayFor(modelItem => item.NombreUsuario)</h4>
                             <p class="card-text">Rol: @Html.DisplayFor(modelItem => item.Rol.Tipo)</p>
                             <p class="card-text">Última Fecha de conexión: @Html.DisplayFor(modelItem => item.UltimaFechaConexion)</p>
-                            <p class="card-text">
-                                Estado:
+                            <p class="card-text"> *@
+                            @*     Estado:
                             @if (item.Estado)
                             {
                                         <span style="color: green;">Activo</span>
@@ -62,7 +62,8 @@
                         </div>
                     </div>
                 </div>
-        }
-
+        } *@
+@* 
     </div>
 </div>
+ *@

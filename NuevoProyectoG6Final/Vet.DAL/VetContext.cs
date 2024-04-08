@@ -19,10 +19,6 @@ namespace Vet.DAL
 
         public DbSet<TipoMascota> TipoMascotas { get; set; } //Lista de Tipos
 
-        public DbSet<Rol> Rols { get; set; } //Lista de Rol
-
-        public DbSet<Usuario> Usuarios { get; set; } //Lista de Usuario
-
         public DbSet<Padecimiento> Padecimientos { get; set; } //Lista Padecimiento
 
         public DbSet<PadecimientoMascota> PadecimientoMascotas { get; set; } //Lista de Padecimiento y Mascotas
@@ -39,6 +35,41 @@ namespace Vet.DAL
 
         public DbSet<Mascota> Mascotas { get; set; } //Lista de CitaMedicamentos
 
+        public DbSet<ApplicationUser> ApplicationUser { get; set; } 
+
+        //protected override void OnModelCreating(ModelBuilder modelBuilder)
+        //{
+        //    base.OnModelCreating(modelBuilder);
+
+        //    modelBuilder.Entity<Mascota>()
+        //        .HasOne(m => m.Dueno)
+        //        .WithMany(u => u.Mascotas)
+        //        .HasForeignKey(m => m.DuenoId)
+        //        .OnDelete(DeleteBehavior.Restrict);
+
+        //    modelBuilder.Entity<ApplicationUser>()
+        //        .HasMany(u => u.Mascotas)
+        //        .WithOne(m => m.Dueno)
+        //        .OnDelete(DeleteBehavior.Restrict);
+
+        //    modelBuilder.Entity<Cita>()
+        //        .HasOne(c => c.Dueno)
+        //        .WithMany(u => u.Citas)
+        //        .HasForeignKey(c => c.DuenoId)
+        //        .OnDelete(DeleteBehavior.Restrict);
+
+        //    modelBuilder.Entity<Cita>()
+        //        .HasOne(c => c.VeterinarioPrincipal)
+        //        .WithMany()
+        //        .HasForeignKey(c => c.VeterinarioPrincipalId)
+        //        .OnDelete(DeleteBehavior.Restrict);
+
+        //    modelBuilder.Entity<Cita>()
+        //        .HasOne(c => c.VeterinarioSecundario)
+        //        .WithMany()
+        //        .HasForeignKey(c => c.VeterinarioSecundarioId)
+        //        .OnDelete(DeleteBehavior.Restrict);
+        //}
 
     }
 }

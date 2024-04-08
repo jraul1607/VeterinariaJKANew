@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Build.Framework;
@@ -15,9 +16,18 @@ namespace NuevoProyectoG6Final.Controllers
     {
         private readonly VetContext _context;
 
-        public CitasController(VetContext context)
+        private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly UserManager<ApplicationUser> _userManager;
+
+        public CitasController(
+            VetContext context,
+            RoleManager<IdentityRole> roleManager,
+            UserManager<ApplicationUser> userManager
+            )
         {
             _context = context;
+            _roleManager = roleManager;
+            _userManager = userManager;
         }
 
         // GET: Citas
@@ -25,13 +35,13 @@ namespace NuevoProyectoG6Final.Controllers
         {
             DateTime fechaHoy = DateTime.Now;
 
-            var historial = await _context.Citas.Include(c => c.Mascota).Include(c => c.Usuario)
-                .Where(c => c.Fecha.Date< fechaHoy.Date).ToListAsync();
+            var historial = await _context.Citas.Include(c => c.Mascota).Include(c => c.Dueno)
+                .Where(c => c.Fecha.Date < fechaHoy.Date).ToListAsync();
 
-            var enCurso = await _context.Citas.Include(c => c.Mascota).Include(c => c.Usuario)
+            var enCurso = await _context.Citas.Include(c => c.Mascota).Include(c => c.Dueno)
                 .Where(c => c.Fecha.Date == fechaHoy.Date).ToListAsync();
 
-            var proxima = await _context.Citas.Include(c => c.Mascota).Include(c => c.Usuario)
+            var proxima = await _context.Citas.Include(c => c.Mascota).Include(c => c.Dueno)
                 .Where(c => c.Fecha.Date > fechaHoy.Date).ToListAsync();
 
             ViewData["historial"] = historial;
@@ -51,7 +61,7 @@ namespace NuevoProyectoG6Final.Controllers
 
             var cita = await _context.Citas
                 .Include(c => c.Mascota)
-                .Include(c => c.Usuario)
+                .Include(c => c.Dueno)
                 .FirstOrDefaultAsync(m => m.IdCita == id);
             if (cita == null)
             {
@@ -65,14 +75,31 @@ namespace NuevoProyectoG6Final.Controllers
         public IActionResult Create()
         {
             ViewData["Mascotas"] = new SelectList(_context.Mascotas, "IdMascota", "Nombre");
-            //Consulta para llamar a todos los usuarios con el rol "Veterinario"
-            var veterinarios = _context.Rols
-                .Where(r => r.Tipo == "Veterinario")
-                .SelectMany(r => r.Usuarios)
-                .ToList();
-            ViewData["VetsPrincipales"] = new SelectList(veterinarios, "IdUsuario", "NombreUsuario");
-            ViewData["VetsSecundarios"] = new SelectList(veterinarios, "IdUsuario", "NombreUsuario");
+            var duenosTask = GetUsersByRoleAsync("User");
+            duenosTask.Wait();
+            var duenos = duenosTask.Result;
+            ViewData["Duenos"] = new SelectList(duenos, "Id", "Nombre");
+            var veterinariosTask = GetUsersByRoleAsync("User");
+            veterinariosTask.Wait();
+            var veterinarios = veterinariosTask.Result;
+            ViewData["VetsPrincipales"] = new SelectList(veterinarios, "Id", "Nombre");
+            ViewData["VetsSecundarios"] = new SelectList(veterinarios, "Id", "Nombre");
             return View();
+        }
+
+        public async Task<List<ApplicationUser>> GetUsersByRoleAsync(string roleName)
+        {
+            var role = await _roleManager.FindByNameAsync(roleName);
+            if (role == null)
+            {
+                return new List<ApplicationUser>();
+            }
+
+            var userIdsInRole = await _userManager.GetUsersInRoleAsync(roleName);
+            var usersInRole = _userManager.Users.Where(u => userIdsInRole.Contains(u)).ToList();
+
+
+            return usersInRole.ToList();
         }
 
         // POST: Citas/Create
@@ -80,16 +107,16 @@ namespace NuevoProyectoG6Final.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdCita,IdMascota,IdUsuarioPrincipal,IdUsuarioSecundario,Fecha,Descripcion,Diagnostico")] Cita cita)
+        public async Task<IActionResult> Create([Bind("IdCita,IdMascota,DuenoId,VeterinarioPrincipalId,VeterinarioSecundarioId,Fecha,Descripcion,Diagnostico")] Cita cita)
         {
             //El veterinario principal y secundario deben ser diferentes
-            if (cita.IdUsuarioPrincipal == cita.IdUsuarioSecundario)
+            if (cita.VeterinarioPrincipalId == cita.VeterinarioSecundarioId)
             {
                 ModelState.AddModelError("Diagnostico", "Nota: El veterinario secundario no puede ser el mismo que el veterinario principal.");
             }
 
             // Verificar si el veterinario ya tiene una cita en la misma fecha y hora
-            if (await CitaAsignadaVet(cita.IdUsuarioPrincipal, cita.Fecha))
+            if (await CitaAsignadaVet(cita.VeterinarioPrincipalId, cita.Fecha))
             {
                 ModelState.AddModelError("Diagnostico", "El veterinario ya tiene una cita programada en esta fecha y hora.");
             }
@@ -110,13 +137,15 @@ namespace NuevoProyectoG6Final.Controllers
             }
 
             ViewData["Mascotas"] = new SelectList(_context.Mascotas, "IdMascota", "Nombre");
-            //Consulta para llamar a todos los usuarios con el rol "Veterinario"
-            var veterinarios = _context.Rols
-                .Where(r => r.Tipo == "Veterinario")
-                .SelectMany(r => r.Usuarios)
-                .ToList();
-            ViewData["VetsPrincipales"] = new SelectList(veterinarios, "IdUsuario", "NombreUsuario");
-            ViewData["VetsSecundarios"] = new SelectList(veterinarios, "IdUsuario", "NombreUsuario");
+            var duenosTask = GetUsersByRoleAsync("User");
+            duenosTask.Wait();
+            var duenos = duenosTask.Result;
+            ViewData["Duenos"] = new SelectList(duenos, "Id", "Nombre", cita.DuenoId);
+            var veterinariosTask = GetUsersByRoleAsync("User");
+            veterinariosTask.Wait();
+            var veterinarios = veterinariosTask.Result;
+            ViewData["VetsPrincipales"] = new SelectList(veterinarios, "Id", "Nombre", cita.VeterinarioPrincipalId);
+            ViewData["VetsSecundarios"] = new SelectList(veterinarios, "Id", "Nombre", cita.VeterinarioSecundarioId);
             return View(cita);
         }
 
@@ -132,9 +161,9 @@ namespace NuevoProyectoG6Final.Controllers
         }
 
         // Método para verificar si el veterinario tiene una cita en la misma fecha y hora
-        private async Task<bool> CitaAsignadaVet(int IdUsuario, DateTime fecha)
+        private async Task<bool> CitaAsignadaVet(string IdUsuario, DateTime fecha)
         {
-            return await _context.Citas.AnyAsync(c => (c.IdUsuarioPrincipal == IdUsuario || c.IdUsuarioSecundario == IdUsuario) && c.Fecha == fecha);
+            return await _context.Citas.AnyAsync(c => (c.VeterinarioPrincipalId == IdUsuario || c.VeterinarioSecundarioId == IdUsuario) && c.Fecha == fecha);
         }
 
         // GET: Citas/Edit/5
@@ -151,7 +180,15 @@ namespace NuevoProyectoG6Final.Controllers
                 return NotFound();
             }
             ViewData["IdMascota"] = new SelectList(_context.Mascotas, "IdMascota", "Nombre", cita.IdMascota);
-            ViewData["IdUsuarioPrincipal"] = new SelectList(_context.Usuarios, "IdUsuario", "NombreUsuario", cita.IdUsuarioPrincipal);
+            var duenosTask = GetUsersByRoleAsync("User");
+            duenosTask.Wait();
+            var duenos = duenosTask.Result;
+            ViewData["Duenos"] = new SelectList(duenos, "Id", "Nombre", cita.DuenoId);
+            var veterinariosTask = GetUsersByRoleAsync("User");
+            veterinariosTask.Wait();
+            var veterinarios = veterinariosTask.Result;
+            ViewData["VetsPrincipales"] = new SelectList(veterinarios, "Id", "Nombre",cita.VeterinarioPrincipalId);
+            ViewData["VetsSecundarios"] = new SelectList(veterinarios, "Id", "Nombre", cita.VeterinarioSecundarioId);
             return View(cita);
         }
 
@@ -160,7 +197,7 @@ namespace NuevoProyectoG6Final.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdCita,IdMascota,IdUsuarioPrincipal,IdUsuarioSecundario,Fecha,Descripcion,Diagnostico,EstadoCita")] Cita cita)
+        public async Task<IActionResult> Edit(int id, [Bind("IdCita,IdMascota,DuenoId,VeterinarioPrincipalId,VeterinarioSecundarioId,Fecha,Descripcion,Diagnostico,EstadoCita")] Cita cita)
         {
             if (id != cita.IdCita)
             {
@@ -188,7 +225,15 @@ namespace NuevoProyectoG6Final.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["IdMascota"] = new SelectList(_context.Mascotas, "IdMascota", "Genero", cita.IdMascota);
-            ViewData["IdUsuarioPrincipal"] = new SelectList(_context.Usuarios, "IdUsuario", "Contrasena", cita.IdUsuarioPrincipal);
+            var duenosTask = GetUsersByRoleAsync("User");
+            duenosTask.Wait();
+            var duenos = duenosTask.Result;
+            ViewData["Duenos"] = new SelectList(duenos, "Id", "Nombre", cita.DuenoId);
+            var veterinariosTask = GetUsersByRoleAsync("User");
+            veterinariosTask.Wait();
+            var veterinarios = veterinariosTask.Result;
+            ViewData["VetsPrincipales"] = new SelectList(veterinarios, "Id", "Nombre", cita.VeterinarioPrincipalId);
+            ViewData["VetsSecundarios"] = new SelectList(veterinarios, "Id", "Nombre", cita.VeterinarioSecundarioId);
             return View(cita);
         }
 
@@ -202,7 +247,7 @@ namespace NuevoProyectoG6Final.Controllers
 
             var cita = await _context.Citas
                 .Include(c => c.Mascota)
-                .Include(c => c.Usuario)
+                .Include(c => c.Dueno)
                 .FirstOrDefaultAsync(m => m.IdCita == id);
             if (cita == null)
             {

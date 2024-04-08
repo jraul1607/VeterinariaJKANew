@@ -1,8 +1,8 @@
-﻿@model Vet.DAL.Usuario
+﻿@* @model Vet.DAL.Usuario
 
 @{
     ViewData["Title"] = "Details";
-}
+} *@
 
 @* <h1>Details</h1>
 
@@ -54,7 +54,7 @@
 </div>
 
 
- *@
+@*  
 <h1>Detalles</h1>
 
 <div class="card">
@@ -72,7 +72,7 @@
                     <dd class="col-sm-10">@Html.DisplayFor(model => model.Rol.Tipo)</dd>
                     <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Estado)</dt>
                     <dd class="col-sm-10">
-                        Estado:
+                    @*     Estado:
                         @if (Model.Estado)
                         {
                             <span style="color: green;">Activo</span>
@@ -80,8 +80,8 @@
                         else
                         {
                             <span style="color: red;">Inactivo</span>
-                        }
-                    </dd>
+                        } *@
+@*                     </dd>
                 </div>
             </dl>
         </div>
@@ -90,4 +90,4 @@
     <div class="card-footer">
         <a asp-action="Edit" asp-route-id="@Model?.IdUsuario" class="btn btn-primary">Editar</a>
         <a asp-action="Index" class="btn btn-outline-secondary">Atrás</a>
-    </div>
+    </div> *@

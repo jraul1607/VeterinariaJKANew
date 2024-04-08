@@ -18,12 +18,16 @@
                 <select asp-for="IdMascota" class="form-control" asp-items="ViewBag.Mascotas"></select>
             </div>
             <div class="form-group">
-                <label asp-for="IdUsuarioPrincipal" class="control-label card-subtitle"></label>
-                <select asp-for="IdUsuarioPrincipal" class="form-control" asp-items="ViewBag.VetsPrincipales"></select>
+                <label asp-for="DuenoId" class="control-label card-subtitle"></label>
+                <select asp-for="DuenoId" class="form-control" asp-items="ViewBag.Duenos"></select>
             </div>
             <div class="form-group">
-                <label asp-for="IdUsuarioSecundario" class="control-label card-subtitle"></label>
-                <select asp-for="IdUsuarioSecundario" class="form-control" asp-items="ViewBag.VetsSecundarios"></select>
+                <label asp-for="VeterinarioPrincipalId" class="control-label card-subtitle"></label>
+                <select asp-for="VeterinarioPrincipalId" class="form-control" asp-items="ViewBag.VetsPrincipales"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="VeterinarioSecundarioId" class="control-label card-subtitle"></label>
+                <select asp-for="VeterinarioSecundarioId" class="form-control" asp-items="ViewBag.VetsSecundarios"></select>
             </div>
             <div class="form-group">
                 <label asp-for="Fecha" class="control-label card-subtitle"></label>

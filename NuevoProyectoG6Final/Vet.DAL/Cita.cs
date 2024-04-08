@@ -23,14 +23,18 @@ namespace Vet.DAL
 
         //Solo se agregar un campo de Veterinario porque se duplica en el ComboBox 
         //Se hace una condicional en la segunda opcion de Combobox para el secundario para que no muestre el Vet que esta asignado de primario.
+
         [Required]
-        [ForeignKey("Usuario")]
+        [DisplayName("Dueño")]
+        public string DuenoId { get; set; }
+
+        [Required]
         [DisplayName("Veterinario Principal")]
-        public int IdUsuarioPrincipal { get; set; }
+        public string VeterinarioPrincipalId { get; set; }
 
         [Required]
         [DisplayName("Veterinario Secundario")]
-        public int IdUsuarioSecundario { get; set; }
+        public string VeterinarioSecundarioId { get; set; }
 
         [Required]
         public DateTime Fecha { get; set; }
@@ -50,9 +54,11 @@ namespace Vet.DAL
         //Propiedad Nullable
         public Mascota? Mascota { get; set; }
 
-        public Usuario? Usuario { get; set; }
+        public ApplicationUser? Dueno { get; set; }
 
-        //public Usuario? Usuario2 { get; set; }
+        public ApplicationUser? VeterinarioPrincipal { get; set; }
+
+        public ApplicationUser? VeterinarioSecundario { get; set; }
 
         //ICollection de Relaciones
         public ICollection<CitaMedicamento> CitaMedicamentos { get; set; } = new List<CitaMedicamento>();
