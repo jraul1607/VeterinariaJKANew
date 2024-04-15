@@ -6,80 +6,66 @@
 
 <h1>Details</h1>
 
-<div>
-    <h4>Mascota</h4>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Nombre)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Nombre)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Genero)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Genero)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Edad)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Edad)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Peso)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Peso)
-        </dd>
-        <dt class="col-sm-2">
-            Imagen
-        </dt>
-        <dd class="col-sm-10">
-            <img src="@Model.Imagen" alt="Imagen de la mascota" />
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.UsuarioCreacionId)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.UsuarioCreacion.Nombre)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.FechaCreacionFormateada)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.FechaCreacionFormateada)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.FechaModificacionFormateada)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.FechaModificacionFormateada)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Estado)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Estado)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.RazaMascota)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.RazaMascota.Nombre)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.DuenoId)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Dueno.Nombre)
-        </dd>
-    </dl>
+<div class="card">
+    <div class="card-body">
+
+        <div>
+            <h5 class="card-title">Mascota</h5>
+            <hr />
+            <dl class="row">
+                <div class="card-subtitle">
+                    <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Nombre)</dt>
+                    <dd class="col-sm-10">@Html.DisplayFor(model => model.Nombre)</dd>
+                </div>
+                <div class="card-subtitle">
+                    <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Genero)</dt>
+                    <dd class="col-sm-10">@Html.DisplayFor(model => model.Genero)</dd>
+                </div>
+                <div class="card-subtitle">
+                    <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Edad)</dt>
+                    <dd class="col-sm-10">@Html.DisplayFor(model => model.Edad)</dd>
+                </div>
+                <div class="card-subtitle">
+                    <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Peso)</dt>
+                    <dd class="col-sm-10">@Html.DisplayFor(model => model.Peso)</dd>
+                </div>
+                <div class="card-subtitle">
+                    <dt class="col-sm-2">Imagen</dt>
+                    <dd class="col-sm-10">
+                        <img src="@Model.Imagen" alt="Imagen de la mascota" />
+                    </dd>
+                </div>
+                <div class="card-subtitle">
+                    <dt class="col-sm-2">@Html.DisplayNameFor(model => model.UsuarioCreacionId)</dt>
+                    <dd class="col-sm-10">@Html.DisplayFor(model => model.UsuarioCreacion.Nombre)</dd>
+                </div>
+                <div class="card-subtitle">
+                    <dt class="col-sm-2">@Html.DisplayNameFor(model => model.FechaCreacionFormateada)</dt>
+                    <dd class="col-sm-10">@Html.DisplayFor(model => model.FechaCreacionFormateada)</dd>
+                </div>
+                <div class="card-subtitle">
+                    <dt class="col-sm-2">@Html.DisplayNameFor(model => model.FechaModificacionFormateada)</dt>
+                    <dd class="col-sm-10">@Html.DisplayFor(model => model.FechaModificacionFormateada)</dd>
+                </div>
+                <div class="card-subtitle">
+                    <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Estado)</dt>
+                    <dd class="col-sm-10">@Html.DisplayFor(model => model.Estado)</dd>
+                </div>
+                <div class="card-subtitle">
+                    <dt class="col-sm-2">@Html.DisplayNameFor(model => model.RazaMascota)</dt>
+                    <dd class="col-sm-10">@Html.DisplayFor(model => model.RazaMascota.Nombre)</dd>
+                </div>
+                <div class="card-subtitle">
+                    <dt class="col-sm-2">@Html.DisplayNameFor(model => model.DuenoId)</dt>
+                    <dd class="col-sm-10">@Html.DisplayFor(model => model.Dueno.Nombre)</dd>
+                </div>
+            </dl>
+        </div>
+    </div>
+    <div class="card-footer">
+        <a asp-action="Edit" asp-route-id="@Model?.IdMascota" class="btn btn-primary">Editar</a> |
+        <a asp-action="Index" class="btn btn-outline-secondary">Atrás</a>
+    </div>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.IdMascota">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+
 
