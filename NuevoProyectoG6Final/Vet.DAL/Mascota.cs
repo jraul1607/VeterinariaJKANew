@@ -33,6 +33,8 @@ namespace Vet.DAL
         public int Peso { get; set; }
         public string Imagen { get; set; }
 
+        public byte[] Imagen2 { get; set; }
+
 
         [DisplayName("Nombre de Usuario Creador")]
         public string UsuarioCreacionId { get; set; }
