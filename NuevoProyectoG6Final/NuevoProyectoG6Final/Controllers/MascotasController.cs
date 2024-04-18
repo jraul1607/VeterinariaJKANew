@@ -86,6 +86,7 @@ namespace NuevoProyectoG6Final.Controllers
         {
             mascota.FechaCreacion = DateTime.Now.Date + DateTime.Now.TimeOfDay;
             mascota.FechaModificacion = DateTime.Now.Date + DateTime.Now.TimeOfDay;
+            mascota.Imagen2 = null;
             mascota.Estado = true;
 
             if (ModelState.IsValid)

@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Build.Framework;
 using Microsoft.EntityFrameworkCore;
 using NuevoProyectoG6Final.Enums;
+using NuevoProyectoG6Final.Utils;
 using Vet.DAL;
 
 namespace NuevoProyectoG6Final.Controllers
@@ -75,31 +76,16 @@ namespace NuevoProyectoG6Final.Controllers
         public IActionResult Create()
         {
             ViewData["Mascotas"] = new SelectList(_context.Mascotas, "IdMascota", "Nombre");
-            var duenosTask = GetUsersByRoleAsync("User");
+            var duenosTask = RolesUtils.ObtenerUsuariosPorRol(_roleManager, _userManager, "User");
             duenosTask.Wait();
             var duenos = duenosTask.Result;
             ViewData["Duenos"] = new SelectList(duenos, "Id", "Nombre");
-            var veterinariosTask = GetUsersByRoleAsync("User");
+            var veterinariosTask = RolesUtils.ObtenerUsuariosPorRol(_roleManager, _userManager, "Veterinario");
             veterinariosTask.Wait();
             var veterinarios = veterinariosTask.Result;
             ViewData["VetsPrincipales"] = new SelectList(veterinarios, "Id", "Nombre");
             ViewData["VetsSecundarios"] = new SelectList(veterinarios, "Id", "Nombre");
             return View();
-        }
-
-        public async Task<List<ApplicationUser>> GetUsersByRoleAsync(string roleName)
-        {
-            var role = await _roleManager.FindByNameAsync(roleName);
-            if (role == null)
-            {
-                return new List<ApplicationUser>();
-            }
-
-            var userIdsInRole = await _userManager.GetUsersInRoleAsync(roleName);
-            var usersInRole = _userManager.Users.Where(u => userIdsInRole.Contains(u)).ToList();
-
-
-            return usersInRole.ToList();
         }
 
         // POST: Citas/Create
@@ -137,11 +123,11 @@ namespace NuevoProyectoG6Final.Controllers
             }
 
             ViewData["Mascotas"] = new SelectList(_context.Mascotas, "IdMascota", "Nombre");
-            var duenosTask = GetUsersByRoleAsync("User");
+            var duenosTask = RolesUtils.ObtenerUsuariosPorRol(_roleManager, _userManager, "User");
             duenosTask.Wait();
             var duenos = duenosTask.Result;
             ViewData["Duenos"] = new SelectList(duenos, "Id", "Nombre", cita.DuenoId);
-            var veterinariosTask = GetUsersByRoleAsync("User");
+            var veterinariosTask = RolesUtils.ObtenerUsuariosPorRol(_roleManager, _userManager, "Veterinario");
             veterinariosTask.Wait();
             var veterinarios = veterinariosTask.Result;
             ViewData["VetsPrincipales"] = new SelectList(veterinarios, "Id", "Nombre", cita.VeterinarioPrincipalId);
@@ -180,11 +166,11 @@ namespace NuevoProyectoG6Final.Controllers
                 return NotFound();
             }
             ViewData["IdMascota"] = new SelectList(_context.Mascotas, "IdMascota", "Nombre", cita.IdMascota);
-            var duenosTask = GetUsersByRoleAsync("User");
+            var duenosTask = RolesUtils.ObtenerUsuariosPorRol(_roleManager, _userManager, "User");
             duenosTask.Wait();
             var duenos = duenosTask.Result;
             ViewData["Duenos"] = new SelectList(duenos, "Id", "Nombre", cita.DuenoId);
-            var veterinariosTask = GetUsersByRoleAsync("User");
+            var veterinariosTask = RolesUtils.ObtenerUsuariosPorRol(_roleManager, _userManager, "Veterinario");
             veterinariosTask.Wait();
             var veterinarios = veterinariosTask.Result;
             ViewData["VetsPrincipales"] = new SelectList(veterinarios, "Id", "Nombre",cita.VeterinarioPrincipalId);
@@ -225,11 +211,11 @@ namespace NuevoProyectoG6Final.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["IdMascota"] = new SelectList(_context.Mascotas, "IdMascota", "Genero", cita.IdMascota);
-            var duenosTask = GetUsersByRoleAsync("User");
+            var duenosTask = RolesUtils.ObtenerUsuariosPorRol(_roleManager, _userManager, "User");
             duenosTask.Wait();
             var duenos = duenosTask.Result;
             ViewData["Duenos"] = new SelectList(duenos, "Id", "Nombre", cita.DuenoId);
-            var veterinariosTask = GetUsersByRoleAsync("User");
+            var veterinariosTask = RolesUtils.ObtenerUsuariosPorRol(_roleManager, _userManager, "Veterinario");
             veterinariosTask.Wait();
             var veterinarios = veterinariosTask.Result;
             ViewData["VetsPrincipales"] = new SelectList(veterinarios, "Id", "Nombre", cita.VeterinarioPrincipalId);
