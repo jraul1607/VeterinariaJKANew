@@ -30,6 +30,8 @@ namespace Vet.DAL
 
         public string Imagen { get; set; }
 
+        public byte[] Imagen2 { get; set; }
+
         [DisplayName("Ultima Fecha de Conexion")]
         public DateTime UltimaFechaConexion { get; set; }
 

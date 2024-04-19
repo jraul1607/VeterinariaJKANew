@@ -97,6 +97,9 @@ namespace NuevoProyectoG6Final.Areas.Identity.Pages.Account
             [DataType(DataType.Text)]
             public string Imagen { get; set; }
 
+            [DataType(DataType.Upload)]
+            public byte[] Imagen2 { get; set; }
+
             [DisplayName("Ultima Fecha de Conexion")]
             [DataType(DataType.DateTime)]
             public DateTime UltimaFechaConexion { get; set; }
@@ -141,10 +144,13 @@ namespace NuevoProyectoG6Final.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
         }
 
-        public async Task<IActionResult> OnPostAsync(string returnUrl = null)
+
+
+        public async Task<IActionResult> OnPostAsync(string returnUrl = null, IFormFile imagenFile = null)
         {
             returnUrl ??= Url.Content("~/");
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+
             if (ModelState.IsValid)
             {
                 var user = CreateUser();
@@ -154,7 +160,17 @@ namespace NuevoProyectoG6Final.Areas.Identity.Pages.Account
                 user.Nombre = Input.Nombre;
                 user.PrimerApellido = Input.PrimerApellido;
                 user.SegundoApellido = Input.SegundoApellido;
-                user.Imagen = Input.Imagen;
+                user.Imagen = "prueba";
+
+                if (imagenFile != null && imagenFile.Length > 0)
+                {
+                    using (var memoryStream = new MemoryStream())
+                    {
+                        await imagenFile.CopyToAsync(memoryStream);
+                        user.Imagen2 = memoryStream.ToArray();
+                    }
+                }
+
                 user.UltimaFechaConexion = Input.UltimaFechaConexion;
                 user.Estado = true;
 
@@ -178,6 +194,48 @@ namespace NuevoProyectoG6Final.Areas.Identity.Pages.Account
             // If we got this far, something failed, redisplay form
             return Page();
         }
+
+
+        //public async Task<IActionResult> OnPostAsync(string returnUrl = null)
+        //{
+        //    returnUrl ??= Url.Content("~/");
+        //    ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+        //    if (ModelState.IsValid)
+        //    {
+        //        var user = CreateUser();
+
+        //        await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
+        //        await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
+        //        user.Nombre = Input.Nombre;
+        //        user.PrimerApellido = Input.PrimerApellido;
+        //        user.SegundoApellido = Input.SegundoApellido;
+        //        user.Imagen = "prueba";
+        //        user.Imagen2 = Input.Imagen2;
+        //        user.UltimaFechaConexion = Input.UltimaFechaConexion;
+        //        user.Estado = true;
+
+        //        var result = await _userManager.CreateAsync(user, Input.Password);
+
+        //        if (result.Succeeded)
+        //        {
+        //            _logger.LogInformation("User created a new account with password.");
+
+        //            var resultRole = await _userManager.AddToRoleAsync(user, "User");
+
+        //            await _signInManager.SignInAsync(user, isPersistent: false);
+        //            return LocalRedirect(returnUrl);
+        //        }
+        //        foreach (var error in result.Errors)
+        //        {
+        //            ModelState.AddModelError(string.Empty, error.Description);
+        //        }
+        //    }
+
+        //    // If we got this far, something failed, redisplay form
+        //    return Page();
+        //}
+
+
 
         private ApplicationUser CreateUser()
         {
