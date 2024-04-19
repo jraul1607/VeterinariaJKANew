@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
+using System.Security.Principal;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using NuevoProyectoG6Final.Utils;
 using Vet.DAL;
 
 namespace NuevoProyectoG6Final.Controllers
@@ -12,10 +16,14 @@ namespace NuevoProyectoG6Final.Controllers
     public class MascotasController : Controller
     {
         private readonly VetContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
-        public MascotasController(VetContext context)
+        public MascotasController(VetContext context, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
         {
             _context = context;
+            _userManager = userManager;
+            _roleManager = roleManager;
         }
 
         // GET: Mascotas
@@ -74,6 +82,12 @@ namespace NuevoProyectoG6Final.Controllers
             ViewData["Usuarios"] = new SelectList(_context.ApplicationUser, "Id", "Nombre");
             ViewData["TiposMascota"] = new SelectList(_context.TipoMascotas, "IdTipoMascota", "Nombre");
 
+            var identidad = User.Identity as ClaimsIdentity;
+            var usuarioLoggueadoTask = RolesUtils.ObtenerUsuarioLogueado(_userManager, new ClaimsPrincipal(identidad));
+            usuarioLoggueadoTask.Wait();
+            var usuarioLoggueado = usuarioLoggueadoTask.Result;
+            ViewData["DuenoNombre"] = usuarioLoggueado.Nombre;
+
             return View();
         }
 
@@ -82,11 +96,24 @@ namespace NuevoProyectoG6Final.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdMascota,Nombre,IdTipoMascota,IdRazaMascota,Genero,Edad,Peso,UsuarioCreacionId,DuenoId,Imagen,Imagen2")] Mascota mascota, IFormFile imagenFile)
+        public async Task<IActionResult> Create([Bind("IdMascota,Nombre,IdTipoMascota,IdRazaMascota,Genero,Edad,Peso,DuenoId,Imagen,Imagen2")] Mascota mascota, IFormFile imagenFile)
         {
             mascota.FechaCreacion = DateTime.Now.Date + DateTime.Now.TimeOfDay;
             mascota.FechaModificacion = DateTime.Now.Date + DateTime.Now.TimeOfDay;
             mascota.Estado = true;
+
+            //Obtener usuario logueado y asignarlo como UsuarioCreacionId
+            var identidad = User.Identity as ClaimsIdentity;
+            var usuarioLoggueadoTask = RolesUtils.ObtenerUsuarioLogueado(_userManager, new ClaimsPrincipal(identidad));
+            usuarioLoggueadoTask.Wait();
+            var usuarioLoggueado = usuarioLoggueadoTask.Result;
+            mascota.UsuarioCreacionId = usuarioLoggueado.Id;
+
+            //If usuario no es admin, asignar el usuario loggeado al duenoId
+            if (!RolesUtils.UsuarioLogueadoEsRol(identidad, "Admin") || !RolesUtils.UsuarioLogueadoEsRol(identidad, "Veterinario"))
+            {
+                mascota.DuenoId = usuarioLoggueado.Id;
+            }
 
             if (ModelState.IsValid)
             {
@@ -121,9 +148,15 @@ namespace NuevoProyectoG6Final.Controllers
             {
                 return NotFound();
             }
+
+            var duenosTask = RolesUtils.ObtenerUsuariosPorRol(_roleManager, _userManager, "User");
+            duenosTask.Wait();
+            var duenos = duenosTask.Result;
+            
             ViewData["IdRazaMascota"] = new SelectList(_context.RazaMascotas, "IdRazaMascota", "Nombre", mascota.IdRazaMascota);
             ViewData["Usuarios"] = new SelectList(_context.ApplicationUser, "Id", "Nombre", mascota.UsuarioCreacionId);
             ViewData["TiposMascota"] = new SelectList(_context.TipoMascotas, "IdTipoMascota", "Nombre", mascota.IdTipoMascota);
+            ViewData["Duenos"] = new SelectList(duenos, "Id", "Nombre");
             return View(mascota);
         }
 

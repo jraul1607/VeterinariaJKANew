@@ -36,5 +36,12 @@ namespace NuevoProyectoG6Final.Utils
             var usuarioLogueado = await _userManager.FindByIdAsync(idUsuarioLogueado);
             return usuarioLogueado;
         }
+
+        //Confirmar si usuario logueado tiene cierto rol
+        public static Boolean UsuarioLogueadoEsRol(ClaimsIdentity identidad, String rol)
+        {
+            var roles = identidad.Claims.Where(c => c.Type == ClaimTypes.Role).ToList();
+            return roles.Select(r => r.Value).Contains(rol);
+        }
     }
 }
