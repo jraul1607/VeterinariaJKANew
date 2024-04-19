@@ -76,12 +76,17 @@
                             </td>
                             <td>
                                 @{
-                                    if (User.IsInRole("Admin"))
+                                    var identidad = User.Identity as ClaimsIdentity;
+                                    var roles = identidad.Claims.Where(c => c.Type == ClaimTypes.Role).ToList();
+
+                                    if (roles.Select(r => r.Value).Contains("Admin") || roles.Select(r => r.Value).Contains("Veterinario"))
                                     {
                                         <a asp-action="Edit" asp-route-id="@item.IdCita" class="btn btn-primary btn-sm">Editar</a>
-                                        <a asp-action="Details" asp-route-id="@item.IdCita" class="btn btn-secondary btn-sm">Detalles</a>
+
+                                        <a asp-action="Delete" asp-route-id="@item.IdCita" class="btn btn-danger btn-sm">Cancelar</a>
                                     }
                                 }
+                                <a asp-action="Details" asp-route-id="@item.IdCita" class="btn btn-secondary btn-sm">Detalles</a>
                             </td>
                         </tr>
                     }
@@ -164,10 +169,11 @@
                                         if (roles.Select(r => r.Value).Contains("Admin") || roles.Select(r => r.Value).Contains("Veterinario"))
                                         {
                                         <a asp-action="Edit" asp-route-id="@item.IdCita" class="btn btn-primary btn-sm">Editar</a>
-                                        <a asp-action="Details" asp-route-id="@item.IdCita" class="btn btn-secondary btn-sm">Detalles</a>
+                                        
                                         <a asp-action="Delete" asp-route-id="@item.IdCita" class="btn btn-danger btn-sm">Cancelar</a>
                                         }
                                     }
+                                <a asp-action="Details" asp-route-id="@item.IdCita" class="btn btn-secondary btn-sm">Detalles</a>
                             </td>
                         </tr>
                         }
@@ -243,9 +249,18 @@
                                     @Html.DisplayFor(modelItem => item.EstadoCita)
                             </td>
                             <td>
-                                <a asp-action="Edit" asp-route-id="@item.IdCita" class="btn btn-primary btn-sm">Editar</a>
+                                    @{
+                                        var identidad = User.Identity as ClaimsIdentity;
+                                        var roles = identidad.Claims.Where(c => c.Type == ClaimTypes.Role).ToList();
+
+                                        if (roles.Select(r => r.Value).Contains("Admin") || roles.Select(r => r.Value).Contains("Veterinario"))
+                                        {
+                                        <a asp-action="Edit" asp-route-id="@item.IdCita" class="btn btn-primary btn-sm">Editar</a>
+
+                                        <a asp-action="Delete" asp-route-id="@item.IdCita" class="btn btn-danger btn-sm">Cancelar</a>
+                                        }
+                                    }
                                 <a asp-action="Details" asp-route-id="@item.IdCita" class="btn btn-secondary btn-sm">Detalles</a>
-                                <a asp-action="Delete" asp-route-id="@item.IdCita" class="btn btn-danger btn-sm">Cancelar</a>
                             </td>
                         </tr>
 
