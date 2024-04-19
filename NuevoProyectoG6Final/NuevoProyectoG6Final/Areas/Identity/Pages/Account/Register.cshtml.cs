@@ -170,8 +170,9 @@ namespace NuevoProyectoG6Final.Areas.Identity.Pages.Account
                         user.Imagen2 = memoryStream.ToArray();
                     }
                 }
-
-                user.UltimaFechaConexion = Input.UltimaFechaConexion;
+                //Ultima fecha de conexion guardada en una variable
+                user.UltimaFechaConexion = DateTime.Now;
+                DateTime ultimaFecha = user.UltimaFechaConexion;
                 user.Estado = true;
 
                 var result = await _userManager.CreateAsync(user, Input.Password);
