@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using NuevoProyectoG6Final.Utils;
 using Vet.DAL;
 
 namespace NuevoProyectoG6Final.Controllers
@@ -12,19 +15,37 @@ namespace NuevoProyectoG6Final.Controllers
     public class VacunaMascotasController : Controller
     {
         private readonly VetContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
-        public VacunaMascotasController(VetContext context)
+        public VacunaMascotasController(VetContext context, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
         {
             _context = context;
+            _userManager = userManager;
+            _roleManager = roleManager;
         }
 
         // GET: VacunaMascotas
         public async Task<IActionResult> Index(string busquedaMascotaVacuna)
         {
+            //Obtener usuario loggueado
+            var identidad = User.Identity as ClaimsIdentity;
+            var usuarioLoggueadoTask = RolesUtils.ObtenerUsuarioLogueado(_userManager, new ClaimsPrincipal(identidad));
+            usuarioLoggueadoTask.Wait();
+            var usuarioLoggueado = usuarioLoggueadoTask.Result;
+
             var mascotas = _context.VacunaMascotas
             .Include(v => v.Mascota)
             .Include(v => v.Vacuna)
             .AsQueryable();
+
+            if (User.IsInRole("User"))
+            {
+                mascotas = mascotas
+                    .Where(m => m.Mascota.DuenoId == usuarioLoggueado.Id)
+                    .AsQueryable();
+            }
+
 
             if (!string.IsNullOrEmpty(busquedaMascotaVacuna))
             {

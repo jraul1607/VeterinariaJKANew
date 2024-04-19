@@ -1,4 +1,5 @@
-﻿@model IEnumerable<Vet.DAL.VacunaMascota>
+﻿@using System.Security.Claims
+@model IEnumerable<Vet.DAL.VacunaMascota>
 
 @{
     ViewData["Title"] = "Index";
@@ -13,7 +14,15 @@
 
 <div class="row">
     <div class="col-md-6">
-        <a asp-action="Create" class="btn btn-primary">Añadir vacuna a mascota </a>
+        @{
+            var identidad = User.Identity as ClaimsIdentity;
+            var roles = identidad.Claims.Where(c => c.Type == ClaimTypes.Role).ToList();
+
+            if (roles.Select(r => r.Value).Contains("Admin") || roles.Select(r => r.Value).Contains("Veterinario"))
+            {
+                <a asp-action="Create" class="btn btn-primary">Añadir vacuna a mascota </a>
+            }
+        } 
     </div>
     <div class="col-md-6">
         <form asp-action="Index" method="get" class="form-inline">
@@ -47,9 +56,14 @@
                         <p class="card-text">Fecha de vacunación: @Html.DisplayFor(modelItem => item.FechaVacuna)</p>
                     </div>
                     <div class="card-footer">
-                        <a asp-action="Edit" asp-route-id="@item.IdVacunaMascota" class="btn btn-primary">Editar</a>
+                        @{
+                            if (roles.Select(r => r.Value).Contains("Admin") || roles.Select(r => r.Value).Contains("Veterinario"))
+                            {
+                                <a asp-action="Edit" asp-route-id="@item.IdVacunaMascota" class="btn btn-primary">Editar</a>
+                                <a asp-action="Delete" asp-route-id="@item.IdVacunaMascota" class="btn btn-danger">Eliminar</a>
+                            }
+                        }
                         <a asp-action="Details" asp-route-id="@item.IdVacunaMascota" class="btn btn-secondary">Detalles</a>
-                        <a asp-action="Delete" asp-route-id="@item.IdVacunaMascota" class="btn btn-danger">Eliminar</a>
                     </div>
                 </div>
             </div>
