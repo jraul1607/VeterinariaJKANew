@@ -82,15 +82,22 @@ namespace NuevoProyectoG6Final.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdMascota,Nombre,IdTipoMascota,IdRazaMascota,Genero,Edad,Peso,UsuarioCreacionId,DuenoId,Imagen")] Mascota mascota)
+        public async Task<IActionResult> Create([Bind("IdMascota,Nombre,IdTipoMascota,IdRazaMascota,Genero,Edad,Peso,UsuarioCreacionId,DuenoId,Imagen,Imagen2")] Mascota mascota, IFormFile imagenFile)
         {
             mascota.FechaCreacion = DateTime.Now.Date + DateTime.Now.TimeOfDay;
             mascota.FechaModificacion = DateTime.Now.Date + DateTime.Now.TimeOfDay;
-            mascota.Imagen2 = null;
             mascota.Estado = true;
 
             if (ModelState.IsValid)
             {
+                if (imagenFile != null && imagenFile.Length > 0)
+                {
+                    using (var memoryStream = new MemoryStream())
+                    {
+                        await imagenFile.CopyToAsync(memoryStream);
+                        mascota.Imagen2 = memoryStream.ToArray();
+                    }
+                }
                 _context.Add(mascota);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

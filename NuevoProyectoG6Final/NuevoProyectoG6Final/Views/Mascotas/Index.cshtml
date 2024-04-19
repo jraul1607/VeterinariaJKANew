@@ -3,6 +3,13 @@
 @{
     ViewData["Title"] = "Index";
 }
+<style>
+    .card-img-top {
+        width: 100%;
+        height: 200px; 
+        object-fit: cover; 
+    }
+</style>
 
 <div>
     <h1 style="text-align: center">Nuestras Mascotas</h1>
@@ -38,7 +45,15 @@
         {
             <div class="col-lg-4 mb-4">
                 <div class="card h-100 card1">
-                    <img class="card-img-top" src="@item.Imagen" alt="@item.Nombre">
+                    @if (item.Imagen2 != null && item.Imagen2.Length > 0)
+            {
+                <img class="card-img-top" src="data:image;base64,@Convert.ToBase64String(item.Imagen2)" alt="@item.Nombre">
+            }
+            else
+            {
+                <img class="card-img-top" src="#" alt="No Hay Imagen">
+            }
+                    
                     <div class="card-body">
                         <h4 class="card-title">@Html.DisplayFor(modelItem => item.Nombre)</h4>
                         <p class="card-text">Tipo: @Html.DisplayFor(modelItem => item.RazaMascota.TipoMascota.Nombre)</p>
