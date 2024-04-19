@@ -1,4 +1,5 @@
-﻿@model IEnumerable<Vet.DAL.CitaMedicamento>
+﻿@using System.Security.Claims
+@model IEnumerable<Vet.DAL.CitaMedicamento>
 
 @{
     ViewData["Title"] = "Index";
@@ -10,8 +11,17 @@
 
 <div class="row">
     <div class="col-md-6">
-        <a asp-action="Create" class="btn btn-primary">Asignar Medicamento a Cita</a>
+        @{
+            var identidad = User.Identity as ClaimsIdentity;
+            var roles = identidad.Claims.Where(c => c.Type == ClaimTypes.Role).ToList();
+
+            if (roles.Select(r => r.Value).Contains("Admin") || roles.Select(r => r.Value).Contains("Veterinario"))
+            {
+                <a asp-action="Create" class="btn btn-primary">Asignar Medicamento a Cita</a>
+            }
+        }
     </div>
+
     <div class="col-md-3" style="margin-left: 250px">
         <form asp-action="Index" method="get" class="form-inline">
             <div class="form-group mr-2">
@@ -23,18 +33,13 @@
     </div>
 </div>
 
-@if (ViewData["citaMedicamentos"] is IEnumerable<Vet.DAL.CitaMedicamento> citaMedicamentos)
+@if ((bool)ViewBag.NoResultados)
 {
-    @if (citaMedicamentos.Count() == 0)
-    {
-        <p>No se encuentran resultados de búsqueda.</p>
-    }
-    else
-
-    {
+    <p>No se encuentran resultados de búsqueda.</p>
+}
         <div class="container">
             <div class="row">
-                @foreach (var item in citaMedicamentos)
+                @foreach (var item in Model)
                 {
                     <div class="col-lg-4 mb-4">
                         <div class="card card1 h-100">
@@ -44,14 +49,17 @@
                                 <p class="card-text">Cita: @Html.DisplayFor(modelItem => item.IdCita)</p>
                             </div>
                             <div class="card-footer">
-                                <a asp-action="Edit" asp-route-id="@item.IdCitaMedicamento" class="btn btn-primary">Editar</a>
+                                @{
+                                    if (roles.Select(r => r.Value).Contains("Admin") || roles.Select(r => r.Value).Contains("Veterinario"))
+                                    {
+                                        <a asp-action="Edit" asp-route-id="@item.IdCitaMedicamento" class="btn btn-primary">Editar</a>
+                                        <a asp-action="Delete" asp-route-id="@item.IdCitaMedicamento" class="btn btn-danger">Eliminar</a>
+                                    }
+                                }
                                 <a asp-action="Details" asp-route-id="@item.IdCitaMedicamento" class="btn btn-secondary">Detalles</a>
-                                <a asp-action="Delete" asp-route-id="@item.IdCitaMedicamento" class="btn btn-danger">Eliminar</a>
                             </div>
                         </div>
                     </div>
                 }
             </div>
         </div>
-    }
-    }

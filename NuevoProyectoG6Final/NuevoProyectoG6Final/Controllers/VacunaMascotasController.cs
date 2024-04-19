@@ -35,7 +35,7 @@ namespace NuevoProyectoG6Final.Controllers
             var usuarioLoggueado = usuarioLoggueadoTask.Result;
 
             var mascotas = _context.VacunaMascotas
-            .Include(v => v.Mascota)
+            .Include(m => m.Mascota)
             .Include(v => v.Vacuna)
             .AsQueryable();
 

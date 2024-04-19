@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using NuevoProyectoG6Final.Utils;
 using Vet.DAL;
 
 namespace NuevoProyectoG6Final.Controllers
@@ -12,18 +15,54 @@ namespace NuevoProyectoG6Final.Controllers
     public class CitaMedicamentosController : Controller
     {
         private readonly VetContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
-        public CitaMedicamentosController(VetContext context)
+        public CitaMedicamentosController(VetContext context, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
         {
             _context = context;
+            _userManager = userManager;
+            _roleManager = roleManager;
         }
 
         // GET: CitaMedicamentos
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string busquedaMedicamentoCita)
         {
-            var vetContext = await _context.CitaMedicamentos.Include(c => c.Cita).Include(c => c.Medicamento).ToListAsync();
-            ViewData["citaMedicamentos"] = vetContext;
-            return View();
+            //Obtener usuario loggueado
+            var identidad = User.Identity as ClaimsIdentity;
+            var usuarioLoggueadoTask = RolesUtils.ObtenerUsuarioLogueado(_userManager, new ClaimsPrincipal(identidad));
+            usuarioLoggueadoTask.Wait();
+            var usuarioLoggueado = usuarioLoggueadoTask.Result;
+
+            var medicamentos = _context.CitaMedicamentos
+            .Include(c => c.Cita)
+            .Include(m => m.Medicamento)
+            .AsQueryable();
+
+            if (User.IsInRole("User"))
+            {
+                medicamentos = medicamentos
+                    .Where(c => c.Cita.DuenoId == usuarioLoggueado.Id)
+                    .AsQueryable();
+            }
+
+            if (!string.IsNullOrEmpty(busquedaMedicamentoCita))
+            {
+                medicamentos = medicamentos.Where(m => m.Medicamento.Nombre.Contains(busquedaMedicamentoCita));
+            }
+
+            var vetContext = await medicamentos.ToListAsync();
+
+            if (vetContext.Count == 0)
+            {
+                ViewBag.NoResultados = true;
+            }
+            else
+            {
+                ViewBag.NoResultados = false;
+            }
+
+            return View(vetContext);
         }
 
         // GET: CitaMedicamentos/Details/5

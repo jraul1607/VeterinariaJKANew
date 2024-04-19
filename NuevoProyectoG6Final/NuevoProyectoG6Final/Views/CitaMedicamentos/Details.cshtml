@@ -1,4 +1,5 @@
-﻿@model Vet.DAL.CitaMedicamento
+﻿@using System.Security.Claims
+@model Vet.DAL.CitaMedicamento
 
 @{
     ViewData["Title"] = "Details";
@@ -32,7 +33,15 @@
         </dl>
     </div>
     <div class="card-footer">
-        <a asp-action="Edit" asp-route-id="@Model?.IdCitaMedicamento" class="btn btn-primary">Editar</a>
+        @{
+            var identidad = User.Identity as ClaimsIdentity;
+            var roles = identidad.Claims.Where(c => c.Type == ClaimTypes.Role).ToList();
+
+            if (roles.Select(r => r.Value).Contains("Admin") || roles.Select(r => r.Value).Contains("Veterinario"))
+            {
+                <a asp-action="Edit" asp-route-id="@Model?.IdCitaMedicamento" class="btn btn-primary">Editar</a>
+            }
+        }
         <a asp-action="Index" class="btn btn-outline-secondary">Atrás</a>
     </div>
 </div>
