@@ -75,8 +75,12 @@ namespace NuevoProyectoG6Final.Controllers
 
             var citaMedicamento = await _context.CitaMedicamentos
                 .Include(c => c.Cita)
+                .Include(c => c.Cita.Mascota)
                 .Include(c => c.Medicamento)
                 .FirstOrDefaultAsync(m => m.IdCitaMedicamento == id);
+
+            ViewData["NombreMascota"] = citaMedicamento.Cita.Mascota.Nombre;
+
             if (citaMedicamento == null)
             {
                 return NotFound();
