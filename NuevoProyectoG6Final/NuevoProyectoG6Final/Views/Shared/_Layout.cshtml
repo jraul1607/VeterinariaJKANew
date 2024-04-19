@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using System.Security.Claims
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -7,19 +8,19 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/NuevoProyectoG6Final.styles.css" asp-append-version="true" />
-    
+
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet" />
 
-    
-    
-    
+
+
+
 
 </head>
 
 
 <body>
 
-    
+
 
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
@@ -34,48 +35,56 @@
                     <ul class="navbar-nav flex-grow-1">
 
 
-                        @*Lista para Cosas Relacionadas a Mascotas*@
+                        @*Lista Mascotas*@
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="" asp-action="">Mascotas</a>
-                            <ul class="submenu">
-                                <li><a class="nav-link text-dark" asp-area="" asp-controller="Mascotas" asp-action="Index">Nuestras Mascotas</a></li>
-                                <li><a class="nav-link text-dark" asp-area="" asp-controller="TipoMascotas" asp-action="Index">Tipos</a></li>
-                                <li><a class="nav-link text-dark" asp-area="" asp-controller="RazaMascotas" asp-action="Index">Razas</a></li>
-                            </ul>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Mascotas" asp-action="Index">Mascotas</a>
                         </li>
 
-                        @*Lista para Cosas Relacionadas a Citas*@
+                        @*Lista Citas*@
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="" asp-action="">Citas</a>
-                            <ul class="submenu">
-                                <li><a class="nav-link text-dark" asp-area="" asp-controller="Citas" asp-action="Index">Citas</a></li>
-                                <li><a class="nav-link text-dark" asp-area="" asp-controller="Vacunas" asp-action="Index">Vacunas</a></li>
-                                <li><a class="nav-link text-dark" asp-area="" asp-controller="Padecimientoes" asp-action="Index">Padecimientos</a></li>
-                                <li><a class="nav-link text-dark" asp-area="" asp-controller="Medicamentos" asp-action="Index">Medicamentos</a></li>
-                            </ul>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Citas" asp-action="Index">Citas</a>
                         </li>
 
-                        @*Lista para Cosas Relacionadas Usuarios*@
+                        @*Lista Vacunas*@
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="" asp-action="">Usuarios</a>
-                            <ul class="submenu">
-                                <li><a class="nav-link text-dark" asp-area="" asp-controller="Usuarios" asp-action="Index">Usuarios</a></li>
-                                <li><a class="nav-link text-dark" asp-area="" asp-controller="Rols" asp-action="Index">Roles</a></li>
-                            </ul>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="VacunaMascotas" asp-action="Index">Vacunas</a>
                         </li>
 
-
-                        @*Lista para Cosas Relacionadas a Relaciones y Tablas Intermedias*@
+                        @*Lista Padecimientos*@
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="" asp-action="">Relacion/ Tablas Intermedias</a>
-                            <ul class="submenu">
-                                <li><a class="nav-link text-dark" asp-area="" asp-controller="VacunaMascotas" asp-action="Index">RelacionVacunaMascota</a></li>
-                                <li><a class="nav-link text-dark" asp-area="" asp-controller="PadecimientoMascotas" asp-action="Index">RelacionPadecimientoMascota</a></li>
-                                <li><a class="nav-link text-dark" asp-area="" asp-controller="CitaMedicamentos" asp-action="Index">RelacionCitaMedicamentos</a></li>
-                            </ul>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="PadecimientoMascotas" asp-action="Index">Padecimientos</a>
                         </li>
+
+                        @*Lista Medicamentos*@
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="CitaMedicamentos" asp-action="Index">Medicamentos</a>
+                        </li>
+
+                        @{
+                            var identidad = User.Identity as ClaimsIdentity;
+                            var roles = identidad.Claims.Where(c => c.Type == ClaimTypes.Role).ToList();
+
+                            if (roles.Select(r => r.Value).Contains("Admin") || roles.Select(r => r.Value).Contains("Veterinario"))
+                            {
+                                @*Lista para Cosas Relacionadas a Relaciones y Tablas Intermedias*@
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="" asp-action="">Catalogos</a>
+                                    <ul class="submenu">
+                                        <li><a class="nav-link text-dark" asp-area="" asp-controller="Usuarios" asp-action="Index">Catalogo Usuarios</a></li>
+                                        <li><a class="nav-link text-dark" asp-area="" asp-controller="Rols" asp-action="Index">Catalogo Roles</a></li>
+                                        <li><a class="nav-link text-dark" asp-area="" asp-controller="Vacunas" asp-action="Index">Catalogo Vacunas</a></li>
+                                        <li><a class="nav-link text-dark" asp-area="" asp-controller="Padecimientoes" asp-action="Index">Catalogo Padecimientos</a></li>
+                                        <li><a class="nav-link text-dark" asp-area="" asp-controller="Medicamentos" asp-action="Index">Catalogo Medicamentos</a></li>
+                                        <li><a class="nav-link text-dark" asp-area="" asp-controller="TipoMascotas" asp-action="Index">Catalogo Tipos</a></li>
+                                        <li><a class="nav-link text-dark" asp-area="" asp-controller="RazaMascotas" asp-action="Index">Catalogo Razas</a></li>
+                                    </ul>
+                                </li>
+
+                            }
+                        }
+
                     </ul>
-                    <partial name ="_LoginPartial"/>
+                    <partial name="_LoginPartial" />
                 </div>
             </div>
         </nav>
