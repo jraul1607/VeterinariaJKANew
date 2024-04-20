@@ -89,8 +89,8 @@ namespace NuevoProyectoG6Final.Controllers
         // GET: VacunaMascotas/Create
         public IActionResult Create()
         {
-            ViewData["IdMascota"] = new SelectList(_context.Mascotas, "IdMascota", "Nombre");
-            ViewData["IdVacuna"] = new SelectList(_context.Vacunas, "IdVacuna", "Nombre");
+            ViewData["IdMascota"] = new SelectList(_context.Mascotas.Where(m => m.Estado), "IdMascota", "Nombre");
+            ViewData["IdVacuna"] = new SelectList(_context.Vacunas.Where(v => v.Estado), "IdVacuna", "Nombre");
             return View();
         }
 
@@ -101,14 +101,19 @@ namespace NuevoProyectoG6Final.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("IdVacunaMascota,IdVacuna,IdMascota,FechaVacuna")] VacunaMascota vacunaMascota)
         {
+            // Verificar si la fecha de la cita es anterior a la fecha actual
+            if (vacunaMascota.FechaVacuna < DateTime.Now)
+            {
+                ModelState.AddModelError("FechaVacuna", "La fecha de la cita no puede ser anterior a la fecha actual.");
+            }
             if (ModelState.IsValid)
             {
                 _context.Add(vacunaMascota);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IdMascota"] = new SelectList(_context.Mascotas, "IdMascota", "Nombre", vacunaMascota.IdMascota);
-            ViewData["IdVacuna"] = new SelectList(_context.Vacunas, "IdVacuna", "Nombre", vacunaMascota.IdVacuna);
+            ViewData["IdMascota"] = new SelectList(_context.Mascotas.Where(m => m.Estado), "IdMascota", "Nombre", vacunaMascota.IdMascota);
+            ViewData["IdVacuna"] = new SelectList(_context.Vacunas.Where(v => v.Estado), "IdVacuna", "Nombre", vacunaMascota.IdVacuna);
             return View(vacunaMascota);
         }
 
@@ -125,8 +130,8 @@ namespace NuevoProyectoG6Final.Controllers
             {
                 return NotFound();
             }
-            ViewData["IdMascota"] = new SelectList(_context.Mascotas, "IdMascota", "Nombre", vacunaMascota.IdMascota);
-            ViewData["IdVacuna"] = new SelectList(_context.Vacunas, "IdVacuna", "Nombre", vacunaMascota.IdVacuna);
+            ViewData["IdMascota"] = new SelectList(_context.Mascotas.Where(m => m.Estado), "IdMascota", "Nombre", vacunaMascota.IdMascota);
+            ViewData["IdVacuna"] = new SelectList(_context.Vacunas.Where(v => v.Estado), "IdVacuna", "Nombre", vacunaMascota.IdVacuna);
             return View(vacunaMascota);
         }
 
@@ -162,8 +167,8 @@ namespace NuevoProyectoG6Final.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IdMascota"] = new SelectList(_context.Mascotas, "IdMascota", "Nombre", vacunaMascota.IdMascota);
-            ViewData["IdVacuna"] = new SelectList(_context.Vacunas, "IdVacuna", "Nombre", vacunaMascota.IdVacuna);
+            ViewData["IdMascota"] = new SelectList(_context.Mascotas.Where(m => m.Estado), "IdMascota", "Nombre", vacunaMascota.IdMascota);
+            ViewData["IdVacuna"] = new SelectList(_context.Vacunas.Where(v => v.Estado), "IdVacuna", "Nombre", vacunaMascota.IdVacuna);
             return View(vacunaMascota);
         }
 

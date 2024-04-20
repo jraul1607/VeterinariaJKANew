@@ -29,10 +29,19 @@ namespace NuevoProyectoG6Final.Controllers
         // GET: Mascotas
         public async Task<IActionResult> Index(string busquedaMascota)
         {
+
+            //Obtener usuario logueado
+            var identidad = User.Identity as ClaimsIdentity;
+            var usuarioLoggueadoTask = RolesUtils.ObtenerUsuarioLogueado(_userManager, new ClaimsPrincipal(identidad));
+            usuarioLoggueadoTask.Wait();
+            var usuarioLoggueado = usuarioLoggueadoTask.Result;
+
+
             var mascotas = _context.Mascotas
             .Include(m => m.RazaMascota)
             .ThenInclude(r => r.TipoMascota)
             .Include(m => m.Dueno)
+            .Where(m => m.Dueno.Id == usuarioLoggueado.Id)
             .AsQueryable();
 
             if (!string.IsNullOrEmpty(busquedaMascota))

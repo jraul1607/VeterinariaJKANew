@@ -74,14 +74,14 @@ namespace NuevoProyectoG6Final.Controllers
         // GET: Citas/Create
         public IActionResult Create()
         {
-            ViewData["Mascotas"] = new SelectList(_context.Mascotas, "IdMascota", "Nombre");
+            ViewData["Mascotas"] = new SelectList(_context.Mascotas.Where(m => m.Estado), "IdMascota", "Nombre");
             var duenosTask = RolesUtils.ObtenerUsuariosPorRol(_roleManager, _userManager, "User");
             duenosTask.Wait();
             var duenos = duenosTask.Result;
             ViewData["Duenos"] = new SelectList(duenos, "Id", "Nombre");
             var veterinariosTask = RolesUtils.ObtenerUsuariosPorRol(_roleManager, _userManager, "Veterinario");
             veterinariosTask.Wait();
-            var veterinarios = veterinariosTask.Result;
+            var veterinarios = veterinariosTask.Result.Where(v => v.Estado); 
             ViewData["VetsPrincipales"] = new SelectList(veterinarios, "Id", "Nombre");
             ViewData["VetsSecundarios"] = new SelectList(veterinarios, "Id", "Nombre");
             return View();
@@ -94,6 +94,12 @@ namespace NuevoProyectoG6Final.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("IdCita,IdMascota,DuenoId,VeterinarioPrincipalId,VeterinarioSecundarioId,Fecha,Descripcion,Diagnostico")] Cita cita)
         {
+            // Verificar si la fecha de la cita es anterior a la fecha actual
+            if (cita.Fecha < DateTime.Now)
+            {
+                ModelState.AddModelError("Diagnostico", "La fecha de la cita no puede ser anterior a la fecha actual.");
+            }
+
             //El veterinario principal y secundario deben ser diferentes
             if (cita.VeterinarioPrincipalId == cita.VeterinarioSecundarioId)
             {
@@ -120,17 +126,16 @@ namespace NuevoProyectoG6Final.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-
-            ViewData["Mascotas"] = new SelectList(_context.Mascotas, "IdMascota", "Nombre");
+            ViewData["Mascotas"] = new SelectList(_context.Mascotas.Where(m => m.Estado), "IdMascota", "Nombre");
             var duenosTask = RolesUtils.ObtenerUsuariosPorRol(_roleManager, _userManager, "User");
             duenosTask.Wait();
             var duenos = duenosTask.Result;
             ViewData["Duenos"] = new SelectList(duenos, "Id", "Nombre", cita.DuenoId);
             var veterinariosTask = RolesUtils.ObtenerUsuariosPorRol(_roleManager, _userManager, "Veterinario");
             veterinariosTask.Wait();
-            var veterinarios = veterinariosTask.Result;
-            ViewData["VetsPrincipales"] = new SelectList(veterinarios, "Id", "Nombre", cita.VeterinarioPrincipalId);
-            ViewData["VetsSecundarios"] = new SelectList(veterinarios, "Id", "Nombre", cita.VeterinarioSecundarioId);
+            var veterinarios = veterinariosTask.Result.Where(v => v.Estado);
+            ViewData["VetsPrincipales"] = new SelectList(veterinarios, "Id", "Nombre");
+            ViewData["VetsSecundarios"] = new SelectList(veterinarios, "Id", "Nombre");
             return View(cita);
         }
 
@@ -154,24 +159,31 @@ namespace NuevoProyectoG6Final.Controllers
         // GET: Citas/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+
             if (id == null)
             {
                 return NotFound();
             }
 
             var cita = await _context.Citas.FindAsync(id);
+
+            // Verificar si la fecha de la cita es anterior a la fecha actual
+            if (cita.Fecha < DateTime.Now)
+            {
+                ModelState.AddModelError("Fecha", "La fecha de la cita no puede ser anterior a la fecha actual.");
+            }
             if (cita == null)
             {
                 return NotFound();
             }
-            ViewData["IdMascota"] = new SelectList(_context.Mascotas, "IdMascota", "Nombre", cita.IdMascota);
+            ViewData["IdMascota"] = new SelectList(_context.Mascotas.Where(m => m.Estado), "IdMascota", "Nombre", cita.IdMascota);
             var duenosTask = RolesUtils.ObtenerUsuariosPorRol(_roleManager, _userManager, "User");
             duenosTask.Wait();
             var duenos = duenosTask.Result;
             ViewData["Duenos"] = new SelectList(duenos, "Id", "Nombre", cita.DuenoId);
             var veterinariosTask = RolesUtils.ObtenerUsuariosPorRol(_roleManager, _userManager, "Veterinario");
             veterinariosTask.Wait();
-            var veterinarios = veterinariosTask.Result;
+            var veterinarios = veterinariosTask.Result.Where(v => v.Estado);
             ViewData["VetsPrincipales"] = new SelectList(veterinarios, "Id", "Nombre",cita.VeterinarioPrincipalId);
             ViewData["VetsSecundarios"] = new SelectList(veterinarios, "Id", "Nombre", cita.VeterinarioSecundarioId);
             return View(cita);
@@ -209,14 +221,14 @@ namespace NuevoProyectoG6Final.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IdMascota"] = new SelectList(_context.Mascotas, "IdMascota", "Genero", cita.IdMascota);
+            ViewData["IdMascota"] = new SelectList(_context.Mascotas.Where(m => m.Estado), "IdMascota", "Genero", cita.IdMascota);
             var duenosTask = RolesUtils.ObtenerUsuariosPorRol(_roleManager, _userManager, "User");
             duenosTask.Wait();
             var duenos = duenosTask.Result;
             ViewData["Duenos"] = new SelectList(duenos, "Id", "Nombre", cita.DuenoId);
             var veterinariosTask = RolesUtils.ObtenerUsuariosPorRol(_roleManager, _userManager, "Veterinario");
             veterinariosTask.Wait();
-            var veterinarios = veterinariosTask.Result;
+            var veterinarios = veterinariosTask.Result.Where(v => v.Estado);
             ViewData["VetsPrincipales"] = new SelectList(veterinarios, "Id", "Nombre", cita.VeterinarioPrincipalId);
             ViewData["VetsSecundarios"] = new SelectList(veterinarios, "Id", "Nombre", cita.VeterinarioSecundarioId);
             return View(cita);
