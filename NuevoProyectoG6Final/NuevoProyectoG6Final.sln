@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34622.214
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NuevoProyectoG6Final", "NuevoProyectoG6Final\NuevoProyectoG6Final.csproj", "{BD704636-5424-46B7-953B-F8CAFEA13050}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NuevoProyectoG6Final", "NuevoProyectoG6Final\NuevoProyectoG6Final.csproj", "{BD704636-5424-46B7-953B-F8CAFEA13050}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vet.DAL", "Vet.DAL\Vet.DAL.csproj", "{77E7E794-F477-4A0A-BB45-3F6FE3808A4E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vet.DAL", "Vet.DAL\Vet.DAL.csproj", "{77E7E794-F477-4A0A-BB45-3F6FE3808A4E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

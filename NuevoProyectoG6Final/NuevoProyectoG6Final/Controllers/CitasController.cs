@@ -16,7 +16,6 @@ namespace NuevoProyectoG6Final.Controllers
     public class CitasController : Controller
     {
         private readonly VetContext _context;
-
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly UserManager<ApplicationUser> _userManager;
 

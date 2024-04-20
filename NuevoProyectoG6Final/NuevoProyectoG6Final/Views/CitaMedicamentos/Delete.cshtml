@@ -4,36 +4,36 @@
     ViewData["Title"] = "Delete";
 }
 
-<h1>Eliminar</h1>
+<div class="card">
+    <div class="card-body">
+        <h3>¿Estás seguro/a de eliminar el medicamento de la cita número @Html.DisplayFor(model => model.Cita.IdCita)?</h3>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Medicamento)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Medicamento.Nombre)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Dosis)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Dosis)
+            </dd>
 
-<h3>¿Estás seguro/a de eliminar este medicamento a la cita de (Nombre Mascota)?</h3>
-<div>
-    <h4>Cita/Medicamento</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Dosis)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Dosis)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Medicamento)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Medicamento.Marca)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Cita)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Cita.Descripcion)
-        </dd>
-    </dl>
-    
-    <form asp-action="Delete">
-        <input type="hidden" asp-for="IdCitaMedicamento" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Regresar a la lista</a>
-    </form>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Cita)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Cita.Descripcion)
+            </dd>
+        </dl>
+
+        <form asp-action="Delete">
+            <input type="hidden" asp-for="IdCitaMedicamento" />
+            <input type="submit" value="Eliminar" class="btn btn-danger" /> |
+            <a asp-action="Index" class="btn btn-outline-secondary">Regresar a la lista</a>
+        </form>
+    </div>
 </div>

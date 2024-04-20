@@ -2,9 +2,11 @@
 //using System.Collections.Generic;
 //using System.Linq;
 //using System.Threading.Tasks;
+//using Microsoft.AspNetCore.Identity;
 //using Microsoft.AspNetCore.Mvc;
 //using Microsoft.AspNetCore.Mvc.Rendering;
 //using Microsoft.EntityFrameworkCore;
+//using NuevoProyectoG6Final.Utils;
 //using Vet.DAL;
 
 //namespace NuevoProyectoG6Final.Controllers
@@ -12,164 +14,177 @@
 //    public class UsuariosController : Controller
 //    {
 //        private readonly VetContext _context;
+//        private readonly RoleManager<IdentityRole> _roleManager;
+//        private readonly UserManager<ApplicationUser> _userManager;
 
-//        public UsuariosController(VetContext context)
+//        public UsuariosController(
+//                VetContext context,
+//             RoleManager<IdentityRole> roleManager,
+//             UserManager<ApplicationUser> userManager
+//            )
 //        {
 //            _context = context;
+//            _roleManager = roleManager;
+//            _userManager = userManager;
 //        }
 
 //        // GET: Usuarios
 //        public async Task<IActionResult> Index(string busquedaPorUsuario)
 //        {
-//            var usuarios = _context.Usuarios
-//            .Include(m => m.Rol)
+//            var usuarios = _context.
+//            .Include(u => u.Nombre)
+//            .Include(u => u.PrimerApellido)
+//            .Include(u => u.SegundoApellido)
+//            .Include(u => u.Imagen2)
+//            .Include(u => u.UltimaFechaConexion)
 //            .AsQueryable();
 
-//            if (!string.IsNullOrEmpty(busquedaPorUsuario))
-//            {
-//                usuarios = usuarios.Where(m => m.NombreUsuario.Contains(busquedaPorUsuario));
-//            }
+//            ////if (!string.IsNullOrEmpty(busquedaPorUsuario))
+//            ////{
+//            ////    usuarios = usuarios.Where(m => m.Nombre.Contains(busquedaPorUsuario));
+//            ////}
 
 //            var vetContext = await usuarios.ToListAsync();
 
-//            if (vetContext.Count == 0)
-//            {
-//                ViewBag.NoResultados = true;
-//            }
-//            else
-//            {
-//                ViewBag.NoResultados = false;
-//            }
+//            //if (vetContext.Count == 0)
+//            //{
+//            //    ViewBag.NoResultados = true;
+//            //}
+//            //else
+//            //{
+//            //    ViewBag.NoResultados = false;
+//            //}
 
 //            return View(vetContext);
 //        }
-    
 
-//        // GET: Usuarios/Details/5
-//        public async Task<IActionResult> Details(int? id)
-//        {
-//            if (id == null)
-//            {
-//                return NotFound();
-//            }
 
-//            var usuario = await _context.Usuarios
-//                .Include(u => u.Rol)
-//                .FirstOrDefaultAsync(m => m.IdUsuario == id);
-//            if (usuario == null)
-//            {
-//                return NotFound();
-//            }
+//        //    // GET: Usuarios/Details/5
+//        //    public async Task<IActionResult> Details(int? id)
+//        //    {
+//        //        if (id == null)
+//        //        {
+//        //            return NotFound();
+//        //        }
 
-//            return View(usuario);
-//        }
+//        //        var usuario = await _context.Usuarios
+//        //            .Include(u => u.Rol)
+//        //            .FirstOrDefaultAsync(m => m.IdUsuario == id);
+//        //        if (usuario == null)
+//        //        {
+//        //            return NotFound();
+//        //        }
 
-//        // GET: Usuarios/Create
-//        public IActionResult Create()
-//        {
-//            //ViewData["IdRol"] = new SelectList(_context.Rols, "IdRol", "Tipo");
-//            return View();
-//        }
+//        //        return View(usuario);
+//        //    }
 
-//        // POST: Usuarios/Create
-//        // To protect from overposting attacks, enable the specific properties you want to bind to.
-//        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-//        [HttpPost]
-//        [ValidateAntiForgeryToken]
-//        public async Task<IActionResult> Create([Bind("IdUsuario,IdRol,NombreUsuario,Contrasena,Imagen,UltimaFechaConexion")] Usuario usuario)
-//        {
+//        //    // GET: Usuarios/Create
+//        //    public IActionResult Create()
+//        //    {
+//        //        //ViewData["IdRol"] = new SelectList(_context.Rols, "IdRol", "Tipo");
+//        //        return View();
+//        //    }
 
-//            usuario.Estado = true;
+//        //    // POST: Usuarios/Create
+//        //    // To protect from overposting attacks, enable the specific properties you want to bind to.
+//        //    // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+//        //    [HttpPost]
+//        //    [ValidateAntiForgeryToken]
+//        //    public async Task<IActionResult> Create([Bind("IdUsuario,IdRol,NombreUsuario,Contrasena,Imagen,UltimaFechaConexion")] Usuario usuario)
+//        //    {
 
-//            if (ModelState.IsValid)
-//            {
-//                _context.Add(usuario);
-//                await _context.SaveChangesAsync();
-//                return RedirectToAction(nameof(Index));
-//            }
-//            //ViewData["IdRol"] = new SelectList(_context.Rols, "IdRol", "Tipo", usuario.IdRol);
-//            return View(usuario);
-//        }
+//        //        usuario.Estado = true;
 
-//        // GET: Usuarios/Edit/5
-//        public async Task<IActionResult> Edit(int? id)
-//        {
-//            if (id == null)
-//            {
-//                return NotFound();
-//            }
+//        //        if (ModelState.IsValid)
+//        //        {
+//        //            _context.Add(usuario);
+//        //            await _context.SaveChangesAsync();
+//        //            return RedirectToAction(nameof(Index));
+//        //        }
+//        //        //ViewData["IdRol"] = new SelectList(_context.Rols, "IdRol", "Tipo", usuario.IdRol);
+//        //        return View(usuario);
+//        //    }
 
-//            var usuario = await _context.Usuarios.FindAsync(id);
-//            if (usuario == null)
-//            {
-//                return NotFound();
-//            }
-//            //ViewData["IdRol"] = new SelectList(_context.Rols, "IdRol", "Tipo", usuario.IdRol);
-//            return View(usuario);
-//        }
+//        //    // GET: Usuarios/Edit/5
+//        //    public async Task<IActionResult> Edit(int? id)
+//        //    {
+//        //        if (id == null)
+//        //        {
+//        //            return NotFound();
+//        //        }
 
-//        // POST: Usuarios/Edit/5
-//        // To protect from overposting attacks, enable the specific properties you want to bind to.
-//        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-//        [HttpPost]
-//        [ValidateAntiForgeryToken]
-//        public async Task<IActionResult> Edit(int id, [Bind("IdUsuario,IdRol,NombreUsuario,Contrasena,Imagen,UltimaFechaConexion,Estado")] Usuario usuario)
-//        {
-//            if (id != usuario.IdUsuario)
-//            {
-//                return NotFound();
-//            }
+//        //        var usuario = await _context.Usuarios.FindAsync(id);
+//        //        if (usuario == null)
+//        //        {
+//        //            return NotFound();
+//        //        }
+//        //        //ViewData["IdRol"] = new SelectList(_context.Rols, "IdRol", "Tipo", usuario.IdRol);
+//        //        return View(usuario);
+//        //    }
 
-//            if (ModelState.IsValid)
-//            {
-//                try
-//                {
-//                    _context.Update(usuario);
-//                    await _context.SaveChangesAsync();
-//                }
-//                catch (DbUpdateConcurrencyException)
-//                {
-                    
-//                        return NotFound();
-                    
-//                }
-//                return RedirectToAction(nameof(Index));
-//            }
-//            //ViewData["IdRol"] = new SelectList(_context.Rols, "IdRol", "Tipo", usuario.IdRol);
-//            return View(usuario);
-//        }
+//        //    // POST: Usuarios/Edit/5
+//        //    // To protect from overposting attacks, enable the specific properties you want to bind to.
+//        //    // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+//        //    [HttpPost]
+//        //    [ValidateAntiForgeryToken]
+//        //    public async Task<IActionResult> Edit(int id, [Bind("IdUsuario,IdRol,NombreUsuario,Contrasena,Imagen,UltimaFechaConexion,Estado")] Usuario usuario)
+//        //    {
+//        //        if (id != usuario.IdUsuario)
+//        //        {
+//        //            return NotFound();
+//        //        }
 
-//        // GET: Usuarios/Delete/5
-//        public async Task<IActionResult> Delete(int? id)
-//        {
-//            if (id == null)
-//            {
-//                return NotFound();
-//            }
+//        //        if (ModelState.IsValid)
+//        //        {
+//        //            try
+//        //            {
+//        //                _context.Update(usuario);
+//        //                await _context.SaveChangesAsync();
+//        //            }
+//        //            catch (DbUpdateConcurrencyException)
+//        //            {
 
-//            var mascota = await _context.Usuarios.FindAsync(id);
-//            if (mascota == null)
-//            {
-//                return NotFound();
-//            }
+//        //                return NotFound();
 
-//            mascota.Estado = false;
-//            await _context.SaveChangesAsync();
-//            return RedirectToAction(nameof(Index));
-//        }
+//        //            }
+//        //            return RedirectToAction(nameof(Index));
+//        //        }
+//        //        //ViewData["IdRol"] = new SelectList(_context.Rols, "IdRol", "Tipo", usuario.IdRol);
+//        //        return View(usuario);
+//        //    }
 
-//        // POST: Usuarios/Delete/5
-//        [HttpPost, ActionName("Delete")]
-//        [ValidateAntiForgeryToken]
-//        public async Task<IActionResult> DeleteConfirmed(int id)
-//        {
-//            var usuario = await _context.Usuarios.FindAsync(id);
-//            if (usuario != null)
-//            {
-//                usuario.Estado = false;
-//            }
+//        //    // GET: Usuarios/Delete/5
+//        //    public async Task<IActionResult> Delete(int? id)
+//        //    {
+//        //        if (id == null)
+//        //        {
+//        //            return NotFound();
+//        //        }
 
-//            return RedirectToAction(nameof(Index));
-//        }
+//        //        var mascota = await _context.Usuarios.FindAsync(id);
+//        //        if (mascota == null)
+//        //        {
+//        //            return NotFound();
+//        //        }
+
+//        //        mascota.Estado = false;
+//        //        await _context.SaveChangesAsync();
+//        //        return RedirectToAction(nameof(Index));
+//        //    }
+
+//        //    // POST: Usuarios/Delete/5
+//        //    [HttpPost, ActionName("Delete")]
+//        //    [ValidateAntiForgeryToken]
+//        //    public async Task<IActionResult> DeleteConfirmed(int id)
+//        //    {
+//        //        var usuario = await _context.Usuarios.FindAsync(id);
+//        //        if (usuario != null)
+//        //        {
+//        //            usuario.Estado = false;
+//        //        }
+
+//        //        return RedirectToAction(nameof(Index));
+//        //    }
+//        //}
 //    }
 //}
