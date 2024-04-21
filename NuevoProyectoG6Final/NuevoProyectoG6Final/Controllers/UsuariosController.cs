@@ -1,190 +1,171 @@
-﻿//using System;
-//using System.Collections.Generic;
-//using System.Linq;
-//using System.Threading.Tasks;
-//using Microsoft.AspNetCore.Identity;
-//using Microsoft.AspNetCore.Mvc;
-//using Microsoft.AspNetCore.Mvc.Rendering;
-//using Microsoft.EntityFrameworkCore;
-//using NuevoProyectoG6Final.Utils;
-//using Vet.DAL;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
+using Vet.DAL;
 
-//namespace NuevoProyectoG6Final.Controllers
-//{
-//    public class UsuariosController : Controller
-//    {
-//        private readonly VetContext _context;
-//        private readonly RoleManager<IdentityRole> _roleManager;
-//        private readonly UserManager<ApplicationUser> _userManager;
+public class UsuariosController : Controller
+{
+    private readonly UserManager<ApplicationUser> _userManager;
 
-//        public UsuariosController(
-//                VetContext context,
-//             RoleManager<IdentityRole> roleManager,
-//             UserManager<ApplicationUser> userManager
-//            )
-//        {
-//            _context = context;
-//            _roleManager = roleManager;
-//            _userManager = userManager;
-//        }
+    public UsuariosController(UserManager<ApplicationUser> userManager)
+    {
+        _userManager = userManager;
+    }
 
-//        // GET: Usuarios
-//        public async Task<IActionResult> Index(string busquedaPorUsuario)
-//        {
-//            var usuarios = _context.
-//            .Include(u => u.Nombre)
-//            .Include(u => u.PrimerApellido)
-//            .Include(u => u.SegundoApellido)
-//            .Include(u => u.Imagen2)
-//            .Include(u => u.UltimaFechaConexion)
-//            .AsQueryable();
+    public async Task<IActionResult> Index()
+    {
+        var usuarios = await _userManager.Users.ToListAsync();
+        return View(usuarios);
+    }
 
-//            ////if (!string.IsNullOrEmpty(busquedaPorUsuario))
-//            ////{
-//            ////    usuarios = usuarios.Where(m => m.Nombre.Contains(busquedaPorUsuario));
-//            ////}
+    public async Task<IActionResult> Details(string id)
+    {
+        if (id == null)
+        {
+            return NotFound();
+        }
 
-//            var vetContext = await usuarios.ToListAsync();
+        var usuario = await _userManager.FindByIdAsync(id);
+        if (usuario == null)
+        {
+            return NotFound();
+        }
 
-//            //if (vetContext.Count == 0)
-//            //{
-//            //    ViewBag.NoResultados = true;
-//            //}
-//            //else
-//            //{
-//            //    ViewBag.NoResultados = false;
-//            //}
+        return View(usuario);
+    }
 
-//            return View(vetContext);
-//        }
+    public async Task<IActionResult> Edit(string id)
+    {
+        if (id == null)
+        {
+            return NotFound();
+        }
+
+        var usuario = await _userManager.FindByIdAsync(id);
+        if (usuario == null)
+        {
+            return NotFound();
+        }
+
+        return View(usuario);
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Edit(string id, ApplicationUser usuario)
+    {
+        if (id != usuario.Id)
+        {
+            return NotFound();
+        }
+
+        if (ModelState.IsValid)
+        {
+            try
+            {
+                var userToUpdate = await _userManager.FindByIdAsync(id);
+                userToUpdate.Nombre = usuario.Nombre;
+                userToUpdate.PrimerApellido = usuario.PrimerApellido;
+                userToUpdate.SegundoApellido = usuario.SegundoApellido;
+                // Actualizar otras propiedades según sea necesario
+
+                var result = await _userManager.UpdateAsync(userToUpdate);
+                if (!result.Succeeded)
+                {
+                    // Manejar errores de actualización
+                }
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!UserExists(usuario.Id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+            return RedirectToAction(nameof(Index));
+        }
+        return View(usuario);
+    }
+
+    public IActionResult Create()
+    {
+        return View();
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Create(ApplicationUser usuario)
+    {
+        if (ModelState.IsValid)
+        {
+            var result = await _userManager.CreateAsync(usuario);
+            if (result.Succeeded)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            else
+            {
+                // Manejar errores de creación de usuario
+            }
+        }
+        return View(usuario);
+    }
+
+    public async Task<IActionResult> Delete(string id)
+    {
+        if (id == null)
+        {
+            return NotFound();
+        }
+
+        var usuario = await _userManager.FindByIdAsync(id);
+        if (usuario == null)
+        {
+            return NotFound();
+        }
+
+        return View(usuario);
+    }
+
+    [HttpPost, ActionName("Delete")]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> DeleteConfirmed(string id)
+    {
+        var usuario = await _userManager.FindByIdAsync(id);
+        if (usuario != null)
+        {
+            var result = await _userManager.DeleteAsync(usuario);
+            if (!result.Succeeded)
+            {
+                // Manejar errores de eliminación de usuario
+            }
+        }
+        return RedirectToAction(nameof(Index));
+    }
+
+    private bool UserExists(string id)
+    {
+        return _userManager.FindByIdAsync(id) != null;
+    }
+}
 
 
-//        //    // GET: Usuarios/Details/5
-//        //    public async Task<IActionResult> Details(int? id)
-//        //    {
-//        //        if (id == null)
-//        //        {
-//        //            return NotFound();
-//        //        }
 
-//        //        var usuario = await _context.Usuarios
-//        //            .Include(u => u.Rol)
-//        //            .FirstOrDefaultAsync(m => m.IdUsuario == id);
-//        //        if (usuario == null)
-//        //        {
-//        //            return NotFound();
-//        //        }
 
-//        //        return View(usuario);
-//        //    }
 
-//        //    // GET: Usuarios/Create
-//        //    public IActionResult Create()
-//        //    {
-//        //        //ViewData["IdRol"] = new SelectList(_context.Rols, "IdRol", "Tipo");
-//        //        return View();
-//        //    }
 
-//        //    // POST: Usuarios/Create
-//        //    // To protect from overposting attacks, enable the specific properties you want to bind to.
-//        //    // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-//        //    [HttpPost]
-//        //    [ValidateAntiForgeryToken]
-//        //    public async Task<IActionResult> Create([Bind("IdUsuario,IdRol,NombreUsuario,Contrasena,Imagen,UltimaFechaConexion")] Usuario usuario)
-//        //    {
 
-//        //        usuario.Estado = true;
 
-//        //        if (ModelState.IsValid)
-//        //        {
-//        //            _context.Add(usuario);
-//        //            await _context.SaveChangesAsync();
-//        //            return RedirectToAction(nameof(Index));
-//        //        }
-//        //        //ViewData["IdRol"] = new SelectList(_context.Rols, "IdRol", "Tipo", usuario.IdRol);
-//        //        return View(usuario);
-//        //    }
 
-//        //    // GET: Usuarios/Edit/5
-//        //    public async Task<IActionResult> Edit(int? id)
-//        //    {
-//        //        if (id == null)
-//        //        {
-//        //            return NotFound();
-//        //        }
 
-//        //        var usuario = await _context.Usuarios.FindAsync(id);
-//        //        if (usuario == null)
-//        //        {
-//        //            return NotFound();
-//        //        }
-//        //        //ViewData["IdRol"] = new SelectList(_context.Rols, "IdRol", "Tipo", usuario.IdRol);
-//        //        return View(usuario);
-//        //    }
-
-//        //    // POST: Usuarios/Edit/5
-//        //    // To protect from overposting attacks, enable the specific properties you want to bind to.
-//        //    // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-//        //    [HttpPost]
-//        //    [ValidateAntiForgeryToken]
-//        //    public async Task<IActionResult> Edit(int id, [Bind("IdUsuario,IdRol,NombreUsuario,Contrasena,Imagen,UltimaFechaConexion,Estado")] Usuario usuario)
-//        //    {
-//        //        if (id != usuario.IdUsuario)
-//        //        {
-//        //            return NotFound();
-//        //        }
-
-//        //        if (ModelState.IsValid)
-//        //        {
-//        //            try
-//        //            {
-//        //                _context.Update(usuario);
-//        //                await _context.SaveChangesAsync();
-//        //            }
-//        //            catch (DbUpdateConcurrencyException)
-//        //            {
-
-//        //                return NotFound();
-
-//        //            }
-//        //            return RedirectToAction(nameof(Index));
-//        //        }
-//        //        //ViewData["IdRol"] = new SelectList(_context.Rols, "IdRol", "Tipo", usuario.IdRol);
-//        //        return View(usuario);
-//        //    }
-
-//        //    // GET: Usuarios/Delete/5
-//        //    public async Task<IActionResult> Delete(int? id)
-//        //    {
-//        //        if (id == null)
-//        //        {
-//        //            return NotFound();
-//        //        }
-
-//        //        var mascota = await _context.Usuarios.FindAsync(id);
-//        //        if (mascota == null)
-//        //        {
-//        //            return NotFound();
-//        //        }
-
-//        //        mascota.Estado = false;
-//        //        await _context.SaveChangesAsync();
-//        //        return RedirectToAction(nameof(Index));
-//        //    }
-
-//        //    // POST: Usuarios/Delete/5
-//        //    [HttpPost, ActionName("Delete")]
-//        //    [ValidateAntiForgeryToken]
-//        //    public async Task<IActionResult> DeleteConfirmed(int id)
-//        //    {
-//        //        var usuario = await _context.Usuarios.FindAsync(id);
-//        //        if (usuario != null)
-//        //        {
-//        //            usuario.Estado = false;
-//        //        }
-
-//        //        return RedirectToAction(nameof(Index));
-//        //    }
-//        //}
-//    }
-//}

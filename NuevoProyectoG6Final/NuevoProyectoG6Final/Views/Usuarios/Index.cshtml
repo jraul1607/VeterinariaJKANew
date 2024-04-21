@@ -1,70 +1,42 @@
-﻿@* @model IEnumerable<Vet.DAL.ApplicationUser>
-
+﻿@model List<Vet.DAL.ApplicationUser>
 
 @{
-    ViewData["Title"] = "Index";
-} 
+    ViewData["Title"] = "Lista de Usuarios";
+}
 
-<div>
-    <h1 style="text-align: center">Usuarios</h1>
-</div>
-
-<div class="row">
-    <div class="col-md-6">
-        <a asp-action="Create" class="btn btn-primary">Añadir un Usuario</a>
-    </div>
-    <div class="col-md-3" style="margin-left: 250px">
-        <form asp-action="Index" method="get" class="form-inline">
-            <div class="form-group mr-2">
-                <input type="text" id="busquedaPorUsuario" name="busquedaPorUsuario" class="form-control" style="width: 300px;" placeholder="Escriba el Nombre de Usaurio" />
-                <br />
-            </div>
-            <button type="submit" class="btn btn-primary">Buscar</button>
-        </form>
-    </div>
-</div> 
-
-@if ((bool)ViewBag.NoResultados)
-{
-            <p>No se encuentran resultados de búsqueda.</p>
-} 
-<br />
-<br />
-
+<h2>Lista de Usuarios</h2>
 
 <div class="container">
     <div class="row">
-        @foreach (var item in Model)
+        @foreach (var usuario in Model)
         {
-                <div class="col-lg-4 mb-4">
-                    <div class="card h-100 card1">
-                        <img class="card-img-top" src="@item.Imagen" alt="@item.Nombre">
-                        <div class="card-body">
-                            <h4 class="card-title">@Html.DisplayFor(modelItem => item.  Nombre)</h4>
-                            <p class="card-text">Rol: @Html.DisplayFor(modelItem => item.PrimerApellido)</p>
-                            <p class="card-text">Última Fecha de conexión: @Html.DisplayFor(modelItem => item.UltimaFechaConexion)</p>
-                            <p class="card-text"> 
-                               Estado:
-                            @if (item.Estado)
+            <div class="col-lg-4 mb-4">
+                <div class="card h-100 card1">
+                    <div class="card-body">
+                        <h4 class="card-title">@usuario.UserName</h4>
+                        <p class="card-text">Email: @usuario.Email</p>
+                        <p class="card-text">Primer Apellido: @usuario.PrimerApellido</p>
+                        <p class="card-text">Segundo Apellido: @usuario.SegundoApellido</p>
+                        <p class="card-text">Última Fecha de Conexión: @usuario.UltimaFechaConexion</p>
+                        <p class="card-text">
+                            Estado:
+                            @if (usuario.Estado)
                             {
-                                        <span style="color: green;">Activo</span>
+                                <span style="color: green;">Activo</span>
                             }
                             else
                             {
-                                        <span style="color: red;">Inactivo</span>
+                                <span style="color: red;">Inactivo</span>
                             }
-                            </p>
-
-                        </div>
-                        </div>
-
-                        <div class="card-footer">
-                            <a asp-action="Edit" asp-route-id="@item.Nombre" class="btn btn-primary">Editar</a>
-                            <a asp-action="Details" asp-route-id="@item.Nombre" class="btn btn-secondary">Detalles</a>
-                        <a class="btn btn-danger BorrarElemento" data-estado="@item.Estado" asp-action="Delete" asp-route-id="@item.Nombre">Eliminar</a>
-                        </div>
+                        </p>
                     </div>
-        } 
+                    <div class="card-footer">
+                        <a asp-action="Edit" asp-route-id="@usuario.Id" class="btn btn-primary">Editar</a>
+                        <a asp-action="Details" asp-route-id="@usuario.Id" class="btn btn-secondary">Detalles</a>
+                        <a class="btn btn-danger BorrarElemento" data-estado="@usuario.Estado" asp-action="Delete" asp-route-id="@usuario.Id">Eliminar</a>
+                    </div>
+                </div>
+            </div>
+        }
     </div>
 </div>
-  *@

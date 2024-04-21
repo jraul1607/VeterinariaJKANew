@@ -49,21 +49,25 @@
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Citas" asp-action="Index">Citas</a>
                             </li>
+                            @*Lista Citas*@
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Usuarios" asp-action="Index">Usuarios</a>
+                            </li>
 
                             @*Lista Vacunas*@
-                            <li class="nav-item">
+                            @* <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="VacunaMascotas" asp-action="Index">Vacunas</a>
-                            </li>
+                            </li> *@
 
                             @*Lista Padecimientos*@
-                            <li class="nav-item">
+                            @* <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="PadecimientoMascotas" asp-action="Index">Padecimientos</a>
-                            </li>
+                            </li> *@
 
                             @*Lista Medicamentos*@
-                            <li class="nav-item">
+                            @* <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="CitaMedicamentos" asp-action="Index">Medicamentos</a>
-                            </li>
+                            </li> *@
 
                             @{
                                 var identidad = User.Identity as ClaimsIdentity;
