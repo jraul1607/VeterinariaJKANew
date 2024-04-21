@@ -1,26 +1,68 @@
-﻿@model List<Vet.DAL.ApplicationUser>
+﻿@model IEnumerable<Vet.DAL.ApplicationUser>
 
 @{
-    ViewData["Title"] = "Lista de Usuarios";
+    ViewData["Title"] = "Index";
 }
+<style>
+    .card-img-top {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+    }
+</style>
 
-<h2>Lista de Usuarios</h2>
+<div>
+    <h1 style="text-align: center">Nuestros Usuarios</h1>
+</div>
 
+
+<div class="row">
+    <div class="col-md-6">
+        <a asp-action="Create" class="btn btn-primary">Añadir Usuarios</a>
+    </div>
+    <div class="col-md-3" style="margin-left: 250px">
+        <form asp-action="Index" method="get" class="form-inline">
+            <div class="form-group mr-2">
+                <input type="text" id="busquedaMascota" name="busquedaMascota" class="form-control" style="width: 300px;" />
+            </div>
+            <p></p>
+            <button type="submit" class="btn btn-primary" style="margin-left: 75%">Buscar</button>
+        </form>
+        <p></p>
+    </div>
+</div>
+
+@* @if ((bool)ViewBag.NoResultados)
+{
+    <p>No se encuentran resultados de búsqueda.</p>
+} *@
+<br />
+<br />
+<div id="alertContainer" class="alert" style="display:none;"></div>
 <div class="container">
     <div class="row">
-        @foreach (var usuario in Model)
+        @foreach (var item in Model)
         {
             <div class="col-lg-4 mb-4">
                 <div class="card h-100 card1">
+                    @if (item.Imagen2 != null && item.Imagen2.Length > 0)
+                    {
+                        <img class="card-img-top" src="data:image;base64,@Convert.ToBase64String(item.Imagen2)" alt="@item.Nombre">
+                    }
+                    else
+                    {
+                        <img class="card-img-top" src="#" alt="No Hay Imagen">
+                    }
+
                     <div class="card-body">
-                        <h4 class="card-title">@usuario.UserName</h4>
-                        <p class="card-text">Email: @usuario.Email</p>
-                        <p class="card-text">Primer Apellido: @usuario.PrimerApellido</p>
-                        <p class="card-text">Segundo Apellido: @usuario.SegundoApellido</p>
-                        <p class="card-text">Última Fecha de Conexión: @usuario.UltimaFechaConexion</p>
+                        <h4 class="card-title">@Html.DisplayFor(modelItem => item.Nombre)</h4>
+                        <p class="card-text">Primer Apellido: @Html.DisplayFor(modelItem => item.PrimerApellido)</p>
+                        <p class="card-text">Segundo Apellido: @Html.DisplayFor(modelItem => item.SegundoApellido)</p>
+                        <p class="card-text">Ultima Fecha de Conexion: @Html.DisplayFor(modelItem => item.UltimaFechaConexion)</p>
+                        <p class="card-text">Correo @Html.DisplayFor(modelItem => item.Email)</p>
                         <p class="card-text">
                             Estado:
-                            @if (usuario.Estado)
+                            @if (item.Estado)
                             {
                                 <span style="color: green;">Activo</span>
                             }
@@ -29,14 +71,16 @@
                                 <span style="color: red;">Inactivo</span>
                             }
                         </p>
+
                     </div>
                     <div class="card-footer">
-                        <a asp-action="Edit" asp-route-id="@usuario.Id" class="btn btn-primary">Editar</a>
-                        <a asp-action="Details" asp-route-id="@usuario.Id" class="btn btn-secondary">Detalles</a>
-                        <a class="btn btn-danger BorrarElemento" data-estado="@usuario.Estado" asp-action="Delete" asp-route-id="@usuario.Id">Eliminar</a>
+                        <a asp-action="Edit" asp-route-id="@item.Nombre" class="btn btn-primary">Editar</a>
+                        <a asp-action="Details" asp-route-id="@item.Nombre" class="btn btn-secondary">Detalles</a>
+                        <a class="btn btn-danger BorrarElemento" data-estado="@item.Estado" asp-action="Delete" asp-route-id="@item.Nombre">Eliminar</a>
                     </div>
                 </div>
             </div>
         }
+
     </div>
 </div>

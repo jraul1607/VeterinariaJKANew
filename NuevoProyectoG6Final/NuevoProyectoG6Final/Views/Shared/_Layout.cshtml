@@ -50,9 +50,7 @@
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Citas" asp-action="Index">Citas</a>
                             </li>
                             @*Lista Citas*@
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Usuarios" asp-action="Index">Usuarios</a>
-                            </li>
+                            
 
                             @*Lista Vacunas*@
                             @* <li class="nav-item">
@@ -73,6 +71,12 @@
                                 var identidad = User.Identity as ClaimsIdentity;
                                 var roles = identidad.Claims.Where(c => c.Type == ClaimTypes.Role).ToList();
 
+                                if (roles.Select(r => r.Value).Contains("Admin"))
+                                {
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="Usuarios" asp-action="Index">Usuarios</a>
+                                    </li>
+                                }
                                 if (roles.Select(r => r.Value).Contains("Admin") || roles.Select(r => r.Value).Contains("Veterinario"))
                                 {
                                     @*Lista para Cosas Relacionadas a Relaciones y Tablas Intermedias*@
@@ -88,7 +92,7 @@
                                             <li><a class="nav-link text-dark" asp-area="" asp-controller="RazaMascotas" asp-action="Index">Catalogo Razas</a></li>
                                         </ul>
                                     </li>
-
+                                    
                                 }
                             }
 
