@@ -23,6 +23,9 @@
 
 
     <header>
+        
+            
+        
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Veterinaria JKA</a>
@@ -30,64 +33,70 @@
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-
+ 
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-end">
-                    <ul class="navbar-nav flex-grow-1">
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <ul class="navbar-nav flex-grow-1">
 
 
-                        @*Lista Mascotas*@
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Mascotas" asp-action="Index">Mascotas</a>
-                        </li>
+                            @*Lista Mascotas*@
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Mascotas" asp-action="Index">Mascotas</a>
+                            </li>
 
-                        @*Lista Citas*@
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Citas" asp-action="Index">Citas</a>
-                        </li>
+                            @*Lista Citas*@
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Citas" asp-action="Index">Citas</a>
+                            </li>
 
-                        @*Lista Vacunas*@
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="VacunaMascotas" asp-action="Index">Vacunas</a>
-                        </li>
+                            @*Lista Vacunas*@
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="VacunaMascotas" asp-action="Index">Vacunas</a>
+                            </li>
 
-                        @*Lista Padecimientos*@
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="PadecimientoMascotas" asp-action="Index">Padecimientos</a>
-                        </li>
+                            @*Lista Padecimientos*@
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="PadecimientoMascotas" asp-action="Index">Padecimientos</a>
+                            </li>
 
-                        @*Lista Medicamentos*@
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="CitaMedicamentos" asp-action="Index">Medicamentos</a>
-                        </li>
+                            @*Lista Medicamentos*@
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="CitaMedicamentos" asp-action="Index">Medicamentos</a>
+                            </li>
 
-                        @{
-                            var identidad = User.Identity as ClaimsIdentity;
-                            var roles = identidad.Claims.Where(c => c.Type == ClaimTypes.Role).ToList();
+                            @{
+                                var identidad = User.Identity as ClaimsIdentity;
+                                var roles = identidad.Claims.Where(c => c.Type == ClaimTypes.Role).ToList();
 
-                            if (roles.Select(r => r.Value).Contains("Admin") || roles.Select(r => r.Value).Contains("Veterinario"))
-                            {
-                                @*Lista para Cosas Relacionadas a Relaciones y Tablas Intermedias*@
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="" asp-action="">Catalogos</a>
-                                    <ul class="submenu">
-                                        <li><a class="nav-link text-dark" asp-area="" asp-controller="Usuarios" asp-action="Index">Catalogo Usuarios</a></li>
-                                        <li><a class="nav-link text-dark" asp-area="" asp-controller="Rols" asp-action="Index">Catalogo Roles</a></li>
-                                        <li><a class="nav-link text-dark" asp-area="" asp-controller="Vacunas" asp-action="Index">Catalogo Vacunas</a></li>
-                                        <li><a class="nav-link text-dark" asp-area="" asp-controller="Padecimientoes" asp-action="Index">Catalogo Padecimientos</a></li>
-                                        <li><a class="nav-link text-dark" asp-area="" asp-controller="Medicamentos" asp-action="Index">Catalogo Medicamentos</a></li>
-                                        <li><a class="nav-link text-dark" asp-area="" asp-controller="TipoMascotas" asp-action="Index">Catalogo Tipos</a></li>
-                                        <li><a class="nav-link text-dark" asp-area="" asp-controller="RazaMascotas" asp-action="Index">Catalogo Razas</a></li>
-                                    </ul>
-                                </li>
+                                if (roles.Select(r => r.Value).Contains("Admin") || roles.Select(r => r.Value).Contains("Veterinario"))
+                                {
+                                    @*Lista para Cosas Relacionadas a Relaciones y Tablas Intermedias*@
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="" asp-action="">Catalogos</a>
+                                        <ul class="submenu">
+                                            <li><a class="nav-link text-dark" asp-area="" asp-controller="Usuarios" asp-action="Index">Catalogo Usuarios</a></li>
+                                            <li><a class="nav-link text-dark" asp-area="" asp-controller="Rols" asp-action="Index">Catalogo Roles</a></li>
+                                            <li><a class="nav-link text-dark" asp-area="" asp-controller="Vacunas" asp-action="Index">Catalogo Vacunas</a></li>
+                                            <li><a class="nav-link text-dark" asp-area="" asp-controller="Padecimientoes" asp-action="Index">Catalogo Padecimientos</a></li>
+                                            <li><a class="nav-link text-dark" asp-area="" asp-controller="Medicamentos" asp-action="Index">Catalogo Medicamentos</a></li>
+                                            <li><a class="nav-link text-dark" asp-area="" asp-controller="TipoMascotas" asp-action="Index">Catalogo Tipos</a></li>
+                                            <li><a class="nav-link text-dark" asp-area="" asp-controller="RazaMascotas" asp-action="Index">Catalogo Razas</a></li>
+                                        </ul>
+                                    </li>
 
+                                }
                             }
-                        }
 
-                    </ul>
+
+                        </ul>
+                    }
                     <partial name="_LoginPartial" />
                 </div>
+                    
             </div>
         </nav>
+        
     </header>
     <div class="container">
         <main role="main" class="pb-3">

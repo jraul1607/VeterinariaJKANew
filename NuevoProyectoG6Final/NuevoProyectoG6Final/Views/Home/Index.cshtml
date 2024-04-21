@@ -1,8 +1,63 @@
-﻿@{
+﻿@using System.Security.Claims
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+
+ @if (User.Identity.IsAuthenticated)
+{
+        var identidad = User.Identity as ClaimsIdentity;
+        var roles = identidad.Claims.Where(c => c.Type == ClaimTypes.Role).ToList();
+
+        if (roles.Select(r => r.Value).Contains("Veterinario"))
+        {
+        <div class="text-center">
+            <br />
+            <br />
+            <br />
+            <br />
+            <h1 class="display-4">Bienvenido a Veterinaria JKA</h1>
+            <h2>Tu Veterinaria de Confianza</h2>
+            <p>Has sido Logueado como un Veterinario</p>
+        </div>
+    }
+    else if (roles.Select(r => r.Value).Contains("Admin"))
+    {
+        <div class="text-center">
+            <br />
+            <br />
+            <br />
+            <br />
+            <h1 class="display-4">Bienvenido a Veterinaria JKA</h1>
+            <h2>Tu Veterinaria de Confianza</h2>
+            <p>Has sido Logueado como un Administrador</p>
+        </div>
+    }
+    else
+    {
+        <div class="text-center">
+            <br />
+            <br />
+            <br />
+            <br />
+            <h1 class="display-4">Bienvenido a Veterinaria JKA</h1>
+            <h2>Tu Veterinaria de Confianza</h2>
+            <p>Has sido Logueado como un Usuariio</p>
+        </div>
+    }
+
+}
+else
+{
+    <div class="text-center">
+        <br />
+        <br />
+        <br />
+        <br />
+        <h1 class="display-4">Bienvenido a Veterinaria JKA</h1>
+        <h2>Tu Veterinaria de Confianza</h2>
+    </div>
+}
+
+
