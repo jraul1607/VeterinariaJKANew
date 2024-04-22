@@ -35,14 +35,26 @@ namespace NuevoProyectoG6Final.Controllers
         {
             DateTime fechaHoy = DateTime.Now;
 
-            var historial = await _context.Citas.Include(c => c.Mascota).Include(c => c.Dueno)
-                .Where(c => c.Fecha.Date < fechaHoy.Date).ToListAsync();
+            var historial = await _context.Citas.Include(c => c.Mascota)
+                .Include(c => c.Dueno)
+                .Include(c => c.VeterinarioPrincipal)
+                .Include(c => c.VeterinarioSecundario)
+                .Where(c => c.Fecha.Date < fechaHoy.Date)
+                .ToListAsync();
 
-            var enCurso = await _context.Citas.Include(c => c.Mascota).Include(c => c.Dueno)
-                .Where(c => c.Fecha.Date == fechaHoy.Date).ToListAsync();
+            var enCurso = await _context.Citas.Include(c => c.Mascota)
+                .Include(c => c.Dueno)
+                .Include(c => c.VeterinarioPrincipal)
+                .Include(c => c.VeterinarioSecundario)
+                .Where(c => c.Fecha.Date == fechaHoy.Date)
+                .ToListAsync();
 
-            var proxima = await _context.Citas.Include(c => c.Mascota).Include(c => c.Dueno)
-                .Where(c => c.Fecha.Date > fechaHoy.Date).ToListAsync();
+            var proxima = await _context.Citas.Include(c => c.Mascota)
+                .Include(c => c.Dueno)
+                .Include(c => c.VeterinarioPrincipal)
+                .Include(c => c.VeterinarioSecundario)
+                .Where(c => c.Fecha.Date > fechaHoy.Date)
+                .ToListAsync();
 
             ViewData["historial"] = historial;
             ViewData["enCurso"] = enCurso;
@@ -81,7 +93,7 @@ namespace NuevoProyectoG6Final.Controllers
             ViewData["Duenos"] = new SelectList(duenos, "Id", "Nombre");
             var veterinariosTask = RolesUtils.ObtenerUsuariosPorRol(_roleManager, _userManager, "Veterinario");
             veterinariosTask.Wait();
-            var veterinarios = veterinariosTask.Result.Where(v => v.Estado); 
+            var veterinarios = veterinariosTask.Result.Where(v => v.Estado);
             ViewData["VetsPrincipales"] = new SelectList(veterinarios, "Id", "Nombre");
             ViewData["VetsSecundarios"] = new SelectList(veterinarios, "Id", "Nombre");
             return View();
@@ -184,7 +196,7 @@ namespace NuevoProyectoG6Final.Controllers
             var veterinariosTask = RolesUtils.ObtenerUsuariosPorRol(_roleManager, _userManager, "Veterinario");
             veterinariosTask.Wait();
             var veterinarios = veterinariosTask.Result.Where(v => v.Estado);
-            ViewData["VetsPrincipales"] = new SelectList(veterinarios, "Id", "Nombre",cita.VeterinarioPrincipalId);
+            ViewData["VetsPrincipales"] = new SelectList(veterinarios, "Id", "Nombre", cita.VeterinarioPrincipalId);
             ViewData["VetsSecundarios"] = new SelectList(veterinarios, "Id", "Nombre", cita.VeterinarioSecundarioId);
             return View(cita);
         }
