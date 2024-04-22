@@ -70,8 +70,10 @@
                                     <li class="nav-item">
                                         <a class="nav-link text-dark" asp-area="" asp-controller="" asp-action="">Catalogos</a>
                                         <ul class="submenu">
+                                            @if (roles.Select(r => r.Value).Contains("Admin")){
                                             <li><a class="nav-link text-dark" asp-area="" asp-controller="Usuarios" asp-action="Index">Catalogo Usuarios</a></li>
                                             <li><a class="nav-link text-dark" asp-area="" asp-controller="Rols" asp-action="Index">Catalogo Roles</a></li>
+                                            }
                                             <li><a class="nav-link text-dark" asp-area="" asp-controller="Vacunas" asp-action="Index">Catalogo Vacunas</a></li>
                                             <li><a class="nav-link text-dark" asp-area="" asp-controller="Padecimientoes" asp-action="Index">Catalogo Padecimientos</a></li>
                                             <li><a class="nav-link text-dark" asp-area="" asp-controller="Medicamentos" asp-action="Index">Catalogo Medicamentos</a></li>
