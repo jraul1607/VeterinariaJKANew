@@ -1,4 +1,5 @@
-﻿@model IEnumerable<Vet.DAL.PadecimientoMascota>
+﻿@using System.Security.Claims
+@model IEnumerable<Vet.DAL.PadecimientoMascota>
 
 @{
     ViewData["Title"] = "Index";
@@ -11,7 +12,16 @@
 
 <div class="row">
     <div class="col-md-6">
-        <a asp-action="Create" class="btn btn-primary">Añadir padecimiento a mascota</a>
+
+        @{
+            var identidad = User.Identity as ClaimsIdentity;
+            var roles = identidad.Claims.Where(c => c.Type == ClaimTypes.Role).ToList();
+
+            if (roles.Select(r => r.Value).Contains("Admin") || roles.Select(r => r.Value).Contains("Veterinario"))
+            {
+                <a asp-action="Create" class="btn btn-primary">Añadir padecimiento a mascota</a>
+            }
+        }
     </div>
     <div class="col-md-3" style="margin-left: 250px">
         <form asp-action="Index" method="get" class="form-inline">
@@ -44,9 +54,14 @@
                         <p class="card-text">Padecimiento: @Html.DisplayFor(modelItem => item.Padecimiento.Nombre)</p>
                     </div>
                     <div class="card-footer">
-                        <a asp-action="Edit" asp-route-id="@item.IdPadecimientoMascota" class="btn btn-primary">Editar</a>
+                        @{
+                            if (roles.Select(r => r.Value).Contains("Admin") || roles.Select(r => r.Value).Contains("Veterinario"))
+                            {
+                                <a asp-action="Edit" asp-route-id="@item.IdPadecimientoMascota" class="btn btn-primary">Editar</a>
+                                <a asp-action="Delete" asp-route-id="@item.IdPadecimientoMascota" class="btn btn-danger">Eliminar</a>
+                            }
+                        }
                         <a asp-action="Details" asp-route-id="@item.IdPadecimientoMascota" class="btn btn-secondary">Detalles</a>
-                        <a asp-action="Delete" asp-route-id="@item.IdPadecimientoMascota" class="btn btn-danger">Eliminar</a>
                     </div>
                 </div>
             </div>

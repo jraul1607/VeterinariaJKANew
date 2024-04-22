@@ -11,21 +11,9 @@
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet" />
 
-
-
-
-
 </head>
-
-
 <body>
-
-
-
     <header>
-        
-            
-        
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Veterinaria JKA</a>
@@ -38,7 +26,6 @@
                     @if (User.Identity.IsAuthenticated)
                     {
                         <ul class="navbar-nav flex-grow-1">
-
 
                             @*Lista Mascotas*@
                             <li class="nav-item">
@@ -53,19 +40,19 @@
                             
 
                             @*Lista Vacunas*@
-                            @* <li class="nav-item">
+                            <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="VacunaMascotas" asp-action="Index">Vacunas</a>
-                            </li> *@
+                            </li>
 
                             @*Lista Padecimientos*@
-                            @* <li class="nav-item">
+                            <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="PadecimientoMascotas" asp-action="Index">Padecimientos</a>
-                            </li> *@
+                            </li>
 
                             @*Lista Medicamentos*@
-                            @* <li class="nav-item">
+                            <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="CitaMedicamentos" asp-action="Index">Medicamentos</a>
-                            </li> *@
+                            </li>
 
                             @{
                                 var identidad = User.Identity as ClaimsIdentity;
@@ -92,11 +79,8 @@
                                             <li><a class="nav-link text-dark" asp-area="" asp-controller="RazaMascotas" asp-action="Index">Catalogo Razas</a></li>
                                         </ul>
                                     </li>
-                                    
                                 }
                             }
-
-
                         </ul>
                     }
                     <partial name="_LoginPartial" />
