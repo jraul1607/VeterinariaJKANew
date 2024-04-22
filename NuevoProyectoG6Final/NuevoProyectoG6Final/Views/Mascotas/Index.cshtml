@@ -1,4 +1,5 @@
-﻿@model IEnumerable<Vet.DAL.Mascota>
+﻿@using System.Security.Claims
+@model IEnumerable<Vet.DAL.Mascota>
 
 @{
     ViewData["Title"] = "Index";
@@ -6,8 +7,8 @@
 <style>
     .card-img-top {
         width: 100%;
-        height: 200px; 
-        object-fit: cover; 
+        height: 200px;
+        object-fit: cover;
     }
 </style>
 
@@ -23,12 +24,12 @@
     <div class="col-md-3" style="margin-left: 250px">
         <form asp-action="Index" method="get" class="form-inline">
             <div class="form-group mr-2">
-                <input type="text" id="busquedaMascota" name="busquedaMascota" class="form-control" style="width: 300px;" /> 
+                <input type="text" id="busquedaMascota" name="busquedaMascota" class="form-control" style="width: 300px;" />
             </div>
             <p></p>
             <button type="submit" class="btn btn-primary" style="margin-left: 75%">Buscar</button>
         </form>
-        <p></p>   
+        <p></p>
     </div>
 </div>
 
@@ -46,14 +47,14 @@
             <div class="col-lg-4 mb-4">
                 <div class="card h-100 card1">
                     @if (item.Imagen2 != null && item.Imagen2.Length > 0)
-            {
-                <img class="card-img-top" src="data:image;base64,@Convert.ToBase64String(item.Imagen2)" alt="@item.Nombre">
-            }
-            else
-            {
-                <img class="card-img-top" src="#" alt="No Hay Imagen">
-            }
-                    
+                    {
+                        <img class="card-img-top" src="data:image;base64,@Convert.ToBase64String(item.Imagen2)" alt="@item.Nombre">
+                    }
+                    else
+                    {
+                        <img class="card-img-top" src="#" alt="No Hay Imagen">
+                    }
+
                     <div class="card-body">
                         <h4 class="card-title">@Html.DisplayFor(modelItem => item.Nombre)</h4>
                         <p class="card-text">Tipo: @Html.DisplayFor(modelItem => item.RazaMascota.TipoMascota.Nombre)</p>
@@ -72,17 +73,25 @@
                                 <span style="color: red;">Inactivo</span>
                             }
                         </p>
-                           
+
                     </div>
                     <div class="card-footer">
-                        <a asp-action="Edit" asp-route-id="@item.IdMascota" class="btn btn-primary">Editar</a>
+                        @{
+                            var identidad = User.Identity as ClaimsIdentity;
+                            var roles = identidad.Claims.Where(c => c.Type == ClaimTypes.Role).ToList();
+
+                            if (roles.Select(r => r.Value).Contains("Admin") || roles.Select(r => r.Value).Contains("Veterinario"))
+                            {
+                                <a asp-action="Edit" asp-route-id="@item.IdMascota" class="btn btn-primary">Editar</a>
+                                <a class="btn btn-danger BorrarElemento" data-estado="@item.Estado" asp-action="Delete" asp-route-id="@item.IdMascota">Eliminar</a>
+                            }
+                        }
                         <a asp-action="Details" asp-route-id="@item.IdMascota" class="btn btn-secondary">Detalles</a>
-                        <a class="btn btn-danger BorrarElemento"  data-estado="@item.Estado" asp-action="Delete" asp-route-id="@item.IdMascota">Eliminar</a>
                     </div>
                 </div>
             </div>
         }
-        
+
     </div>
 </div>
 
