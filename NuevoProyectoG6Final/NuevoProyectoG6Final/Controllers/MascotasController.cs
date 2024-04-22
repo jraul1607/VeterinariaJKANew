@@ -38,6 +38,8 @@ namespace NuevoProyectoG6Final.Controllers
 
             var mascotas = _context.Mascotas
             .Include(m => m.Dueno)
+            .Include(m => m.RazaMascota)
+            .ThenInclude(r => r.TipoMascota)
             .AsQueryable();
 
             if (User.IsInRole("User"))
