@@ -36,13 +36,16 @@ namespace NuevoProyectoG6Final.Controllers
             usuarioLoggueadoTask.Wait();
             var usuarioLoggueado = usuarioLoggueadoTask.Result;
 
-
             var mascotas = _context.Mascotas
-            .Include(m => m.RazaMascota)
-            .ThenInclude(r => r.TipoMascota)
             .Include(m => m.Dueno)
-            .Where(m => m.Dueno.Id == usuarioLoggueado.Id)
             .AsQueryable();
+
+            if (User.IsInRole("User"))
+            {
+                mascotas = mascotas
+                    .Where(m => m.Dueno.Id == usuarioLoggueado.Id)
+                    .AsQueryable();
+            }
 
             if (!string.IsNullOrEmpty(busquedaMascota))
             {
